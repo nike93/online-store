@@ -8,8 +8,8 @@ const EslingPlugin = require("eslint-webpack-plugin");
 const isDevelopment = process.env.NODE_ENV == "development";
 
 const stylesHandler = isDevelopment
-  ? "style-loader"
-  : MiniCssExtractPlugin.loader;
+  ? MiniCssExtractPlugin.loader
+  : "style-loader";
 
 const baseConfig = {
   entry: path.resolve(__dirname, "./src/index"),
@@ -34,11 +34,7 @@ const baseConfig = {
         exclude: ["/node_modules/"],
       },
       {
-        test: /\.css$/i,
-        use: [stylesHandler, "css-loader"],
-      },
-      {
-        test: /\.s[ac]ss$/i,
+        test: /\.(c|sa|sc)ss$/i,
         use: [stylesHandler, "css-loader", "sass-loader"],
       },
       {
