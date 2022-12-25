@@ -3,8 +3,33 @@
 // -----------------------------------------------------------------------------
 
 .footer {
+  display: flex;
+  background-color: rgb(238, 234, 234);
+
+  &__wrapper {
+    width: 100%;
+    display: flex;  
+    justify-content: space-around;
+    align-items: center;
+  }
+
+  &__git {
+    display: flex;
+    align-items: center;
+  }
+}
+
+.git-logo {
+  width: 70px;
+
   &__wrapper {
     display: flex;
     justify-content: center;
   }
+
 }
+
+.rs-logo {
+  width: 100px;
+}
+
