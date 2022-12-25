@@ -7,7 +7,7 @@
  */
 .clearfix::after {
   clear: both;
-  content: "";
+  content: '';
   display: table;
 }
 
@@ -20,6 +20,7 @@
   max-width: $content-width; /* 1 */
   margin-left: auto; /* 2 */
   margin-right: auto; /* 2 */
+  background-color: $main-bg-color;
   @include media-small-desktop {
     padding: 0;
   }

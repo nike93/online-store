@@ -3,7 +3,8 @@
 // -----------------------------------------------------------------------------
 
 .footer {
-  display: flex;
-  justify-content: center;
-  background-color: gray;
+  &__wrapper {
+    display: flex;
+    justify-content: center;
+  }
 }
