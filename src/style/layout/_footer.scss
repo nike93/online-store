@@ -4,6 +4,26 @@
 
 .footer {
   display: flex;
-  justify-content: center;
-  background-color: gray;
+  background-color: rgb(238, 234, 234);
+
+  &__wrapper {
+    width: 100%;
+    display: flex;  
+    justify-content: space-around;
+    align-items: center;
+  }
+
+  &__git {
+    display: flex;
+    align-items: center;
+  }
 }
+
+.git-logo {
+  width: 70px;
+}
+
+.rs-logo {
+  width: 100px;
+}
+
