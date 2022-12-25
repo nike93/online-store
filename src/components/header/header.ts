@@ -1,67 +1,72 @@
-import Component from "../../components/templates/components";
-import { PagesId } from "../../routing/routing";
-
-const Buttons = [
-  {
-    id: PagesId.MainPage,
-    text: "Main Page",
-  },
-  {
-    id: PagesId.DescriptionPage,
-    text: "Item Description Page",
-  },
-  {
-    id: PagesId.CartPage,
-    text: "Cart Page",
-  },
-];
+import Component from '../../components/templates/components';
+import { PagesId } from '../../routing/routing';
 
 class Header extends Component {
-  // protected container: HTMLElement;
-  static TextObject = {};
-
+  priceSumHTML: HTMLElement;
+  totalItemsHTML: HTMLElement;
+  x: number;
   constructor() {
-    super("div", "header__wrapper", "header");
+    super('div', 'header__wrapper', 'header');
+    this.priceSumHTML = document.createElement('span');
+    this.totalItemsHTML = document.createElement('div');
+    this.x = 23;
   }
-  // temporarry buttons
-  renderPageButtons() {
-    const pageButtons = document.createElement("div");
-    pageButtons.classList.add("header__buttons");
-    Buttons.forEach((button) => {
-      const buttonHTML = document.createElement("a");
-      buttonHTML.href = `#${button.id}`;
-      buttonHTML.innerText = button.text;
-      pageButtons.append(buttonHTML);
+
+  renderLogoBlock() {
+    const container = document.createElement('div');
+    container.classList.add('header__brand');
+    const brandName = document.createElement('h1');
+    brandName.innerText = 'Online Store';
+    brandName.classList.add('header__brand-name');
+    const logo = document.createElement('div');
+    logo.classList.add('header__brand-logo', 'logo');
+    container.append(logo, brandName);
+    container.addEventListener('click', () => {
+      window.location.hash = `#${PagesId.MainPage}`;
     });
-    this.container.append(pageButtons);
+    return container;
+  }
+
+  renderPriceBlock() {
+    const container = document.createElement('div');
+    container.classList.add('header__price');
+    const priceTitle = document.createElement('span');
+    priceTitle.innerText = 'Cart total:';
+    priceTitle.classList.add('header__price-title');
+    this.priceSumHTML.classList.add('header__price-sum');
+    this.priceSumHTML.innerText = '$1234';
+    container.append(priceTitle, this.priceSumHTML);
+
+    return container;
+  }
+
+  renderCartBlock() {
+    const container = document.createElement('div');
+    container.classList.add('header__cart');
+    const totalContainer = document.createElement('div');
+    totalContainer.classList.add('header__total-container');
+    this.totalItemsHTML.classList.add('header__total-items');
+    this.totalItemsHTML.innerText = String(this.x);
+    totalContainer.append(this.totalItemsHTML);
+    container.append(totalContainer);
+    container.addEventListener('click', () => {
+      window.location.hash = `#${PagesId.CartPage}`;
+    });
+    return container;
   }
 
   protected createHeader() {
-    const header = this.container;
+    this.container.classList.add('wrapper');
 
-    const headerTitle = document.createElement("h1");
-    headerTitle.innerText = "ONLINE-Store";
-    headerTitle.classList.add("header__title");
-    header.append(headerTitle);
+    const headerTitle = this.renderLogoBlock();
+    const totalPrice = this.renderPriceBlock();
+    const cart = this.renderCartBlock();
 
-    const totalPrice = document.createElement("div");
-    totalPrice.classList.add("total-price");
-    totalPrice.innerText = "$5.2";
-    header.append(totalPrice);
-
-    this.renderPageButtons();
-
-    const cart = document.createElement("div");
-    cart.classList.add("cart");
-    cart.innerText = "Cart";
-    header.append(cart);
-
-    this.container = header;
+    this.container.append(headerTitle, totalPrice, cart);
   }
 
   render() {
     this.createHeader();
-
     return this.container;
   }
 }

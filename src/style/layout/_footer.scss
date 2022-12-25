@@ -21,6 +21,12 @@
 
 .git-logo {
   width: 70px;
+
+  &__wrapper {
+    display: flex;
+    justify-content: center;
+  }
+
 }
 
 .rs-logo {

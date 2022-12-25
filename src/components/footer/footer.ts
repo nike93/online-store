@@ -1,9 +1,9 @@
-import Component from "../../components/templates/components";
+import Component from '../../components/templates/components';
 
 class Footer extends Component {
 
   constructor() {
-    super("div", "footer__wrapper", "footer");
+    super('div', 'footer__wrapper', 'footer');
   }
 
   gitHubLinks() {

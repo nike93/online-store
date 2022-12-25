@@ -3,15 +3,57 @@
 // -----------------------------------------------------------------------------
 .header {
   &__wrapper {
-    background-color: red;
     display: flex;
     justify-content: space-between;
-    font-size: 30px;
+    align-items: center;
+    padding: 0 45px;
+    height: 100px;
   }
-  &__buttons {
+  &__brand {
     display: flex;
-    gap: 20px;
-    padding: 20px;
-    background-color: rgb(151, 138, 138);
+    cursor: pointer;
+    &-logo {
+      background: url('./img/svg/logo.svg') no-repeat;
+      width: 110px;
+      height: 40px;
+      background-size: contain;
+    }
+    &-name {
+      display: flex;
+      align-items: center;
+    }
+  }
+  &__price {
+    display: flex;
+    gap: 10px;
+    @include font(1.8rem, 1.8rem, 400);
+  }
+  &__cart {
+    position: relative;
+    background: url('./img/svg/header-cart.svg') no-repeat;
+    width: 40px;
+    height: 35.5px;
+    background-size: contain;
+    cursor: pointer;
+  }
+  &__total {
+    &-container {
+      position: absolute;
+      top: 23px;
+      right: 20px;
+      width: 60%;
+      height: 60%;
+      border-radius: 50%;
+      background-color: #e6704b;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    &-items {
+      display: flex;
+      align-content: center;
+      justify-content: center;
+      color: white;
+    }
   }
 }
