@@ -1,16 +1,17 @@
-import Component from "../../components/templates/components";
+import Component from '../../components/templates/components';
 
 class Footer extends Component {
   static TextObject = {
-    MainTitle: "Footer",
+    MainTitle: 'Footer',
   };
 
   constructor() {
-    super("div", "footer__wrapper", "footer");
+    super('div', 'footer__wrapper', 'footer');
   }
 
   render() {
     const title = this.createTitle(Footer.TextObject.MainTitle);
+    this.container.classList.add('wrapper');
     this.container.append(title);
     return this.container;
   }

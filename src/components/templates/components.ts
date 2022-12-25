@@ -1,6 +1,5 @@
 abstract class Component {
   protected container: HTMLElement;
-  static TextObject = {};
 
   constructor(tagName: string, className: string, id: string) {
     this.container = document.createElement(tagName);
@@ -9,7 +8,7 @@ abstract class Component {
   }
 
   protected createTitle(text: string) {
-    const title = document.createElement("h1");
+    const title = document.createElement('h1');
     title.innerText = text;
     return title;
   }
