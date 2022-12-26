@@ -27,8 +27,8 @@ class ItemMain extends Component {
     const itemBottom = document.createElement('div');
     itemBottom.classList.add('main-item__bottom');
     const itemPrice = document.createElement('span');
-    itemPrice.classList.add('main-price');
-    itemPrice.textContent = String(this.product.price);
+    itemPrice.classList.add('main-item__price');
+    itemPrice.textContent = `${this.product.price}$`;
     const itemBTN = document.createElement('button');
     itemBTN.classList.add('main-item__button', 'button');
     itemBTN.textContent = 'add to cart';

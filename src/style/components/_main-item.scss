@@ -2,8 +2,8 @@
   width: 23.5%;
   display: flex;
   border-radius: 12px;
-  border: 1px solid rgba(209, 209, 209, 1);
-  padding: 16px;
+  border: 1px solid $border-color;
+  padding: 12px;
   &__wrapper {
     display: flex;
     flex-direction: column;
@@ -14,13 +14,30 @@
     width: 100%;
     background-size: cover;
     background-position: center;
+    margin-bottom: 16px;
+    border-radius: 12px;
   }
   &__title {
+    @include font(1.5rem, 1.7rem, 700);
+    margin-bottom: 5px;
   }
   &__category {
+    @include font(1.2rem, 1.8rem, 400);
   }
   &__brand {
+    @include font(1.2rem, 1.8rem, 400);
+    margin-bottom: 10px;
   }
   &__bottom {
+    margin-top: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  &__price {
+    @include font(1.8rem, 1.8rem, 700);
+  }
+  &__button {
+    padding: 6px 12px;
   }
 }
