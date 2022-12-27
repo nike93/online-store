@@ -1,3 +1,14 @@
 .filters {
   display: block;
+  position: relative;
+  &::after {
+    position: absolute;
+    content: '';
+    width: 1px;
+    height: calc(100% - 20px);
+    top: 0;
+    right: 0;
+    background-color: $border-color;
+    transform: translateY(10px);
+  }
 }
