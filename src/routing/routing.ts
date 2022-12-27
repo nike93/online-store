@@ -27,7 +27,7 @@ class Routing {
     if (idPage === PagesId.MainPage) {
       page = new MainPage(data);
     } else if (idPage === PagesId.DescriptionPage) {
-      page = new DescriptionPage();
+      page = new DescriptionPage(data.prod);
     } else if (idPage === PagesId.CartPage) {
       page = new CartPage();
     } else {

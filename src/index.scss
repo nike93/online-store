@@ -12,8 +12,7 @@
   'style/base/button', 'style/base/icons';
 
 // 4. Layout-related sections
-@import 'style/layout/header', 'style/layout/main', 'style/layout/footer',
-  'style/layout/columns';
+@import "style/layout/header", "style/layout/main", "style/layout/footer", "style/layout/columns", "style/layout/description";
 
 // 5. Components
 @import 'style/components/filters', 'style/components/main',
@@ -23,3 +22,9 @@
 
 // 7. Themes
 @import 'style/themes/default';
+
+.body-wrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
