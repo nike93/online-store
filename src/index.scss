@@ -1,30 +1,30 @@
 @charset "UTF-8";
 
 // 1. Configuration and helpers
-@import "style/abstracts/variables", "style/abstracts/placeholders",
-  "style/abstracts/mixins";
+@import 'style/abstracts/variables', 'style/abstracts/placeholders',
+  'style/abstracts/mixins';
 
 // 2. Vendors
-@import "style/vendors/normalize";
+@import 'style/vendors/normalize';
 
 // 3. Base stuff
-@import "style/base/base", "style/base/fonts", "style/base/helpers",
-  "style/base/button", "style/base/icons";
+@import 'style/base/base', 'style/base/fonts', 'style/base/helpers',
+  'style/base/button', 'style/base/icons';
 
 // 4. Layout-related sections
 @import "style/layout/header", "style/layout/main", "style/layout/footer", "style/layout/columns", "style/layout/description";
 
 // 5. Components
-@import "style/components/filters";
+@import 'style/components/filters', 'style/components/main',
+  'style/components/main-item';
 
 // 6. Page-specific styles
 
 // 7. Themes
-@import "style/themes/default";
+@import 'style/themes/default';
 
 .body-wrapper {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
 }
-

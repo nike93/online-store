@@ -3,11 +3,22 @@
 // -----------------------------------------------------------------------------
 .header {
   &__wrapper {
+    position: relative;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 0 45px;
     height: 100px;
+    &::after {
+      position: absolute;
+      content: '';
+      width: 95%;
+      height: 1px;
+      bottom: 8px;
+      left: 0;
+      background-color: $border-color;
+      transform: translateX(2.5%);
+    }
   }
   &__brand {
     display: flex;

@@ -1,18 +1,24 @@
 import Component from "../../components/templates/components";
+import { productItem } from './../templates/types';
 
 class DescriptionPage extends Component {
-  constructor() {
+  protected products: productItem[];
+
+  constructor(products: productItem[]) {
     super("div", "description", "description-page");
+    this.products = products;
   }
 
-  linkNavigation() {
+  linkNavigation(id: number) {
+    id = id - 1;
     const navContainer = document.createElement('div');
     navContainer.classList.add('navigation');
-    navContainer.innerText = 'Path to Product / ... / ...';
+    navContainer.innerText = `Store  /  ${this.products[id]['category']}  /  ${this.products[id]['brand']}  /  ${this.products[id]['title']}`;
     this.container.append(navContainer);
   }
 
-  productBlock() {
+  productBlock(id: number) {
+    id = id - 1;
     const productContainer = document.createElement('div');
     productContainer.classList.add('product-block');
     //photo
@@ -23,21 +29,19 @@ class DescriptionPage extends Component {
     const headPhoto = document.createElement('div');
     headPhoto.classList.add('head-photo');
     const headPhotoImg = document.createElement('img');
-    headPhotoImg.src = 'https://i.dummyjson.com/data/products/2/thumbnail.jpg';
+    headPhotoImg.src = this.products[id]['thumbnail'];
     headPhoto.append(headPhotoImg);
     //small photo
     const slide = document.createElement('div');
     slide.classList.add('slide');
-    const slideImg1 = document.createElement('img');
-    slideImg1.src = 'https://i.dummyjson.com/data/products/2/2.jpg';
+
+    this.products[id]['images'].forEach(el => {
+      const slideImg = document.createElement('img');
+      slideImg.src = el;
+      slideImg.alt = 'Product';
+      slide.append(slideImg);
+    })
     
-    const slideImg2 = document.createElement('img');
-    slideImg2.src = 'https://i.dummyjson.com/data/products/2/3.jpg';
-
-    const slideImg3 = document.createElement('img');
-    slideImg3.src = 'https://i.dummyjson.com/data/products/2/1.jpg';
-
-    slide.append(slideImg1, slideImg2, slideImg3);
     photoContainer.append(headPhoto, slide);
 
     productContainer.append(photoContainer);
@@ -54,7 +58,7 @@ class DescriptionPage extends Component {
     //name Product
     const nameProduct = document.createElement('h2');
     nameProduct.classList.add('description__name');
-    nameProduct.innerText = 'Name of Product';
+    nameProduct.innerText = this.products[id]['title'];
     headNameBlock.append(nameProduct);
 
     //category and brand container
@@ -63,11 +67,11 @@ class DescriptionPage extends Component {
 
     //category
     const category = document.createElement('p');
-    category.innerHTML = 'Category: smartphones';
+    category.innerHTML = `Category: ${this.products[id]['category']}`;
 
     //brand
     const brand = document.createElement('p');
-    brand.innerHTML = 'Brand: Apple';
+    brand.innerHTML = `Brand: ${this.products[id]['brand']}`;
     categoryContainer.append(category, brand);
     headNameBlock.append(categoryContainer)
     descriptionContainerFrame.append(headNameBlock);
@@ -78,19 +82,19 @@ class DescriptionPage extends Component {
     //description
     const productDescription = document.createElement('p');
     productDescription.classList.add('product-description');
-    productDescription.innerText = 'Description: Samsung is new variant which goes beyond Galaxy to the Universe';
+    productDescription.innerText = `Description: ${this.products[id]['description']}`;
 
     //discount
     const discount = document.createElement('p');
-    discount.innerText = 'Discount Percentage: 13.1';
+    discount.innerText = `Discount Percentage: ${this.products[id]['discountPercentage']}`;
 
     //rating
     const rating = document.createElement('p');
-    rating.innerText = 'Rating: 13';
+    rating.innerText = `Rating: ${this.products[id]['rating']}`;
 
     //stock
     const stock = document.createElement('p');
-    stock.innerText = 'Stock: 88';
+    stock.innerText = `Stock: ${this.products[id]['stock']}`;
     infoBlock.append(productDescription, discount, rating, stock);
     descriptionContainerFrame.append(infoBlock);
 
@@ -100,7 +104,7 @@ class DescriptionPage extends Component {
     //price
     const price = document.createElement('p');
     price.classList.add('price');
-    price.innerText = '€899.00';
+    price.innerText = `€${this.products[id]['price']}`;
 
     //buttons
     const btnContainer = document.createElement('div');
@@ -125,8 +129,8 @@ class DescriptionPage extends Component {
   }
 
   render() {
-    this.linkNavigation();
-    this.productBlock();
+    this.linkNavigation(22);
+    this.productBlock(22);
     return this.container;
   }
 }
