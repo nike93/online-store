@@ -22,7 +22,10 @@ class App {
     this.footer = new Footer();
     this.routing = new Routing(this.mainDOM);
     this.data = data;
-    this.state = { view: 'grid' };
+    this.state = {
+      view: 'grid',
+      cart: { items: [], totalSum: 0, totalProducts: 0 },
+    };
   }
 
   run() {

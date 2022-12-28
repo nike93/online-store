@@ -18,4 +18,16 @@ export interface allProducts {
 
 export interface state {
   view?: string;
+  cart: cart;
+}
+
+export interface cart {
+  items: cartItem[];
+  totalSum: number;
+  totalProducts: number;
+}
+
+export interface cartItem {
+  prod: productItem;
+  qty: number;
 }

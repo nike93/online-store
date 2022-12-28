@@ -1,17 +1,21 @@
-import Component from "../templates/components";
+import { state, productItem, cartItem } from './../templates/types';
+import Component from '../templates/components';
 
 class CartPage extends Component {
-  static TextObject = {
-    MainTitle: "Cart Page",
-  };
+  state: state;
 
-  constructor() {
-    super("div", "cart", "cart-page");
+  constructor(state: state) {
+    super('div', 'cart', 'cart-page');
+    this.state = state;
   }
 
+  addItemtoCart(item: productItem) {
+    const newItem: cartItem = { prod: item, qty: 1 };
+    this.state.cart.items.push(newItem);
+  }
   render() {
-    const title = this.createTitle(CartPage.TextObject.MainTitle);
-    this.container.append(title);
+    this.container.textContent = 'CART PAGE';
+    this.container.classList.add('wrapper');
     return this.container;
   }
 }
