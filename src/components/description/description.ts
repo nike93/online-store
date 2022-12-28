@@ -1,5 +1,6 @@
 import Component from '../../components/templates/components';
 import { productItem } from './../templates/types';
+import { PagesId } from '../../routing/routing';
 
 class DescriptionPage extends Component {
   protected products: productItem[];
@@ -15,8 +16,17 @@ class DescriptionPage extends Component {
     id = id - 1;
     const navContainer = document.createElement('div');
     navContainer.classList.add('navigation');
-    navContainer.innerText = `Store  /  ${this.products[id]['category']}  /  ${this.products[id]['brand']}  /  ${this.products[id]['title']}`;
+    const mainLink = document.createElement('span');
+    mainLink.classList.add('navigation__main');
+    mainLink.innerText = 'Store';
+    const pathToProduct = document.createElement('span');
+    pathToProduct.innerText = `  /  ${this.products[id]['category']}  /  ${this.products[id]['brand']}  /  ${this.products[id]['title']}`;
+    navContainer.append(mainLink, pathToProduct);
     this.container.append(navContainer);
+
+    mainLink.addEventListener('click', () => {
+      window.location.hash = `#${PagesId.MainPage}`;
+    });
   }
 
   productBlock(id: number) {
@@ -39,7 +49,9 @@ class DescriptionPage extends Component {
 
     this.products[id]['images'].forEach((el) => {
       const slideImg = document.createElement('img');
+      slideImg.classList.add('slide__img');
       slideImg.src = el;
+      slideImg.id = `img-${this.products[id]['id']}`;
       slideImg.alt = 'Product';
       slide.append(slideImg);
     });
@@ -47,6 +59,7 @@ class DescriptionPage extends Component {
     photoContainer.append(headPhoto, slide);
 
     productContainer.append(photoContainer);
+
     //description
     const descriptionContainer = document.createElement('div');
     descriptionContainer.classList.add('description-container');
@@ -129,6 +142,12 @@ class DescriptionPage extends Component {
     productContainer.append(descriptionContainer);
     this.container.append(productContainer);
     this.container.classList.add('wrapper');
+
+    //change photos    
+    slide.addEventListener('click', (e) => {
+      const photoSrc= (<HTMLElement>e.target).getAttribute('src') as string;
+      headPhotoImg.src = photoSrc;
+    })
   }
 
   render() {

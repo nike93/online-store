@@ -4,6 +4,14 @@
   color:  #333333;
 }
 
+.navigation__main {
+  cursor: pointer
+}
+
+.navigation__main:hover {
+  font-weight: bold;
+}
+
 .product-block {
   width: 80%;
   height: 480px;
@@ -71,10 +79,13 @@
   display: flex;
   justify-content: space-between;
   overflow-x: scroll;
+  gap: 2%;
 }
 
 .slide img {
   height: 100%;
+  cursor: pointer;
+  border: 1px solid #D6D6D6;
 }
 
 .info-block {
