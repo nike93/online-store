@@ -1,12 +1,14 @@
-import Component from "../../components/templates/components";
+import Component from '../../components/templates/components';
 import { productItem } from './../templates/types';
 
 class DescriptionPage extends Component {
   protected products: productItem[];
+  id: number;
 
-  constructor(products: productItem[]) {
-    super("div", "description", "description-page");
+  constructor(products: productItem[], id: number) {
+    super('div', 'description', 'description-page');
     this.products = products;
+    this.id = id;
   }
 
   linkNavigation(id: number) {
@@ -35,23 +37,23 @@ class DescriptionPage extends Component {
     const slide = document.createElement('div');
     slide.classList.add('slide');
 
-    this.products[id]['images'].forEach(el => {
+    this.products[id]['images'].forEach((el) => {
       const slideImg = document.createElement('img');
       slideImg.src = el;
       slideImg.alt = 'Product';
       slide.append(slideImg);
-    })
-    
+    });
+
     photoContainer.append(headPhoto, slide);
 
     productContainer.append(photoContainer);
     //description
     const descriptionContainer = document.createElement('div');
     descriptionContainer.classList.add('description-container');
-    
+
     const descriptionContainerFrame = document.createElement('div');
     descriptionContainerFrame.classList.add('description-frame');
-    
+
     //block with name and category
     const headNameBlock = document.createElement('div');
 
@@ -73,7 +75,7 @@ class DescriptionPage extends Component {
     const brand = document.createElement('p');
     brand.innerHTML = `Brand: ${this.products[id]['brand']}`;
     categoryContainer.append(category, brand);
-    headNameBlock.append(categoryContainer)
+    headNameBlock.append(categoryContainer);
     descriptionContainerFrame.append(headNameBlock);
 
     //info block
@@ -100,7 +102,7 @@ class DescriptionPage extends Component {
 
     //block with price
     const priceBlock = document.createElement('div');
-    
+
     //price
     const price = document.createElement('p');
     price.classList.add('price');
@@ -120,17 +122,18 @@ class DescriptionPage extends Component {
     addCart.innerText = 'Add to Cart';
     btnContainer.append(btnBuy, addCart);
     priceBlock.append(price, btnContainer);
-    descriptionContainerFrame.append(priceBlock);    
-    
+    descriptionContainerFrame.append(priceBlock);
+
     descriptionContainer.append(descriptionContainerFrame);
-    
+
     productContainer.append(descriptionContainer);
     this.container.append(productContainer);
+    this.container.classList.add('wrapper');
   }
 
   render() {
-    this.linkNavigation(22);
-    this.productBlock(22);
+    this.linkNavigation(this.id);
+    this.productBlock(this.id);
     return this.container;
   }
 }

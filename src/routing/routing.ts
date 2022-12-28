@@ -1,4 +1,4 @@
-import { allProducts } from './../components/templates/types';
+import { allProducts, state } from './../components/templates/types';
 import CartPage from '../components/cart/cart';
 import DescriptionPage from '../components/description/description';
 import ErrorPage from '../components/error/error';
@@ -7,7 +7,7 @@ import Component from '../components/templates/components';
 
 export const enum PagesId {
   MainPage = 'main-page',
-  DescriptionPage = 'description-page',
+  DescriptionPage = 'product',
   CartPage = 'cart-page',
 }
 
@@ -17,18 +17,21 @@ class Routing {
   constructor(container: HTMLElement | null) {
     this.container = container;
   }
-  renderNewPage(idPage: string, data: allProducts) {
+  renderNewPage(hash: string, data: allProducts, state: state) {
     const currentPageHTML = document.querySelector(`#${this.defaultPageId}`);
     if (currentPageHTML && currentPageHTML.childNodes[0]) {
       currentPageHTML.childNodes[0].remove();
     }
     let page: Component | null = null;
 
-    if (idPage === PagesId.MainPage) {
-      page = new MainPage(data);
-    } else if (idPage === PagesId.DescriptionPage) {
-      page = new DescriptionPage(data.prod);
-    } else if (idPage === PagesId.CartPage) {
+    if (hash === PagesId.MainPage) {
+      page = new MainPage(data, state);
+    } else if (
+      hash.split('!')[0] === PagesId.DescriptionPage &&
+      hash.split('!')[1]
+    ) {
+      page = new DescriptionPage(data.prod, Number(hash.split('!')[1]));
+    } else if (hash === PagesId.CartPage) {
       page = new CartPage();
     } else {
       page = new ErrorPage();
@@ -41,20 +44,20 @@ class Routing {
     }
   }
 
-  enableRouteChange(data: allProducts) {
+  enableRouteChange(data: allProducts, state: state) {
     window.addEventListener('hashchange', () => {
       const hash = window.location.hash.slice(1);
-      this.renderNewPage(hash, data);
+      this.renderNewPage(hash, data, state);
     });
   }
 
-  checkLoadRouting(data: allProducts) {
+  checkLoadRouting(data: allProducts, state: state) {
     window.addEventListener('load', () => {
       const hash = window.location.hash.slice(1);
       if (hash.length > 0) {
-        this.renderNewPage(hash, data);
+        this.renderNewPage(hash, data, state);
       } else {
-        this.renderNewPage('main-page', data);
+        this.renderNewPage('main-page', data, state);
       }
     });
   }

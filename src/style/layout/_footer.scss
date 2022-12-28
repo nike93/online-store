@@ -4,11 +4,10 @@
 
 .footer {
   display: flex;
-  background-color: rgb(238, 234, 234);
 
   &__wrapper {
     width: 100%;
-    display: flex;  
+    display: flex;
     justify-content: space-around;
     align-items: center;
   }
@@ -26,10 +25,8 @@
     display: flex;
     justify-content: center;
   }
-
 }
 
 .rs-logo {
   width: 100px;
 }
-

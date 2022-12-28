@@ -1,23 +1,44 @@
-import { allProducts } from './../templates/types';
+import { allProducts, state } from './../templates/types';
 import Component from '../../components/templates/components';
 import ItemsList from './itemsList/itemsList';
 import Filters from './filters/filters';
 
 class MainPage extends Component {
   data: allProducts;
+  items: HTMLElement;
+  state: state;
 
-  constructor(data: allProducts) {
+  constructor(data: allProducts, state: state) {
     super('div', 'main__wrapper', 'main-page');
     this.data = data;
+    this.state = state;
+    this.items = new ItemsList(this.data.prod, this.state).render();
   }
 
   renderViewButtons() {
     const container = document.createElement('div');
+    container.addEventListener('click', (e) => {
+      const id = (e.target as HTMLElement).id;
+      if (id === this.state.view) {
+        return;
+      } else {
+        this.state.view = id;
+        this.items.innerHTML = '';
+        this.items.append(new ItemsList(this.data.prod, this.state).render());
+        grid.classList.toggle('view-block__ico_active');
+        list.classList.toggle('view-block__ico_active');
+      }
+    });
     container.classList.add('view-block');
     const grid = document.createElement('div');
-    grid.classList.add('view-block__ico', 'grid', 'view-block__ico_active');
+    grid.id = 'grid';
+    grid.classList.add('view-block__ico', 'grid-ico');
     const list = document.createElement('div');
-    list.classList.add('view-block__ico', 'list');
+    list.id = 'list';
+    list.classList.add('view-block__ico', 'list-ico');
+    this.state.view === 'grid'
+      ? grid.classList.add('view-block__ico_active')
+      : list.classList.add('view-block__ico_active');
     container.append(grid, list);
     return container;
   }
@@ -66,10 +87,7 @@ class MainPage extends Component {
   renderCatalog() {
     const catalog = document.createElement('div');
     catalog.classList.add('main__catalog');
-    catalog.append(
-      this.renderMainHeader(),
-      new ItemsList(this.data.prod).render()
-    );
+    catalog.append(this.renderMainHeader(), this.items);
     return catalog;
   }
 

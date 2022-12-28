@@ -15,3 +15,7 @@ export interface allProducts {
   prod: productItem[];
   total: number;
 }
+
+export interface state {
+  view?: string;
+}
