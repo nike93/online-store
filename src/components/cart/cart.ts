@@ -1,22 +1,53 @@
-import { state, productItem, cartItem } from './../templates/types';
+import { cartItem, productItem } from './../templates/types';
 import Component from '../templates/components';
+import CartList from './cartList';
+import Summary from './summary';
+import App from '../../app/app';
 
 class CartPage extends Component {
-  state: state;
-
-  constructor(state: state) {
+  static cartList: CartList;
+  static container: HTMLElement;
+  constructor() {
     super('div', 'cart', 'cart-page');
-    this.state = state;
+    CartPage.cartList = new CartList();
+    CartPage.container = this.container;
   }
 
-  addItemtoCart(item: productItem) {
+  static addItemtoCart(item: productItem) {
     const newItem: cartItem = { prod: item, qty: 1 };
-    this.state.cart.items.push(newItem);
+    App.state.cart.items.push(newItem);
   }
+
+  static removeItemFromCart(item: productItem) {
+    const goods = App.state.cart.items;
+    goods.forEach((el, ind) => {
+      if (el.prod.id == item.id) {
+        goods.splice(ind, 1);
+      }
+    });
+  }
+
+  static emptyCartDom() {
+    const div = document.createElement('div');
+    div.classList.add('cart__empty');
+    div.textContent = 'Cart is Empty';
+    return div;
+  }
+
+  static loadPage() {
+    CartPage.container.innerHTML = '';
+    if (App.state.cart.items.length == 0) {
+      CartPage.container.append(CartPage.emptyCartDom());
+    } else {
+      CartPage.container.append(CartPage.cartList.render());
+      CartPage.container.append(new Summary().render());
+    }
+  }
+
   render() {
-    this.container.textContent = 'CART PAGE';
-    this.container.classList.add('wrapper');
-    return this.container;
+    CartPage.container.classList.add('wrapper');
+    CartPage.loadPage();
+    return CartPage.container;
   }
 }
 

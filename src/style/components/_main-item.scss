@@ -44,6 +44,9 @@
   }
   &__button {
     padding: 6px 12px;
+    &.active {
+      background-color: rgb(241, 103, 103);
+    }
   }
 }
 

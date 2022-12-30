@@ -143,11 +143,11 @@ class DescriptionPage extends Component {
     this.container.append(productContainer);
     this.container.classList.add('wrapper');
 
-    //change photos    
+    //change photos
     slide.addEventListener('click', (e) => {
-      const photoSrc= (<HTMLElement>e.target).getAttribute('src') as string;
+      const photoSrc = (<HTMLElement>e.target).getAttribute('src') as string;
       headPhotoImg.src = photoSrc;
-    })
+    });
   }
 
   render() {

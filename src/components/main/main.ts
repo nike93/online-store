@@ -1,30 +1,29 @@
-import { allProducts, state } from './../templates/types';
+import { allProducts } from './../templates/types';
 import Component from '../../components/templates/components';
 import ItemsList from './itemsList/itemsList';
 import Filters from './filters/filters';
+import App from '../../app/app';
 
 class MainPage extends Component {
   data: allProducts;
   items: HTMLElement;
-  state: state;
 
-  constructor(data: allProducts, state: state) {
+  constructor(data: allProducts) {
     super('div', 'main__wrapper', 'main-page');
     this.data = data;
-    this.state = state;
-    this.items = new ItemsList(this.data.prod, this.state).render();
+    this.items = new ItemsList(this.data.prod).render();
   }
 
   renderViewButtons() {
     const container = document.createElement('div');
     container.addEventListener('click', (e) => {
       const id = (e.target as HTMLElement).id;
-      if (id === this.state.view) {
+      if (id === App.state.view) {
         return;
       } else {
-        this.state.view = id;
+        App.state.view = id;
         this.items.innerHTML = '';
-        this.items.append(new ItemsList(this.data.prod, this.state).render());
+        this.items.append(new ItemsList(this.data.prod).render());
         grid.classList.toggle('view-block__ico_active');
         list.classList.toggle('view-block__ico_active');
       }
@@ -36,7 +35,7 @@ class MainPage extends Component {
     const list = document.createElement('div');
     list.id = 'list';
     list.classList.add('view-block__ico', 'list-ico');
-    this.state.view === 'grid'
+    App.state.view === 'grid'
       ? grid.classList.add('view-block__ico_active')
       : list.classList.add('view-block__ico_active');
     container.append(grid, list);

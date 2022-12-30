@@ -23,8 +23,6 @@ export interface state {
 
 export interface cart {
   items: cartItem[];
-  totalSum: number;
-  totalProducts: number;
 }
 
 export interface cartItem {
