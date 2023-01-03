@@ -19,6 +19,7 @@ export interface allProducts {
 export interface state {
   view?: string;
   cart: cart;
+  appliedCuppons: coupon[];
 }
 
 export interface cart {
@@ -28,4 +29,10 @@ export interface cart {
 export interface cartItem {
   prod: productItem;
   qty: number;
+}
+
+export interface coupon {
+  name: string;
+  description: string;
+  percentage: number;
 }

@@ -20,7 +20,9 @@ class CartItem extends Component {
   renderCartItemInfo() {
     return `
     <div class="cart-item__position">${this.index + 1}</div>
-    <div class="cart-item__info">
+    <div class="cart-item__info" onclick="window.location.hash='product!${
+      this.cartItem.prod.id
+    }'">
     <img src="${
       this.cartItem.prod.thumbnail
     }" alt="product" class="cart-item__image" />
@@ -43,9 +45,7 @@ class CartItem extends Component {
     container.classList.add('cart-item__control');
     const plusBTN = document.createElement('button');
     plusBTN.classList.add('cart-item__plus');
-    plusBTN.addEventListener('click', () => {
-      this.addOneItem();
-    });
+    plusBTN.addEventListener('click', this.addOneItem.bind(this));
     plusBTN.textContent = '+';
     const minusBTN = document.createElement('button');
     minusBTN.classList.add('cart-item__minus');
@@ -78,17 +78,16 @@ class CartItem extends Component {
   }
 
   addOneItem() {
+    if (this.cartItem.qty == this.cartItem.prod.stock) {
+      return;
+    }
     this.cartItem.qty++;
     CartPage.loadPage();
     App.header.reloadHeader();
-    console.log(App.state.cart.items);
-    console.log(this.index);
   }
 
   removeOneItem() {
     this.cartItem.qty--;
-    console.log(App.state.cart.items);
-    console.log(this.cartItem);
     let index;
     if (this.cartItem.qty == 0) {
       index = App.state.cart.items.indexOf(this.cartItem);

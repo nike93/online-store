@@ -15,6 +15,7 @@ class App {
     App.state = {
       view: 'grid',
       cart: { items: [] },
+      appliedCuppons: [],
     };
     App.header = new Header();
     this.footer = new Footer();
@@ -23,6 +24,7 @@ class App {
   }
 
   run() {
+    // App.state.cart.items.push({ prod: this.data.prod[10], qty: 1 });
     const headerDOM = document.querySelector('header');
     const footerDOM = document.querySelector('footer');
     const headerHTML = App.header.render();
