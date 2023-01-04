@@ -12,11 +12,15 @@
   'style/base/button', 'style/base/icons';
 
 // 4. Layout-related sections
-@import "style/layout/header", "style/layout/main", "style/layout/footer", "style/layout/columns", "style/layout/description";
+@import 'style/layout/header', 'style/layout/main', 'style/layout/footer',
+  'style/layout/columns', 'style/layout/description';
 
 // 5. Components
 @import 'style/components/filters', 'style/components/main',
-  'style/components/main-item', 'style/components/order';
+  'style/components/main-item', 'style/components/order',
+  'style/components/cart', 'style/components/summary', 
+  'style/components/cart-item', 'style/components/cart-list';
+
 
 // 6. Page-specific styles
 

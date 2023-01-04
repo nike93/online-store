@@ -1,11 +1,11 @@
 .navigation {
   text-align: center;
-  margin-top: 2%;
-  color:  #333333;
+  padding-top: 2%;
+  color: #333333;
 }
 
 .navigation__main {
-  cursor: pointer
+  cursor: pointer;
 }
 
 .navigation__main:hover {
@@ -28,13 +28,13 @@
   margin-left: 2%;
   width: 50%;
   height: 100%;
-  border: 1px solid #D6D6D6;
+  border: 1px solid #d6d6d6;
   padding: 0.8%;
   color: #333333;
 }
 
 .description-frame {
-  border: 1px solid #D6D6D6;
+  border: 1px solid #d6d6d6;
   height: 100%;
   padding: 4%;
   display: flex;
@@ -51,7 +51,7 @@
   width: 100%;
   display: flex;
   padding-bottom: 5%;
-  border-bottom: 1px solid #D6D6D6;
+  border-bottom: 1px solid #d6d6d6;
   color: #979797;
   align-self: end;
 }
@@ -85,7 +85,7 @@
 .slide img {
   height: 100%;
   cursor: pointer;
-  border: 1px solid #D6D6D6;
+  border: 1px solid #d6d6d6;
 }
 
 .info-block {
@@ -121,95 +121,3 @@
   background-color: white;
   margin-left: 5%;
 }
-
-
-///
-// .modal {
-//   max-width: 500px;
-//   border: 2px solid #333333;
-//   border-radius: 10px;
-//   margin: 0 auto;
-// }
-
-// .modal__title,
-// .modal__credit {
-//   text-align: center;
-//   margin-top: 3%;
-// }
-
-// .input {
-//   display: block;
-//   width: 80%;
-//   height: 32px;
-//   margin: 2% auto;
-//   padding: 2%;
-//   border: 1px solid #D1D1D1;
-//   background: #F9F9F9;
-//   border-radius: 12px;
-//   outline: none;
-//   font-size: 14px;
-// }
-
-// .credit-card {
-//   width: 60%;
-//   height: 150px;
-//   margin: 2% auto;
-//   padding-top: 5%;
-//   background-color: #4f4a4a;
-//   border-radius: 7px;
-// }
-
-// .card-number {
-//   display: flex;
-//   justify-content: space-around;
-//   width: 90%;
-// }
-
-// .card-icon {
-//   width: 20px;
-//   height: 15px;
-//   border: 1px solid wheat;
-// }
-
-// .valid-block {
-//   width: 90%;
-//   display: flex;
-//   margin: 5% auto;
-// }
-
-// .date-input {
-//   width: 30%;
-// }
-
-// .number-field,
-// .cvv-input,
-// .date-input {
-//   height: 24px;
-//   margin: 2% auto;
-//   padding: 2%;
-//   border: 1px solid #D1D1D1;
-//   background: #F9F9F9;
-//   border-radius: 8px;
-//   outline: none;
-//   font-size: 12px;
-// }
-
-// .number-field {
-//   width: 80%;
-// }
-
-// .cvv-input {
-//   width: 20%;
-// }
-
-// .confirm-button {
-//   display: block;
-//   width: 150px;
-//   height: 32px;
-//   margin: 4% auto;
-//   background-color: #6A983C;
-//   color: white;
-//   border-radius: 10px;
-//   border: 2px solid #46760A;
-//   cursor: pointer;
-// }

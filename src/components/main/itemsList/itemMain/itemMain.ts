@@ -1,13 +1,14 @@
-import { productItem, state } from './../../../templates/types';
+import { productItem } from './../../../templates/types';
 import Component from '../../../templates/components';
+import App from '../../../../app/app';
+import CartPage from '../../../cart/cart';
 
 class ItemMain extends Component {
   product: productItem;
-  state: state;
-  constructor(product: productItem, state: state) {
+
+  constructor(product: productItem) {
     super('div', 'main-item');
     this.product = product;
-    this.state = state;
   }
 
   renderGridCards() {
@@ -41,14 +42,68 @@ class ItemMain extends Component {
     itemPrice.textContent = `${this.product.price}$`;
     const itemBTN = document.createElement('button');
     itemBTN.classList.add('main-item__button', 'button');
-    itemBTN.textContent = 'add to cart';
+    this.checkInCart(itemBTN);
     itemBottom.append(itemPrice, itemBTN);
 
     itemWrapper.append(itemImg, description, itemBottom);
-    if (this.state.view === 'list') {
+    if (App.state.view === 'list') {
       this.container.classList.add('list');
     }
     this.container.append(itemWrapper);
+  }
+
+  addToCart(e: Event) {
+    CartPage.addItemtoCart(this.product);
+    App.header.reloadHeader();
+    (e.target as HTMLElement).textContent = 'drop from cart';
+    (e.target as HTMLElement).classList.add('active');
+    e.target?.addEventListener(
+      'click',
+      (e) => {
+        this.removeFromCart(e);
+      },
+      { once: true }
+    );
+  }
+
+  removeFromCart(e: Event) {
+    CartPage.removeItemFromCart(this.product);
+    App.header.reloadHeader();
+    (e.target as HTMLElement).textContent = 'add to cart';
+    (e.target as HTMLElement).classList.remove('active');
+    e.target?.addEventListener(
+      'click',
+      (e) => {
+        this.addToCart(e);
+      },
+      { once: true }
+    );
+  }
+  checkInCart(element: HTMLElement) {
+    const isInCart: number = App.state.cart.items.filter(
+      (el) => el.prod.id == this.product.id
+    ).length;
+    if (isInCart > 0) {
+      element.textContent = 'drop from cart';
+      element.classList.add('active');
+      element.addEventListener(
+        'click',
+        (e) => {
+          this.removeFromCart(e);
+        },
+        { once: true }
+      );
+    } else {
+      element.textContent = 'add to cart';
+      element.classList.remove('active');
+      element.addEventListener(
+        'click',
+        (e) => {
+          this.addToCart(e);
+        },
+        { once: true }
+      );
+    }
   }
 
   render() {
