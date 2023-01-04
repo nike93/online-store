@@ -1,36 +1,39 @@
-import { allProducts } from './../components/templates/types';
 import CartPage from '../components/cart/cart';
 import DescriptionPage from '../components/description/description';
 import ErrorPage from '../components/error/error';
 import MainPage from '../components/main/main';
 import Component from '../components/templates/components';
+import App from '../app/app';
 
 export const enum PagesId {
   MainPage = 'main-page',
   DescriptionPage = 'product',
-  CartPage = 'cart-page',
+  CartPage = 'cart',
 }
 
 class Routing {
   private defaultPageId = 'current-page';
   private container;
+  private statePage: string;
   constructor() {
     this.container = document.querySelector('main');
+    this.statePage = '';
   }
-  renderNewPage(hash: string, data: allProducts) {
+  renderNewPage(hash: string) {
+    // console.log(this.statePage);
     const currentPageHTML = document.querySelector(`#${this.defaultPageId}`);
     if (currentPageHTML && currentPageHTML.childNodes[0]) {
       currentPageHTML.childNodes[0].remove();
     }
     let page: Component | null = null;
 
-    if (hash === PagesId.MainPage || hash.length == 0) {
-      page = new MainPage(data);
+    if (hash === PagesId.MainPage) {
+      page = new MainPage(App.data);
     } else if (
       hash.split('!')[0] === PagesId.DescriptionPage &&
       hash.split('!')[1]
     ) {
-      page = new DescriptionPage(data.prod, Number(hash.split('!')[1]));
+      page = new DescriptionPage(App.data.prod, Number(hash.split('!')[1]));
     } else if (hash === PagesId.CartPage) {
       page = new CartPage();
     } else {
@@ -44,22 +47,34 @@ class Routing {
     }
   }
 
-  enableRouteChange(data: allProducts) {
+  enableRouteChange() {
     window.addEventListener('hashchange', () => {
-      const hash = window.location.hash.slice(1);
-      this.renderNewPage(hash, data);
+      const hash = window.location.hash.slice(1).split('?')[0];
+      if (this.checkIsSamePage(hash)) {
+        return;
+      }
+      if (!hash) {
+        window.location.hash = 'main-page';
+      }
+      this.renderNewPage(hash);
+      this.statePage = hash;
     });
   }
 
-  checkLoadRouting(data: allProducts) {
+  checkLoadRouting() {
     window.addEventListener('load', () => {
-      const hash = window.location.hash.slice(1);
+      const hash = window.location.hash.slice(1).split('?')[0];
+
       if (hash.length > 0) {
-        this.renderNewPage(hash, data);
+        this.renderNewPage(hash);
       } else {
         window.location.hash = 'main-page';
       }
+      this.statePage = hash;
     });
+  }
+  checkIsSamePage(hash: string) {
+    return this.statePage == hash;
   }
 }
 

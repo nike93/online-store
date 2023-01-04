@@ -64,9 +64,5 @@
   }
   &__qty {
   }
-  &__empty {
-    width: 100%;
-    display: flex;
-    @include font(2rem, 2rem, 400);
-  }
+  
 }

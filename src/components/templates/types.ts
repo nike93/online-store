@@ -20,6 +20,7 @@ export interface state {
   view?: string;
   cart: cart;
   appliedCuppons: coupon[];
+  pagination: pagination;
 }
 
 export interface cart {
@@ -35,4 +36,9 @@ export interface coupon {
   name: string;
   description: string;
   percentage: number;
+}
+
+export interface pagination {
+  limit?: number;
+  page?: number;
 }

@@ -91,7 +91,6 @@ class CartItem extends Component {
     let index;
     if (this.cartItem.qty == 0) {
       index = App.state.cart.items.indexOf(this.cartItem);
-      console.log(index);
       App.state.cart.items.splice(index, 1);
     }
     CartPage.loadPage();
