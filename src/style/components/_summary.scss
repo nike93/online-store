@@ -1,0 +1,76 @@
+.summary {
+  flex-basis: 25%;
+  border-radius: 12px;
+  border: 1px solid $border-color;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  @include font(1.8rem, 2rem, 400);
+  &__title {
+    @include font(2rem, 2rem, 600);
+    text-decoration: underline;
+    margin-bottom: 20px;
+  }
+  &__products {
+    margin-bottom: 5px;
+  }
+  &__total {
+    margin-bottom: 3px;
+  }
+  &__input {
+    background: transparent;
+    border: 1px solid rgb(209, 209, 209);
+    border-radius: 12px;
+    padding: 4px 10px;
+    margin: 10px 0;
+    &::placeholder {
+      text-align: center;
+    }
+  }
+  &__suggest-code {
+    @include font(1.2rem, 1.4rem, 400);
+    display: flex;
+    align-items: center;
+    button {
+      margin-left: 7px;
+    }
+  }
+  > :last-child {
+    @include font(1.2rem, 1.2rem, 200);
+    margin-top: 10px;
+    color: rgb(223, 68, 68);
+  }
+  &__button {
+    padding: 5px 20px;
+    margin-top: 20px;
+  }
+}
+
+.codes {
+  margin: 7px;
+  width: 95%;
+  border: 1px solid $border-color;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  > * {
+    @include font(1.4rem, 1.4rem, 200);
+  }
+  > p {
+    width: 100%;
+    text-align: center;
+    background-color: rgba(202, 201, 201, 0.3);
+    @include font(1.8rem, 2rem, 400);
+  }
+  &__item {
+    padding: 4px;
+    display: flex;
+    gap: 7px;
+    align-items: center;
+  }
+}
+
+.underlined {
+  text-decoration: line-through;
+}

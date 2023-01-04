@@ -18,4 +18,27 @@ export interface allProducts {
 
 export interface state {
   view?: string;
+  cart: cart;
+  appliedCuppons: coupon[];
+  pagination: pagination;
+}
+
+export interface cart {
+  items: cartItem[];
+}
+
+export interface cartItem {
+  prod: productItem;
+  qty: number;
+}
+
+export interface coupon {
+  name: string;
+  description: string;
+  percentage: number;
+}
+
+export interface pagination {
+  limit?: number;
+  page?: number;
 }

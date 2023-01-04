@@ -1,15 +1,14 @@
 import Component from '../../components/templates/components';
 import { PagesId } from '../../routing/routing';
+import App from '../../app/app';
 
 class Header extends Component {
   priceSumHTML: HTMLElement;
   totalItemsHTML: HTMLElement;
-  x: number;
   constructor() {
     super('div', 'header__wrapper', 'header');
     this.priceSumHTML = document.createElement('span');
     this.totalItemsHTML = document.createElement('div');
-    this.x = 23;
   }
 
   renderLogoBlock() {
@@ -34,7 +33,6 @@ class Header extends Component {
     priceTitle.innerText = 'Cart total:';
     priceTitle.classList.add('header__price-title');
     this.priceSumHTML.classList.add('header__price-sum');
-    this.priceSumHTML.innerText = '$1234';
     container.append(priceTitle, this.priceSumHTML);
 
     return container;
@@ -46,7 +44,6 @@ class Header extends Component {
     const totalContainer = document.createElement('div');
     totalContainer.classList.add('header__total-container');
     this.totalItemsHTML.classList.add('header__total-items');
-    this.totalItemsHTML.innerText = String(this.x);
     totalContainer.append(this.totalItemsHTML);
     container.append(totalContainer);
     container.addEventListener('click', () => {
@@ -65,8 +62,19 @@ class Header extends Component {
     this.container.append(headerTitle, totalPrice, cart);
   }
 
+  reloadHeader() {
+    this.totalItemsHTML.innerText = String(
+      App.state.cart.items.reduce((a, b) => a + b.qty, 0)
+    );
+    this.priceSumHTML.innerText = `$${App.state.cart.items.reduce(
+      (a, b) => a + b.prod.price * b.qty,
+      0
+    )}`;
+  }
+
   render() {
     this.createHeader();
+    this.reloadHeader();
     return this.container;
   }
 }

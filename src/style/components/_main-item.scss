@@ -44,6 +44,9 @@
   }
   &__button {
     padding: 6px 12px;
+    &.active {
+      background-color: rgb(241, 103, 103);
+    }
   }
 }
 
@@ -68,6 +71,7 @@
     justify-content: space-between;
     align-items: center;
     padding-top: 10px;
+    width: 15%;
   }
   .main-item__description {
     width: 50%;

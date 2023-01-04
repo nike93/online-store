@@ -1,11 +1,11 @@
 .navigation {
   text-align: center;
-  margin-top: 2%;
-  color:  #333333;
+  padding-top: 2%;
+  color: #333333;
 }
 
 .navigation__main {
-  cursor: pointer
+  cursor: pointer;
 }
 
 .navigation__main:hover {
@@ -28,13 +28,13 @@
   margin-left: 2%;
   width: 50%;
   height: 100%;
-  border: 1px solid #D6D6D6;
+  border: 1px solid #d6d6d6;
   padding: 0.8%;
   color: #333333;
 }
 
 .description-frame {
-  border: 1px solid #D6D6D6;
+  border: 1px solid #d6d6d6;
   height: 100%;
   padding: 4%;
   display: flex;
@@ -51,7 +51,7 @@
   width: 100%;
   display: flex;
   padding-bottom: 5%;
-  border-bottom: 1px solid #D6D6D6;
+  border-bottom: 1px solid #d6d6d6;
   color: #979797;
   align-self: end;
 }
@@ -85,7 +85,7 @@
 .slide img {
   height: 100%;
   cursor: pointer;
-  border: 1px solid #D6D6D6;
+  border: 1px solid #d6d6d6;
 }
 
 .info-block {

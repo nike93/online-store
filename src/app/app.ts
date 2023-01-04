@@ -5,34 +5,41 @@ import data from '../data.json';
 import { allProducts, state } from './../components/templates/types';
 
 class App {
-  private headerDOM: HTMLElement | null;
-  private mainDOM: HTMLElement | null;
-  private footerDOM: HTMLElement | null;
-  private header: Header;
+  static header: Header;
+  static state: state;
+  static data: allProducts;
   private footer: Footer;
   private routing: Routing;
-  data: allProducts;
-  state: state;
 
   constructor() {
-    this.headerDOM = document.querySelector('header');
-    this.mainDOM = document.querySelector('main');
-    this.footerDOM = document.querySelector('footer');
-    this.header = new Header();
+    App.state = {
+      view: 'grid',
+      cart: { items: [] },
+      appliedCuppons: [],
+      pagination: {},
+    };
+    App.header = new Header();
     this.footer = new Footer();
-    this.routing = new Routing(this.mainDOM);
-    this.data = data;
-    this.state = { view: 'grid' };
+    this.routing = new Routing();
+    App.data = data;
   }
 
   run() {
-    const headerHTML = this.header.render();
+    App.state.cart.items.push({ prod: App.data.prod[1], qty: 1 });
+    App.state.cart.items.push({ prod: App.data.prod[2], qty: 1 });
+    App.state.cart.items.push({ prod: App.data.prod[3], qty: 1 });
+    App.state.cart.items.push({ prod: App.data.prod[4], qty: 1 });
+    App.state.cart.items.push({ prod: App.data.prod[5], qty: 1 });
+    App.state.cart.items.push({ prod: App.data.prod[6], qty: 1 });
+    const headerDOM = document.querySelector('header');
+    const footerDOM = document.querySelector('footer');
+    const headerHTML = App.header.render();
     const footerHTML = this.footer.render();
-    this.routing.enableRouteChange(this.data, this.state);
-    this.routing.checkLoadRouting(this.data, this.state);
-    if (this.headerDOM && this.footerDOM) {
-      this.headerDOM.append(headerHTML);
-      this.footerDOM.append(footerHTML);
+    this.routing.enableRouteChange();
+    this.routing.checkLoadRouting();
+    if (headerDOM && footerDOM) {
+      headerDOM.append(headerHTML);
+      footerDOM.append(footerHTML);
     }
   }
 }
