@@ -1,0 +1,134 @@
+.modal {
+  // max-width: 500px;
+  // border: 2px solid #333333;
+  // border-radius: 10px;
+  // margin: 0 auto;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  width: 500px;
+  //height: 80vh;
+  background-color: #F5F7F6;
+  margin: auto auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  z-index: 3;
+}
+
+.modal__title,
+.modal__credit {
+  text-align: center;
+  margin-top: 3%;
+}
+
+.input {
+  display: block;
+  width: 80%;
+  height: 32px;
+  margin: 4% auto 0;
+  padding: 2%;
+  border: 1px solid #D1D1D1;
+  background: #F9F9F9;
+  border-radius: 12px;
+  outline: none;
+  font-size: 14px;
+}
+
+.credit-card {
+  width: 60%;
+  height: 150px;
+  margin: 2% auto;
+  padding-top: 5%;
+  background-color: #4f4a4a;
+  border-radius: 7px;
+}
+
+.card-number {
+  display: flex;
+  width: 90%;
+  margin: 0 auto;
+}
+
+.card-icon {
+  display: block;
+  width: 32px;
+  height: 24px;
+  align-self: center;
+  border-radius: 2px;
+}
+
+.valid-block {
+  width: 90%;
+  display: flex;
+  margin: 5% auto;
+}
+
+.date-input {
+  width: 30%;
+}
+
+.number-field,
+.cvv-input,
+.date-input {
+  height: 24px;
+  margin: 2% auto;
+  padding: 2%;
+  border: 1px solid #D1D1D1;
+  background: #F9F9F9;
+  border-radius: 8px;
+  outline: none;
+  font-size: 12px;
+}
+
+.number-field {
+  width: 80%;
+}
+
+.cvv-input {
+  width: 20%;
+}
+
+.confirm-button {
+  display: block;
+  width: 150px;
+  height: 32px;
+  margin: 4% auto;
+  background-color: #6A983C;
+  color: white;
+  border-radius: 10px;
+  border: 2px solid #46760A;
+  cursor: pointer;
+}
+
+.error {
+  border: 2px solid rgb(203, 21, 21);
+}
+
+.error-text {
+  display: block;
+  color: rgb(203, 21, 21);
+  width: 80%;
+  margin: 1% auto 0;
+}
+
+.modal-back {
+  display: none;
+}
+
+.modal-back-open {
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(41, 41, 41, 0.6);
+  z-index: 2;
+}

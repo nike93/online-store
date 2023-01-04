@@ -1,6 +1,7 @@
 import Component from '../../components/templates/components';
 import { productItem } from './../templates/types';
 import { PagesId } from '../../routing/routing';
+import orderWindow from '../order/order';
 
 class DescriptionPage extends Component {
   protected products: productItem[];
@@ -147,7 +148,19 @@ class DescriptionPage extends Component {
     slide.addEventListener('click', (e) => {
       const photoSrc = (<HTMLElement>e.target).getAttribute('src') as string;
       headPhotoImg.src = photoSrc;
-    });
+
+    })
+
+    
+     const main = <HTMLElement>document.querySelector('.main');
+    
+    
+    btnBuy.addEventListener('click', function() {
+      console.log('buy');
+      const order = new orderWindow();
+      order.openWindow();
+    })
+
   }
 
   render() {
