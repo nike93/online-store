@@ -1,3 +1,6 @@
+import { PagesId } from '../../routing/routing';
+import App from '../../app/app';
+
 class orderWindow {
   private container: HTMLElement;
 
@@ -86,7 +89,7 @@ class orderWindow {
 
     //validation
 
-    const formInputs = document.querySelectorAll('.input');
+    const formInputs: NodeListOf<HTMLInputElement> = document.querySelectorAll('.input');
 
     //name
     function checkName (name: string) {
@@ -151,9 +154,9 @@ class orderWindow {
       const phoneValue = inputPhone.value;
       const adressValue = inputAdress.value;
 
-      const emptyValue = Array.from(formInputs).filter((input: any) => input.value === '');
+      const emptyValue = Array.from(formInputs).filter((input) => input.value === '');
       
-      formInputs.forEach(function (input: any) {
+      formInputs.forEach(function (input) {
         if (input.value === '') {
           input.classList.add('error');
         } else {
@@ -227,8 +230,19 @@ class orderWindow {
         cvvInput.classList.remove('error');
         deleteErrorText();
       }
-      
-      modalWindow.innerHTML = 'Thank you for the order. Redirect to home page...';
+
+      const endMessage = document.createElement('p');
+      endMessage.innerText ='Thank you for the order. Redirect to main page...';
+      endMessage.classList.add('end-message');
+      modalWindow.innerHTML = '';
+      modalWindow.append(endMessage);
+      setTimeout(() => {
+        modalWindow.remove();
+        modalBack.remove();
+        App.state.cart.items = [];
+        App.header.reloadHeader();
+        window.location.hash = `#${PagesId.MainPage}`;
+      }, 4000);
 
     }    
     

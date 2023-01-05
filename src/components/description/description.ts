@@ -152,11 +152,11 @@ class DescriptionPage extends Component {
     })
 
     
-     const main = <HTMLElement>document.querySelector('.main');
+     // main = <HTMLElement>document.querySelector('.main');
     
     
     btnBuy.addEventListener('click', function() {
-      console.log('buy');
+      window.location.hash = `#${PagesId.CartPage}`;
       const order = new orderWindow();
       order.openWindow();
     })
