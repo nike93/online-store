@@ -156,8 +156,12 @@ class DescriptionPage extends Component {
 
     //change photos
     slide.addEventListener('click', (e) => {
-      const photoSrc = (<HTMLElement>e.target).getAttribute('src') as string;
-      headPhotoImg.src = photoSrc;
+      const element = <HTMLElement>e.target;
+      if (element.classList.contains('slide__img')) {
+        const photoSrc = element.getAttribute('src') as string;
+        headPhotoImg.src = photoSrc;
+      }
+      
 
     })   
     
@@ -167,16 +171,6 @@ class DescriptionPage extends Component {
       order.openWindow();
     })
     
-    // function chekBtn () {
-    //   const isInCart: number = App.state.cart.items.filter(
-    //     (el) => el.prod.id == this.products[id].id
-    //   ).length;
-    //   if (isInCart > 0) {
-    //     addCart.innerText = 'Drop from cart';
-    //   } else {
-    //     addCart.innerText = 'Add to cart';
-    //   }
-    // }
 
     addCart.addEventListener('click', () => {      
       const isInCart: number = App.state.cart.items.filter(
