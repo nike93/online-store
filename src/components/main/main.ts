@@ -1,17 +1,16 @@
-import { allProducts } from './../templates/types';
 import Component from '../../components/templates/components';
 import ItemsList from './itemsList/itemsList';
 import Filters from './filters/filters';
 import App from '../../app/app';
+// import FiltrationLogic from './filters/filtrationLogic';
 
 class MainPage extends Component {
-  data: allProducts;
-  items: HTMLElement;
+  static items: HTMLElement;
 
-  constructor(data: allProducts) {
+  constructor() {
     super('div', 'main__wrapper', 'main-page');
-    this.data = data;
-    this.items = new ItemsList(this.data.prod).render();
+
+    MainPage.items = new ItemsList(App.data.prod).render();
   }
 
   renderViewButtons() {
@@ -22,8 +21,8 @@ class MainPage extends Component {
         return;
       } else {
         App.state.view = id;
-        this.items.innerHTML = '';
-        this.items.append(new ItemsList(this.data.prod).render());
+        MainPage.items.innerHTML = '';
+        MainPage.items.append(new ItemsList(App.data.prod).render());
         grid.classList.toggle('view-block__ico_active');
         list.classList.toggle('view-block__ico_active');
       }
@@ -41,6 +40,14 @@ class MainPage extends Component {
     container.append(grid, list);
     return container;
   }
+  // TODO! replace
+  // static rerender() {
+  //   const items = FiltrationLogic.filterDataCheckbox(App.data.prod);
+
+  //   MainPage.items.innerHTML = '';
+  //   MainPage.items.append(new ItemsList(items).render());
+  // }
+  //
 
   renderSearchBar() {
     const input = document.createElement('input');
@@ -52,7 +59,7 @@ class MainPage extends Component {
   renderTotalFound() {
     const total = document.createElement('div');
     total.classList.add('main__stat');
-    total.textContent = `Found: ${this.data.prod.length}`;
+    total.textContent = `Found: ${App.data.prod.length}`;
     return total;
   }
 
@@ -86,7 +93,7 @@ class MainPage extends Component {
   renderCatalog() {
     const catalog = document.createElement('div');
     catalog.classList.add('main__catalog');
-    catalog.append(this.renderMainHeader(), this.items);
+    catalog.append(this.renderMainHeader(), MainPage.items);
     return catalog;
   }
 

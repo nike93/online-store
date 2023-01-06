@@ -17,6 +17,11 @@ class App {
       cart: { items: [] },
       appliedCuppons: [],
       pagination: {},
+      filters: {
+        checkboxes: {},
+        search: '',
+        range: {},
+      },
     };
     App.header = new Header();
     this.footer = new Footer();

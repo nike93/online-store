@@ -21,6 +21,7 @@ export interface state {
   cart: cart;
   appliedCuppons: coupon[];
   pagination: pagination;
+  filters: filters;
 }
 
 export interface cart {
@@ -42,3 +43,13 @@ export interface pagination {
   limit?: number;
   page?: number;
 }
+
+export interface filters {
+  checkboxes: checkboxes;
+  search: string;
+  range: object;
+}
+
+export type checkboxes = {
+  [prop in keyof Partial<productItem>]: string[];
+};

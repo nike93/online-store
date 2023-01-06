@@ -148,19 +148,15 @@ class DescriptionPage extends Component {
     slide.addEventListener('click', (e) => {
       const photoSrc = (<HTMLElement>e.target).getAttribute('src') as string;
       headPhotoImg.src = photoSrc;
+    });
 
-    })
+    //  const main = <HTMLElement>document.querySelector('.main');
 
-    
-     const main = <HTMLElement>document.querySelector('.main');
-    
-    
-    btnBuy.addEventListener('click', function() {
+    btnBuy.addEventListener('click', function () {
       console.log('buy');
       const order = new orderWindow();
       order.openWindow();
-    })
-
+    });
   }
 
   render() {
