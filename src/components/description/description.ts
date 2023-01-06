@@ -2,6 +2,8 @@ import Component from '../../components/templates/components';
 import { productItem } from './../templates/types';
 import { PagesId } from '../../routing/routing';
 import orderWindow from '../order/order';
+import App from '../../app/app';
+import CartPage from '../cart/cart';
 
 class DescriptionPage extends Component {
   protected products: productItem[];
@@ -133,7 +135,15 @@ class DescriptionPage extends Component {
     //add to cart
     const addCart = document.createElement('button');
     addCart.classList.add('button', 'cart-btn');
-    addCart.innerText = 'Add to Cart';
+    const isInCart: number = App.state.cart.items.filter(
+          (el) => el.prod.id == this.products[id].id
+        ).length;
+        if (isInCart > 0) {
+          addCart.innerText = 'Drop from cart';
+        } else {
+          addCart.innerText = 'Add to cart';
+        }
+    //addCart.innerText = '';
     btnContainer.append(btnBuy, addCart);
     priceBlock.append(price, btnContainer);
     descriptionContainerFrame.append(priceBlock);
@@ -146,19 +156,37 @@ class DescriptionPage extends Component {
 
     //change photos
     slide.addEventListener('click', (e) => {
-      const photoSrc = (<HTMLElement>e.target).getAttribute('src') as string;
-      headPhotoImg.src = photoSrc;
+      const element = <HTMLElement>e.target;
+      if (element.classList.contains('slide__img')) {
+        const photoSrc = element.getAttribute('src') as string;
+        headPhotoImg.src = photoSrc;
+      }
+      
 
-    })
-
-    
-     // main = <HTMLElement>document.querySelector('.main');
-    
+    })   
     
     btnBuy.addEventListener('click', function() {
       window.location.hash = `#${PagesId.CartPage}`;
       const order = new orderWindow();
       order.openWindow();
+    })
+    
+
+    addCart.addEventListener('click', () => {      
+      const isInCart: number = App.state.cart.items.filter(
+        (el) => el.prod.id == this.products[id].id
+      ).length;
+      if (isInCart > 0) {
+        addCart.textContent = 'Add to cart';
+        addCart.classList.add('active');
+        CartPage.removeItemFromCart(this.products[id]);
+        App.header.reloadHeader();
+      } else {
+        addCart.textContent = 'Drop from cart';
+        addCart.classList.remove('active');        
+        CartPage.addItemtoCart(this.products[id]);
+        App.header.reloadHeader();
+      }
     })
 
   }
