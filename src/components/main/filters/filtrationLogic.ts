@@ -21,12 +21,12 @@ class FiltrationLogic {
     let filteredData = App.data.prod;
     const allBoxFilters = App.state.filters.checkboxes;
     for (const key of Object.keys(allBoxFilters) as Array<keyof productItem>) {
-      console.log(key);
-      filteredData = filteredData.filter((el) => {
-        allBoxFilters[key]?.indexOf(el[key]);
-      });
+      console.log(allBoxFilters[key]);
+      filteredData = filteredData.filter((el) => 
+         allBoxFilters[key]?.includes(el[key] as keyof productItem)
+      );      
     }
-    console.log(allBoxFilters);
+    console.log(filteredData);
 
     return filteredData;
   }
