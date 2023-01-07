@@ -7,8 +7,47 @@
     width: 1px;
     height: calc(100% - 20px);
     top: 0;
-    right: 0;
+    right: -10px;
     background-color: $border-color;
     transform: translateY(10px);
+  }
+  &__block {
+    width: 95%;
+    margin: 5px auto;
+    border-radius: 12px;
+    border: 1px solid $border-color;
+    overflow: hidden;
+    margin-bottom: 1.5rem;
+    p {
+      @include font(1.7rem, 2rem, 400);
+      text-align: center;
+      background-color: #b8b9b5;
+      border-bottom: 1px solid $border-color;
+      padding: 3px 0;
+    }
+  }
+  &__list {
+    max-height: 200px;
+    overflow-y: scroll;
+    padding: 2%;
+  }
+  &__range {
+    margin: 15px 20px;
+    &-values {
+      padding: 0 20px;
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 7px;
+    }
+  }
+}
+
+.input__container {
+  display: flex;
+  align-items: center;
+  label {
+    overflow: hidden;
+    padding: 0.25rem;
+    margin-left: 3px;
   }
 }

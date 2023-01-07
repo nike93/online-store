@@ -136,13 +136,13 @@ class DescriptionPage extends Component {
     const addCart = document.createElement('button');
     addCart.classList.add('button', 'cart-btn');
     const isInCart: number = App.state.cart.items.filter(
-          (el) => el.prod.id == this.products[id].id
-        ).length;
-        if (isInCart > 0) {
-          addCart.innerText = 'Drop from cart';
-        } else {
-          addCart.innerText = 'Add to cart';
-        }
+      (el) => el.prod.id == this.products[id].id
+    ).length;
+    if (isInCart > 0) {
+      addCart.innerText = 'Drop from cart';
+    } else {
+      addCart.innerText = 'Add to cart';
+    }
     //addCart.innerText = '';
     btnContainer.append(btnBuy, addCart);
     priceBlock.append(price, btnContainer);
@@ -161,18 +161,15 @@ class DescriptionPage extends Component {
         const photoSrc = element.getAttribute('src') as string;
         headPhotoImg.src = photoSrc;
       }
-      
+    });
 
-    })   
-    
-    btnBuy.addEventListener('click', function() {
+    btnBuy.addEventListener('click', function () {
       window.location.hash = `#${PagesId.CartPage}`;
       const order = new orderWindow();
       order.openWindow();
-    })
-    
+    });
 
-    addCart.addEventListener('click', () => {      
+    addCart.addEventListener('click', () => {
       const isInCart: number = App.state.cart.items.filter(
         (el) => el.prod.id == this.products[id].id
       ).length;
@@ -183,12 +180,11 @@ class DescriptionPage extends Component {
         App.header.reloadHeader();
       } else {
         addCart.textContent = 'Drop from cart';
-        addCart.classList.remove('active');        
+        addCart.classList.remove('active');
         CartPage.addItemtoCart(this.products[id]);
         App.header.reloadHeader();
       }
-    })
-
+    });
   }
 
   render() {

@@ -1,17 +1,17 @@
-import { allProducts } from './../templates/types';
 import Component from '../../components/templates/components';
 import ItemsList from './itemsList/itemsList';
 import Filters from './filters/filters';
 import App from '../../app/app';
 
 class MainPage extends Component {
-  data: allProducts;
-  items: HTMLElement;
+  static items: HTMLElement;
+  static filters: HTMLElement;
 
-  constructor(data: allProducts) {
+  constructor() {
     super('div', 'main__wrapper', 'main-page');
-    this.data = data;
-    this.items = new ItemsList(this.data.prod).render();
+
+    MainPage.items = new ItemsList().render();
+    MainPage.filters = new Filters().render();
   }
 
   renderViewButtons() {
@@ -22,8 +22,7 @@ class MainPage extends Component {
         return;
       } else {
         App.state.view = id;
-        this.items.innerHTML = '';
-        this.items.append(new ItemsList(this.data.prod).render());
+        MainPage.rerender();
         grid.classList.toggle('view-block__ico_active');
         list.classList.toggle('view-block__ico_active');
       }
@@ -41,6 +40,12 @@ class MainPage extends Component {
     container.append(grid, list);
     return container;
   }
+  // TODO! replace
+  static rerender() {
+    MainPage.items.innerHTML = '';
+    MainPage.items.append(new ItemsList().render());
+  }
+  //
 
   renderSearchBar() {
     const input = document.createElement('input');
@@ -52,7 +57,7 @@ class MainPage extends Component {
   renderTotalFound() {
     const total = document.createElement('div');
     total.classList.add('main__stat');
-    total.textContent = `Found: ${this.data.prod.length}`;
+    total.textContent = `Found: ${App.data.prod.length}`;
     return total;
   }
 
@@ -86,13 +91,13 @@ class MainPage extends Component {
   renderCatalog() {
     const catalog = document.createElement('div');
     catalog.classList.add('main__catalog');
-    catalog.append(this.renderMainHeader(), this.items);
+    catalog.append(this.renderMainHeader(), MainPage.items);
     return catalog;
   }
 
   render() {
     this.container.classList.add('wrapper');
-    this.container.append(new Filters().render());
+    this.container.append(MainPage.filters);
 
     this.container.append(this.renderCatalog());
     return this.container;

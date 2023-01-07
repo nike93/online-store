@@ -28,7 +28,7 @@ class Routing {
     let page: Component | null = null;
 
     if (hash === PagesId.MainPage) {
-      page = new MainPage(App.data);
+      page = new MainPage();
     } else if (
       hash.split('!')[0] === PagesId.DescriptionPage &&
       hash.split('!')[1]

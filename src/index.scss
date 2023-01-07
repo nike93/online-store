@@ -18,14 +18,16 @@
 // 5. Components
 @import 'style/components/filters', 'style/components/main',
   'style/components/main-item', 'style/components/order',
-  'style/components/cart', 'style/components/summary', 
+  'style/components/cart', 'style/components/summary',
   'style/components/cart-item', 'style/components/cart-list';
-
 
 // 6. Page-specific styles
 
 // 7. Themes
 @import 'style/themes/default';
+
+// library.
+@import '~nouislider/dist/nouislider.css';
 
 .body-wrapper {
   min-height: 100vh;
