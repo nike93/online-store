@@ -1,7 +1,7 @@
 import { productItem } from './../../templates/types';
 import data from '../../../data.json';
 import App from '../../../app/app';
-import FiltrationLogic from './filtrationLogic';
+import MainPage from '../main';
 
 class CheckFilters {
   protected container: HTMLElement;
@@ -30,6 +30,10 @@ class CheckFilters {
 
       const input = document.createElement('input');
       input.type = 'checkbox';
+      if (this.isInputChecked(inputName)) {
+        input.checked = true;
+      }
+
       input.value = inputName;
       input.id = inputID;
       input.addEventListener('click', () => this.addRemoveToState(inputID));
@@ -45,6 +49,10 @@ class CheckFilters {
     return list;
   }
 
+  isInputChecked(inputName: string) {
+    return App.state.filters.checkboxes[this.category]?.includes(inputName);
+  }
+
   addRemoveToState(inputID: string) {
     const [key, value] = inputID.split('%');
 
@@ -57,8 +65,8 @@ class CheckFilters {
     } else {
       App.state.filters.checkboxes[key as keyof productItem]?.push(value);
     }
-    // MainPage.rerender();
-    FiltrationLogic.filterDataCheckbox();
+    MainPage.rerender();
+    // FiltrationLogic.filterDataCheckbox();
   }
 
   isCategoryExist(category: keyof productItem) {

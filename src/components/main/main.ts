@@ -2,15 +2,16 @@ import Component from '../../components/templates/components';
 import ItemsList from './itemsList/itemsList';
 import Filters from './filters/filters';
 import App from '../../app/app';
-// import FiltrationLogic from './filters/filtrationLogic';
 
 class MainPage extends Component {
   static items: HTMLElement;
+  static filters: HTMLElement;
 
   constructor() {
     super('div', 'main__wrapper', 'main-page');
 
-    MainPage.items = new ItemsList(App.data.prod).render();
+    MainPage.items = new ItemsList().render();
+    MainPage.filters = new Filters().render();
   }
 
   renderViewButtons() {
@@ -21,8 +22,7 @@ class MainPage extends Component {
         return;
       } else {
         App.state.view = id;
-        MainPage.items.innerHTML = '';
-        MainPage.items.append(new ItemsList(App.data.prod).render());
+        MainPage.rerender();
         grid.classList.toggle('view-block__ico_active');
         list.classList.toggle('view-block__ico_active');
       }
@@ -41,12 +41,10 @@ class MainPage extends Component {
     return container;
   }
   // TODO! replace
-  // static rerender() {
-  //   const items = FiltrationLogic.filterDataCheckbox(App.data.prod);
-
-  //   MainPage.items.innerHTML = '';
-  //   MainPage.items.append(new ItemsList(items).render());
-  // }
+  static rerender() {
+    MainPage.items.innerHTML = '';
+    MainPage.items.append(new ItemsList().render());
+  }
   //
 
   renderSearchBar() {
@@ -99,7 +97,7 @@ class MainPage extends Component {
 
   render() {
     this.container.classList.add('wrapper');
-    this.container.append(new Filters().render());
+    this.container.append(MainPage.filters);
 
     this.container.append(this.renderCatalog());
     return this.container;

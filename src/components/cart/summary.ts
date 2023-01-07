@@ -2,6 +2,7 @@ import Component from '../templates/components';
 import App from '../../app/app';
 import coupons from './../../coupons.json';
 import { coupon } from '../templates/types';
+import orderWindow from '../order/order';
 
 class Summary extends Component {
   appliedCodes: HTMLElement;
@@ -158,6 +159,10 @@ class Summary extends Component {
     const btn = document.createElement('button');
     btn.classList.add('button', 'summary__button');
     btn.textContent = 'BUY NOW';
+    btn.addEventListener('click', () => {
+      const order = new orderWindow();
+      order.openWindow();
+    })
     return btn;
   }
   render() {

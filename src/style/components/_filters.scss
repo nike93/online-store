@@ -31,6 +31,15 @@
     overflow-y: scroll;
     padding: 2%;
   }
+  &__range {
+    margin: 15px 20px;
+    &-values {
+      padding: 0 20px;
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 7px;
+    }
+  }
 }
 
 .input__container {

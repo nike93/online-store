@@ -1,39 +1,61 @@
+import { PagesId } from '../../routing/routing';
+import App from '../../app/app';
+
 class orderWindow {
   private container: HTMLElement;
+  private modalWindow: HTMLElement;
+  private modalBack: HTMLElement;
+  private cardNumber: HTMLElement;
+  private validBlock: HTMLElement;
+  private form: HTMLFormElement;
+  private inputName: HTMLInputElement;
+  private inputPhone: HTMLInputElement;
+  private inputMail: HTMLInputElement;
+  private inputAdress: HTMLInputElement;
+  private numberField: HTMLInputElement;
+  private dateInput: HTMLInputElement;
+  private cvvInput: HTMLInputElement;
+  private cardIcon: HTMLImageElement;
 
   constructor() {
     this.container = <HTMLElement>document.querySelector('.main');
+    this.form = document.createElement('form');
+    this.modalWindow = document.createElement('div');
+    this.modalBack = document.createElement('div');
+    this.cardNumber = document.createElement('div');
+    this.validBlock = document.createElement('div');
+    this.inputName = document.createElement('input');
+    this.inputPhone = document.createElement('input');
+    this.inputMail = document.createElement('input');
+    this.inputAdress = document.createElement('input');
+    this.numberField = document.createElement('input');
+    this.dateInput = document.createElement('input');
+    this.cvvInput = document.createElement('input');
+    this.cardIcon = document.createElement('img');
   }
+
   openWindow() {
-    //const main = <HTMLElement>document.querySelector('.main');
-    const modalWindow = document.createElement('div');
-    modalWindow.classList.add('modal');
+    this.modalWindow.classList.add('modal');
 
     const titleModal = document.createElement('h3');
     titleModal.classList.add('modal__title');
     titleModal.innerText = 'Personal details';
-    modalWindow.append(titleModal);
+    this.modalWindow.append(titleModal);
 
-    const form = document.createElement('form');
+    this.inputName.classList.add('input-name', 'input');
+    this.inputName.placeholder = 'Name';
+    this.inputName.type = 'text';
 
-    const inputName = document.createElement('input');
-    inputName.classList.add('input-name', 'input');
-    inputName.placeholder = 'Name';
-    inputName.type = 'text';
+    this.inputPhone.classList.add('input-phone', 'input');
+    this.inputPhone.placeholder = 'Phone number';
+    this.inputPhone.type = 'text';
 
-    const inputPhone = document.createElement('input');
-    inputPhone.classList.add('input-phone', 'input');
-    inputPhone.placeholder = 'Phone number';
-    inputPhone.type = 'text';
+    this.inputAdress.classList.add('input-adress', 'input');
+    this.inputAdress.placeholder = 'Delivery adress';
 
-    const inputAdress = document.createElement('input');
-    inputAdress.classList.add('input-adress', 'input');
-    inputAdress.placeholder = 'Delivery adress';
-
-    const inputMail = document.createElement('input');
-    inputMail.classList.add('input-mail', 'input');
-    inputMail.placeholder = 'E-mail';
-    inputMail.type = 'email';
+    this.inputMail.classList.add('input-mail', 'input');
+    this.inputMail.placeholder = 'E-mail';
+    this.inputMail.type = 'email';
 
     const creditTitle = document.createElement('h3');
     creditTitle.classList.add('modal__credit');
@@ -42,280 +64,286 @@ class orderWindow {
     const creditCard = document.createElement('div');
     creditCard.classList.add('credit-card');
 
-    const cardNumber = document.createElement('div');
-    cardNumber.classList.add('card-number');
+    this.cardNumber.classList.add('card-number');
 
-    const cardIcon = document.createElement('img');
-    cardIcon.classList.add('card-icon');
-    cardIcon.src =
+    this.cardIcon.classList.add('card-icon');
+    this.cardIcon.src =
       'https://play-lh.googleusercontent.com/baXy546Srucl3vM1yaHr060eBL9_mrk0NH2GGRRCMTrKbekbx2pI77WCaXmNwUqnqQ';
 
-    const numberField = document.createElement('input');
-    numberField.classList.add('number-field', 'input');
-    numberField.placeholder = 'Card number';
-    numberField.type = 'number';
+    this.numberField.classList.add('number-field', 'input');
+    this.numberField.placeholder = 'Card number';
+    this.numberField.type = 'number';
 
-    cardNumber.append(cardIcon, numberField);
+    this.cardNumber.append(this.cardIcon, this.numberField);
 
-    const validBlock = document.createElement('div');
-    validBlock.classList.add('valid-block');
+    this.validBlock.classList.add('valid-block');
 
-    const dateInput = document.createElement('input');
-    dateInput.classList.add('date-input', 'input');
-    dateInput.placeholder = 'Validaty';
+    this.dateInput.classList.add('date-input', 'input');
+    this.dateInput.placeholder = 'Validaty';
 
-    const cvvInput = document.createElement('input');
-    cvvInput.classList.add('cvv-input', 'input');
-    cvvInput.placeholder = 'CVV';
-    cvvInput.type = 'number';
-    validBlock.append(dateInput, cvvInput);
+    this.cvvInput.classList.add('cvv-input', 'input');
+    this.cvvInput.placeholder = 'CVV';
+    this.cvvInput.type = 'number';
+    this.validBlock.append(this.dateInput, this.cvvInput);
 
-    creditCard.append(cardNumber, validBlock);
+    creditCard.append(this.cardNumber, this.validBlock);
 
     const confirmBtn = document.createElement('button');
     confirmBtn.classList.add('confirm-button');
     confirmBtn.innerText = 'Confirm';
     confirmBtn.type = 'submit';
 
-    form.append(
-      inputName,
-      inputPhone,
-      inputAdress,
-      inputMail,
+    this.form.append(
+      this.inputName,
+      this.inputPhone,
+      this.inputAdress,
+      this.inputMail,
       creditTitle,
       creditCard,
       confirmBtn
     );
-    modalWindow.append(form);
+    this.modalWindow.append(this.form);
 
-    const modalBack = document.createElement('div');
-    modalBack.classList.add('modal-back', 'modal-back-open');
+    this.modalBack.classList.add('modal-back-open');
 
-    this.container.append(modalWindow, modalBack);
+    this.container.append(this.modalWindow, this.modalBack);
 
-    //validation
-
-    const formInputs: NodeListOf<HTMLInputElement> =
-      document.querySelectorAll('.input');
-
-    //name
-    function checkName(name: string) {
-      const array = name.split(' ');
-      if (array.length >= 2) {
-        const filterArr = array.filter((el) => el.length >= 3);
-        if (array.length === filterArr.length) {
-          return true;
-        }
-      } else {
-        return false;
-      }
-    }
-
-    //phone
-    function checkPhone(phone: string) {
-      const PHONE_REGEXP =
-        /^(\+)((\d{2,3}) ?\d|\d)(([ -]?\d)|( ?(\d{2,3}) ?)){7,15}\d$/iu;
-      return PHONE_REGEXP.test(phone);
-    }
-
-    //adress
-    function checkAdress(adress: string) {
-      const array = adress.split(' ');
-      if (array.length >= 3) {
-        const filterArr = array.filter((el) => el.length >= 5);
-        if (array.length === filterArr.length) {
-          return true;
-        }
-      } else {
-        return false;
-      }
-    }
-
-    //mail
-    function checkMail(mail: string) {
-      const EMAIL_REGEXP =
-        /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/iu;
-      return EMAIL_REGEXP.test(mail.toLowerCase());
-    }
-
-    function createErrorText(field: string, container: HTMLElement) {
-      const err = <HTMLElement>document.querySelector('.error-text');
-      if (err) {
-        return;
-      } else {
-        const errorText = document.createElement('span');
-        errorText.classList.add('error-text');
-        errorText.innerText = `Enter a correct ${field}`;
-        container.after(errorText);
-      }
-    }
-
-    function deleteErrorText() {
-      const err = <HTMLElement>document.querySelector('.error-text');
-      if (err) {
-        err.remove();
-      }
-    }
-
-    form.onsubmit = function () {
-      const nameValue = inputName.value;
-      const mailValue = inputMail.value;
-      const phoneValue = inputPhone.value;
-      const adressValue = inputAdress.value;
-
-      const emptyValue = Array.from(formInputs).filter(
-        (input) => input.value === ''
-      );
-
-      formInputs.forEach(function (input) {
-        if (input.value === '') {
-          input.classList.add('error');
-        } else {
-          input.classList.remove('error');
-        }
-      });
-
-      if (emptyValue.length !== 0) {
-        return false;
-      }
-
-      if (!checkName(nameValue)) {
-        inputName.classList.add('error');
-        createErrorText('name', inputName);
-        return false;
-      } else {
-        inputName.classList.remove('error');
-        deleteErrorText();
-      }
-
-      if (!checkPhone(phoneValue)) {
-        inputPhone.classList.add('error');
-        createErrorText('phone', inputPhone);
-        return false;
-      } else {
-        inputPhone.classList.remove('error');
-        deleteErrorText();
-      }
-
-      if (!checkAdress(adressValue)) {
-        inputAdress.classList.add('error');
-        createErrorText('adress', inputAdress);
-        return false;
-      } else {
-        inputAdress.classList.remove('error');
-        deleteErrorText();
-      }
-
-      if (!checkMail(mailValue)) {
-        inputMail.classList.add('error');
-        createErrorText('e-mail', inputMail);
-        return false;
-      } else {
-        inputMail.classList.remove('error');
-        deleteErrorText();
-      }
-
-      if (numberField.value.length !== 16) {
-        numberField.classList.add('error');
-        createErrorText('number', cardNumber);
-        return false;
-      } else {
-        numberField.classList.remove('error');
-        deleteErrorText();
-      }
-
-      if (
-        Number(dateInput.value.split('/')[0]) > 12 ||
-        dateInput.value.length < 5
-      ) {
-        dateInput.classList.add('error');
-        createErrorText('date', validBlock);
-        return false;
-      } else {
-        dateInput.classList.remove('error');
-        deleteErrorText();
-      }
-
-      if (cvvInput.value.length !== 3) {
-        cvvInput.classList.add('error');
-        createErrorText('cvv', validBlock);
-        return false;
-      } else {
-        cvvInput.classList.remove('error');
-        deleteErrorText();
-      }
-
-      modalWindow.innerHTML =
-        'Thank you for the order. Redirect to home page...';
+    this.numberField.oninput = () => {
+      this.checkCardNumber();
     };
 
-    //cardNUmber
+    this.cvvInput.oninput = () => {
+      this.checkCVV();
+    };
 
-    function checkPaySystem() {
-      switch (numberField.value[0]) {
-        case '2':
-          cardIcon.src =
-            'https://photo.virtualbrest.ru/uploads/2022/03/15/c29822b85d1ba85616b98c231c73119c.jpeg';
-          break;
-        case '3':
-          cardIcon.src =
-            'https://pbs.twimg.com/profile_images/983285404253196288/rx3n00Ep_400x400.jpg';
-          break;
-        case '4':
-          cardIcon.src =
-            'https://infocity.tech/wp-content/uploads/2020/07/Visa-logo.jpg';
-          break;
-        case '5':
-          cardIcon.src =
-            'https://models.rsbis.com/storage/makets/preview/resize_600x600/26/42/2642b70ee46621ca320c3a82fc9fdc71.jpeg';
-          break;
-        default:
-          cardIcon.src =
-            'https://play-lh.googleusercontent.com/baXy546Srucl3vM1yaHr060eBL9_mrk0NH2GGRRCMTrKbekbx2pI77WCaXmNwUqnqQ';
-          break;
+    this.dateInput.oninput = () => {
+      this.dateCheck();
+    };
+
+    this.form.onsubmit = () => {
+      this.validationForm();
+    };
+
+    this.modalBack.onclick = () => {
+      this.modalWindow.remove();
+      this.modalBack.remove();
+    };
+  }
+
+  validationForm() {
+    const nameValue = this.inputName.value;
+    const mailValue = this.inputMail.value;
+    const phoneValue = this.inputPhone.value;
+    const adressValue = this.inputAdress.value;
+    const formInputs: NodeListOf<HTMLInputElement> =
+      document.querySelectorAll('.input');
+    const emptyValue = Array.from(formInputs).filter(
+      (input) => input.value === ''
+    );
+
+    formInputs.forEach(function (input) {
+      if (input.value === '') {
+        input.classList.add('error');
+      } else {
+        input.classList.remove('error');
       }
-    }
-
-    function checkCardNumber() {
-      const maxLength = 16;
-      if (numberField.value.length > maxLength) {
-        numberField.value = numberField.value.slice(0, maxLength);
-      }
-      checkPaySystem();
-    }
-    numberField.addEventListener('input', checkCardNumber);
-
-    //cvv
-    function checkCVV() {
-      const maxLength = 3;
-      if (cvvInput.value.length > maxLength) {
-        cvvInput.value = cvvInput.value.slice(0, maxLength);
-      }
-    }
-    cvvInput.addEventListener('input', checkCVV);
-
-    //date
-    function dateCheck() {
-      const maxLength = 5;
-      let cardDate = dateInput.value.replace(/\D/g, '').substring(0, 4);
-      const matchValue = cardDate.match(/.{1,2}/g);
-      if (matchValue) {
-        cardDate = matchValue.join('/');
-      }
-      dateInput.value = cardDate;
-      if (dateInput.value.length > maxLength) {
-        dateInput.value = dateInput.value.slice(0, maxLength);
-      }
-    }
-    dateInput.addEventListener('input', dateCheck);
-
-    const closeBack = <HTMLElement>document.querySelector('.modal-back-open');
-    const closeWindow = <HTMLElement>document.querySelector('.modal');
-
-    closeBack.addEventListener('click', function () {
-      closeWindow.remove();
-      closeBack.remove();
     });
+
+    if (emptyValue.length !== 0) {
+      return false;
+    }
+
+    if (!this.checkName(nameValue)) {
+      this.inputName.classList.add('error');
+      this.createErrorText('name', this.inputName);
+      return false;
+    } else {
+      this.inputName.classList.remove('error');
+      this.deleteErrorText();
+    }
+
+    if (!this.checkPhone(phoneValue)) {
+      this.inputPhone.classList.add('error');
+      this.createErrorText('phone', this.inputPhone);
+      return false;
+    } else {
+      console.log('tru');
+      this.inputPhone.classList.remove('error');
+      this.deleteErrorText();
+    }
+
+    if (!this.checkAdress(adressValue)) {
+      this.inputAdress.classList.add('error');
+      this.createErrorText('adress', this.inputAdress);
+      return false;
+    } else {
+      this.inputAdress.classList.remove('error');
+      this.deleteErrorText();
+    }
+
+    if (!this.checkMail(mailValue)) {
+      this.inputMail.classList.add('error');
+      this.createErrorText('e-mail', this.inputMail);
+      return false;
+    } else {
+      this.inputMail.classList.remove('error');
+      this.deleteErrorText();
+    }
+
+    if (this.numberField.value.length !== 16) {
+      this.numberField.classList.add('error');
+      this.createErrorText('number', this.cardNumber);
+      return false;
+    } else {
+      this.numberField.classList.remove('error');
+      this.deleteErrorText();
+    }
+
+    if (
+      Number(this.dateInput.value.split('/')[0]) > 12 ||
+      this.dateInput.value.length < 5
+    ) {
+      this.dateInput.classList.add('error');
+      this.createErrorText('date', this.validBlock);
+      return false;
+    } else {
+      this.dateInput.classList.remove('error');
+      this.deleteErrorText();
+    }
+
+    if (this.cvvInput.value.length !== 3) {
+      this.cvvInput.classList.add('error');
+      this.createErrorText('cvv', this.validBlock);
+      return false;
+    } else {
+      this.cvvInput.classList.remove('error');
+      this.deleteErrorText();
+    }
+
+    this.endMessage();
+  }
+
+  createErrorText(field: string, container: HTMLElement) {
+    const err = <HTMLElement>document.querySelector('.error-text');
+    if (err) {
+      return;
+    } else {
+      const errorText = document.createElement('span');
+      errorText.classList.add('error-text');
+      errorText.innerText = `Enter a correct ${field}`;
+      container.after(errorText);
+    }
+  }
+
+  deleteErrorText() {
+    const err = <HTMLElement>document.querySelector('.error-text');
+    if (err) {
+      err.remove();
+    }
+  }
+
+  checkName(name: string) {
+    const array = name.split(' ');
+    if (array.length >= 2) {
+      const filterArr = array.filter((el) => el.length >= 3);
+      if (array.length === filterArr.length) {
+        return true;
+      }
+    } else {
+      return false;
+    }
+  }
+
+  checkPhone(phone: string) {
+    const PHONE_REGEXP =
+      /^(\+)((\d{2,3}) ?\d|\d)(([ -]?\d)|( ?(\d{2,3}) ?)){7,15}\d$/iu;
+    return PHONE_REGEXP.test(phone);
+  }
+
+  checkAdress(adress: string) {
+    const array = adress.split(' ');
+    if (array.length >= 3) {
+      const filterArr = array.filter((el) => el.length >= 5);
+      if (array.length === filterArr.length) {
+        return true;
+      }
+    } else {
+      return false;
+    }
+  }
+
+  checkMail(mail: string) {
+    const EMAIL_REGEXP =
+      /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/iu;
+    return EMAIL_REGEXP.test(mail.toLowerCase());
+  }
+
+  checkPaySystem() {
+    switch (this.numberField.value[0]) {
+      case '2':
+        this.cardIcon.src =
+          'https://photo.virtualbrest.ru/uploads/2022/03/15/c29822b85d1ba85616b98c231c73119c.jpeg';
+        break;
+      case '3':
+        this.cardIcon.src =
+          'https://pbs.twimg.com/profile_images/983285404253196288/rx3n00Ep_400x400.jpg';
+        break;
+      case '4':
+        this.cardIcon.src =
+          'https://infocity.tech/wp-content/uploads/2020/07/Visa-logo.jpg';
+        break;
+      case '5':
+        this.cardIcon.src =
+          'https://models.rsbis.com/storage/makets/preview/resize_600x600/26/42/2642b70ee46621ca320c3a82fc9fdc71.jpeg';
+        break;
+      default:
+        this.cardIcon.src =
+          'https://play-lh.googleusercontent.com/baXy546Srucl3vM1yaHr060eBL9_mrk0NH2GGRRCMTrKbekbx2pI77WCaXmNwUqnqQ';
+        break;
+    }
+  }
+
+  checkCardNumber() {
+    const maxLength = 16;
+    if (this.numberField.value.length > maxLength) {
+      this.numberField.value = this.numberField.value.slice(0, maxLength);
+    }
+    this.checkPaySystem();
+  }
+
+  checkCVV() {
+    const maxLength = 3;
+    if (this.cvvInput.value.length > maxLength) {
+      this.cvvInput.value = this.cvvInput.value.slice(0, maxLength);
+    }
+  }
+
+  dateCheck() {
+    const maxLength = 5;
+    let cardDate = this.dateInput.value.replace(/\D/g, '').substring(0, 4);
+    const matchValue = cardDate.match(/.{1,2}/g);
+    if (matchValue) {
+      cardDate = matchValue.join('/');
+    }
+    this.dateInput.value = cardDate;
+    if (this.dateInput.value.length > maxLength) {
+      this.dateInput.value = this.dateInput.value.slice(0, maxLength);
+    }
+  }
+
+  endMessage() {
+    const endMessage = document.createElement('p');
+    endMessage.innerText = 'Thank you for the order. Redirect to main page...';
+    endMessage.classList.add('end-message');
+    this.modalWindow.innerHTML = '';
+    this.modalWindow.append(endMessage);
+    setTimeout(() => {
+      this.modalWindow.remove();
+      this.modalBack.remove();
+      App.state.cart.items = [];
+      App.header.reloadHeader();
+      window.location.hash = `#${PagesId.MainPage}`;
+    }, 4000);
   }
 }
 

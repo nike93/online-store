@@ -1,9 +1,12 @@
 import Component from '../../../components/templates/components';
 import CheckFilters from './checkFilters';
+import RangeFilters from './rangeFilters';
 
 class Filters extends Component {
   brandFilters: CheckFilters;
   categoryFilters: CheckFilters;
+  priceFilters: RangeFilters;
+  stockFilters: RangeFilters;
 
   static TextObject = {
     MainTitle: 'Filters',
@@ -13,6 +16,8 @@ class Filters extends Component {
     super('div', 'filters');
     this.brandFilters = new CheckFilters('brand');
     this.categoryFilters = new CheckFilters('category');
+    this.priceFilters = new RangeFilters('price');
+    this.stockFilters = new RangeFilters('stock');
   }
 
   render() {
@@ -20,7 +25,9 @@ class Filters extends Component {
     this.container.append(
       title,
       this.categoryFilters.render(),
-      this.brandFilters.render()
+      this.brandFilters.render(),
+      this.priceFilters.render(),
+      this.stockFilters.render()
     );
     return this.container;
   }
