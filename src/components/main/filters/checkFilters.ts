@@ -49,6 +49,8 @@ class CheckFilters {
       const numberAllMatches = this.numberMatches(App.data.prod, inputName);
       span.innerText = `${numberSortMatches} / ${numberAllMatches}`;
 
+      itemContainer.style.opacity = `${numberSortMatches === 0 ? 0.7 : 1}`;
+
       itemContainer.append(input, label, span);
       list.append(itemContainer);
     });
