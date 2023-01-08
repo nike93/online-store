@@ -6,12 +6,10 @@ class FiltrationLogic {
     let filteredData = data;
     const allBoxFilters = App.state.filters.checkboxes;
     for (const key of Object.keys(allBoxFilters) as Array<keyof productItem>) {
-      // console.log(allBoxFilters[key]);
       filteredData = filteredData.filter((el) =>
         allBoxFilters[key]?.includes(el[key] as keyof productItem)
       );
     }
-    // console.log(filteredData);
 
     return filteredData;
   }
@@ -80,12 +78,16 @@ class FiltrationLogic {
       const category: string = App.state.filters.sorting?.split('-')[0];
       const way = App.state.filters.sorting?.split('-')[1];
 
+      console.log(category, way);
+
       data.sort(function (a, b) {
         const x = a[category as keyof productItem];
         const y = b[category as keyof productItem];
         if (typeof x == 'number' && typeof y == 'number') {
+          console.log('pr');
           return way == 'high' ? x - y : y - x;
         } else if (typeof x == 'string' && typeof y == 'string') {
+          console.log('str');
           const isTrue = way == 'high' ? x > y : y > x;
           return isTrue ? 1 : -1;
         } else {
