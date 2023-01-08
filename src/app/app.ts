@@ -12,6 +12,7 @@ class App {
   private routing: Routing;
 
   constructor() {
+    App.data = data;
     App.state = {
       view: 'grid',
       cart: { items: [] },
@@ -21,21 +22,15 @@ class App {
         checkboxes: {},
         search: '',
         range: {},
+        filteredData: App.data.prod,
       },
     };
     App.header = new Header();
     this.footer = new Footer();
     this.routing = new Routing();
-    App.data = data;
   }
 
   run() {
-    App.state.cart.items.push({ prod: App.data.prod[1], qty: 1 });
-    App.state.cart.items.push({ prod: App.data.prod[2], qty: 1 });
-    App.state.cart.items.push({ prod: App.data.prod[3], qty: 1 });
-    App.state.cart.items.push({ prod: App.data.prod[4], qty: 1 });
-    App.state.cart.items.push({ prod: App.data.prod[5], qty: 1 });
-    App.state.cart.items.push({ prod: App.data.prod[6], qty: 1 });
     const headerDOM = document.querySelector('header');
     const footerDOM = document.querySelector('footer');
     const headerHTML = App.header.render();

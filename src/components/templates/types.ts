@@ -45,11 +45,17 @@ export interface pagination {
 }
 
 export interface filters {
-  checkboxes: checkboxes;
-  search: string;
-  range: object;
+  checkboxes: checkboxeInputs;
+  range: rangeInputs;
+  filteredData: productItem[];
+  search?: string;
+  sorting?: string;
 }
 
-export type checkboxes = {
+export type checkboxeInputs = {
   [prop in keyof Partial<productItem>]: string[];
+};
+
+export type rangeInputs = {
+  [prop in keyof Partial<productItem>]: number[];
 };

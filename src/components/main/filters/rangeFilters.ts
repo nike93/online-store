@@ -1,5 +1,8 @@
 import { productItem } from './../../templates/types';
 import * as noUiSlider from 'nouislider';
+import App from '../../../app/app';
+import MainPage from '../main';
+import FiltrationLogic from './filtrationLogic';
 
 class RangeFilters {
   protected container: HTMLElement;
@@ -11,14 +14,24 @@ class RangeFilters {
 
   renderInput() {
     const fragment = document.createDocumentFragment();
-    const input = document.createElement('div');
+    const input = document.createElement('div') as noUiSlider.target;
+    const sign = this.category == 'price' ? '$' : '';
+    const minData = Math.min(...App.data.prod.map((el) => +el[this.category]));
+    const maxData = Math.max(...App.data.prod.map((el) => +el[this.category]));
+    const stateFilter = App.state.filters.range[this.category];
+    const startMax = stateFilter ? stateFilter[0] : minData;
+    const startMin = stateFilter ? stateFilter[1] : maxData;
+    const initialVal = [startMax, startMin];
+
     input.classList.add('filters__range');
+    input.id = `input-${this.category}`;
     noUiSlider.create(input, {
-      start: [20, 80],
+      start: initialVal,
+      step: 1,
       connect: true,
       range: {
-        min: 0,
-        max: 100,
+        min: minData,
+        max: maxData,
       },
     });
 
@@ -29,12 +42,13 @@ class RangeFilters {
     container.append(minDom, maxDom);
     const snapValues = [minDom, maxDom];
 
-    (input as noUiSlider.target).noUiSlider?.on(
-      'update',
-      function (values, handle) {
-        snapValues[handle].innerHTML = String(values[handle]);
-      }
-    );
+    input.noUiSlider?.on('update', function (values, handle) {
+      snapValues[handle].innerHTML = String(values[handle] + sign);
+      App.state.filters.range[input.id.split('-')[1] as keyof productItem] =
+        values as number[];
+    });
+    input.noUiSlider?.on('change', FiltrationLogic.applyAllFilters);
+    input.noUiSlider?.on('change', MainPage.rerender);
     fragment.append(input, container);
     return fragment;
   }
