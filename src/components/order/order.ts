@@ -167,7 +167,6 @@ class orderWindow {
       this.createErrorText('phone', this.inputPhone);
       return false;
     } else {
-      console.log('tru');
       this.inputPhone.classList.remove('error');
       this.deleteErrorText();
     }

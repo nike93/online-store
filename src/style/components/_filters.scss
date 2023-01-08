@@ -51,3 +51,24 @@
     margin-left: 3px;
   }
 }
+
+.total-reset {
+  display: flex;
+  justify-content: space-around;
+  margin: 4% auto;
+
+  .reset-btn,
+  .copy-btn {
+    width: 40%;
+    height: 30px;
+    border: 2px solid $button-color;
+    border-radius: 12px;
+    cursor: pointer;
+    outline: none;
+    background-color: $border-color;
+    
+    &:hover {
+      opacity: 0.7;
+    }
+  }
+}

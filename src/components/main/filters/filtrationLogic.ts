@@ -33,15 +33,21 @@ class FiltrationLogic {
   static searchProduct(data: productItem[]) {
     const str = App.state.filters.search?.toLowerCase();
     let filteredData = data;
-    console.log('filteredData: ', filteredData);
     if (str) {
-      filteredData = filteredData.filter(
-        (el) =>
-          Object.keys(el).some((x) => x.toLowerCase().includes(str)) ||
-          Object.values(el).some(
-            (x) => typeof x == 'string' && x.toLowerCase().includes(str)
-          )
-      );
+      filteredData = filteredData.filter((el) => {
+        for (const key of Object.keys(el)) {
+          const value = el[key as keyof productItem];
+          if (key == 'images' || key == 'thumbnail' || key == 'id') {
+            continue;
+          } else if (
+            (typeof value == 'string' && value.toLowerCase().includes(str)) ||
+            (typeof value == 'number' &&
+              String(value).toLowerCase().includes(str))
+          ) {
+            return true;
+          }
+        }
+      });
     }
     return filteredData;
   }
@@ -74,7 +80,7 @@ class FiltrationLogic {
       const category: string = App.state.filters.sorting?.split('-')[0];
       const way = App.state.filters.sorting?.split('-')[1];
 
-      console.log(category, way);
+      console.log(App.state.filters.sorting);
 
       data.sort(function (a, b) {
         const x = a[category as keyof productItem];
