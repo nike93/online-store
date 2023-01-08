@@ -1,7 +1,7 @@
 import { productItem } from './../../templates/types';
 import Component from '../../templates/components';
 import ItemMain from './itemMain/itemMain';
-import FiltrationLogic from '../filters/filtrationLogic';
+
 import App from '../../../app/app';
 
 class ItemsList extends Component {
@@ -9,7 +9,7 @@ class ItemsList extends Component {
 
   constructor() {
     super('div', 'main__prod-list');
-    this.products = FiltrationLogic.filterDataCheckbox(App.data.prod);
+    this.products = App.state.filters.filteredData;
   }
   isEmptyList() {
     if (this.products.length == 0)

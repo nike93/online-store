@@ -2,6 +2,7 @@ import { productItem } from './../../templates/types';
 import data from '../../../data.json';
 import App from '../../../app/app';
 import MainPage from '../main';
+import FiltrationLogic from './filtrationLogic';
 
 class CheckFilters {
   protected container: HTMLElement;
@@ -65,6 +66,9 @@ class CheckFilters {
     } else {
       App.state.filters.checkboxes[key as keyof productItem]?.push(value);
     }
+    FiltrationLogic.applyAllFilters();
+    FiltrationLogic.setRangeValuesFromCheckBox();
+
     MainPage.rerender();
     // FiltrationLogic.filterDataCheckbox();
   }
