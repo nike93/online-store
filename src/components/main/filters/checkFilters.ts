@@ -3,6 +3,7 @@ import data from '../../../data.json';
 import App from '../../../app/app';
 import MainPage from '../main';
 import FiltrationLogic from './filtrationLogic';
+import Query from '../../../query/query';
 
 class CheckFilters {
   protected container: HTMLElement;
@@ -68,6 +69,7 @@ class CheckFilters {
     }
     FiltrationLogic.applyAllFilters();
     FiltrationLogic.setRangeValuesFromCheckBox();
+    Query.addCheckBoxesToHash();
 
     MainPage.rerender();
     // FiltrationLogic.filterDataCheckbox();

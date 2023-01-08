@@ -22,7 +22,9 @@ class App {
         checkboxes: {},
         search: '',
         range: {},
-        filteredData: structuredClone(App.data.prod),
+
+        filteredData: structuredClone(data.prod),
+        searchFocus: false,
       },
     };
     App.header = new Header();

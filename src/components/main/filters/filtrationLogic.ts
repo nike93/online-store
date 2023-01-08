@@ -80,16 +80,12 @@ class FiltrationLogic {
       const category: string = App.state.filters.sorting?.split('-')[0];
       const way = App.state.filters.sorting?.split('-')[1];
 
-      console.log(App.state.filters.sorting);
-
       data.sort(function (a, b) {
         const x = a[category as keyof productItem];
         const y = b[category as keyof productItem];
         if (typeof x == 'number' && typeof y == 'number') {
-          console.log('pr');
           return way == 'high' ? x - y : y - x;
         } else if (typeof x == 'string' && typeof y == 'string') {
-          console.log('str');
           const isTrue = way == 'high' ? x > y : y > x;
           return isTrue ? 1 : -1;
         } else {
