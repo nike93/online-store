@@ -44,7 +44,12 @@ class CheckFilters {
       label.textContent = inputName;
       label.htmlFor = inputID;
 
-      itemContainer.append(input, label);
+      const span = document.createElement('span');
+      const numberSortMatches = this.numberMatches(App.state.filters.filteredData, inputName);
+      const numberAllMatches = this.numberMatches(App.data.prod, inputName);
+      span.innerText = `${numberSortMatches} / ${numberAllMatches}`;
+
+      itemContainer.append(input, label, span);
       list.append(itemContainer);
     });
 
@@ -84,6 +89,10 @@ class CheckFilters {
     if (App.state.filters.checkboxes[category]?.length == 0) {
       delete App.state.filters.checkboxes[category];
     }
+  }
+
+  numberMatches(data: productItem[], value: string) {
+    return data.filter((el) => Object.values(el).includes(value)).length;
   }
 
   renderBlock() {
