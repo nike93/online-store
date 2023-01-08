@@ -68,5 +68,5 @@ class Query {
     }
   }
 }
-App.state.filters.filteredData;
+
 export default Query;
