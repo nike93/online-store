@@ -48,6 +48,7 @@ export interface filters {
   checkboxes: checkboxeInputs;
   range: rangeInputs;
   filteredData: productItem[];
+  searchFocus: boolean;
   search?: string;
   sorting?: string;
 }

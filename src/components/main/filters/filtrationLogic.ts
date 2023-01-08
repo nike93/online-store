@@ -33,15 +33,21 @@ class FiltrationLogic {
   static searchProduct(data: productItem[]) {
     const str = App.state.filters.search?.toLowerCase();
     let filteredData = data;
-    console.log('filteredData: ', filteredData);
     if (str) {
-      filteredData = filteredData.filter(
-        (el) =>
-          Object.keys(el).some((x) => x.toLowerCase().includes(str)) ||
-          Object.values(el).some(
-            (x) => typeof x == 'string' && x.toLowerCase().includes(str)
-          )
-      );
+      filteredData = filteredData.filter((el) => {
+        for (const key of Object.keys(el)) {
+          const value = el[key as keyof productItem];
+          if (key == 'images' || key == 'thumbnail' || key == 'id') {
+            continue;
+          } else if (
+            (typeof value == 'string' && value.toLowerCase().includes(str)) ||
+            (typeof value == 'number' &&
+              String(value).toLowerCase().includes(str))
+          ) {
+            return true;
+          }
+        }
+      });
     }
     return filteredData;
   }
@@ -74,16 +80,14 @@ class FiltrationLogic {
       const category: string = App.state.filters.sorting?.split('-')[0];
       const way = App.state.filters.sorting?.split('-')[1];
 
-      console.log(category, way);
+      // console.log(category, way);
 
       data.sort(function (a, b) {
         const x = a[category as keyof productItem];
         const y = b[category as keyof productItem];
         if (typeof x == 'number' && typeof y == 'number') {
-          console.log('pr');
           return way == 'high' ? x - y : y - x;
         } else if (typeof x == 'string' && typeof y == 'string') {
-          console.log('str');
           const isTrue = way == 'high' ? x > y : y > x;
           return isTrue ? 1 : -1;
         } else {

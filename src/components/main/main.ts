@@ -25,6 +25,14 @@ class MainPage extends Component {
     MainPage.filters.append(...new Filters().render().childNodes);
     MainPage.headline.append(...new HeadLine().render().childNodes);
   }
+
+  static rerenderForSearch() {
+    MainPage.items.innerHTML = '';
+    MainPage.filters.innerHTML = '';
+    MainPage.items.append(...new ItemsList().render().childNodes);
+    MainPage.filters.append(...new Filters().render().childNodes);
+    HeadLine.uploadTotalQty();
+  }
   //
 
   renderCatalog() {

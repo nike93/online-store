@@ -4,8 +4,10 @@ import FiltrationLogic from './filters/filtrationLogic';
 import MainPage from './main';
 
 class HeadLine extends Component {
+  static totalDom: HTMLElement;
   constructor() {
     super('div', 'main__header');
+    HeadLine.totalDom = document.createElement('div');
   }
 
   renderSortOptions() {
@@ -48,10 +50,13 @@ class HeadLine extends Component {
   }
 
   renderTotalFound() {
-    const total = document.createElement('div');
-    total.classList.add('main__stat');
-    total.textContent = `Found: ${App.state.filters.filteredData.length}`;
-    return total;
+    HeadLine.totalDom.classList.add('main__stat');
+    HeadLine.uploadTotalQty();
+    return HeadLine.totalDom;
+  }
+
+  static uploadTotalQty() {
+    HeadLine.totalDom.textContent = `Found: ${App.state.filters.filteredData.length}`;
   }
 
   renderSearchBar() {
@@ -63,9 +68,10 @@ class HeadLine extends Component {
     }
 
     input.addEventListener('input', () => {
+      App.state.filters.searchFocus = true;
       App.state.filters.search = input.value;
       FiltrationLogic.applyAllFilters();
-      MainPage.rerender();
+      MainPage.rerenderForSearch();
     });
     return input;
   }
