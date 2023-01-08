@@ -80,8 +80,6 @@ class FiltrationLogic {
       const category: string = App.state.filters.sorting?.split('-')[0];
       const way = App.state.filters.sorting?.split('-')[1];
 
-      // console.log(category, way);
-
       data.sort(function (a, b) {
         const x = a[category as keyof productItem];
         const y = b[category as keyof productItem];

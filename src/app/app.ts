@@ -22,6 +22,7 @@ class App {
         checkboxes: {},
         search: '',
         range: {},
+
         filteredData: structuredClone(data.prod),
         searchFocus: false,
       },
