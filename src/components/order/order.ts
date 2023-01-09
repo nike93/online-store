@@ -94,6 +94,7 @@ class orderWindow {
     confirmBtn.innerText = 'Confirm';
     confirmBtn.type = 'submit';
 
+    //this.form.action = '';
     this.form.append(
       this.inputName,
       this.inputPhone,
@@ -121,7 +122,8 @@ class orderWindow {
       this.dateCheck();
     };
 
-    this.form.onsubmit = () => {
+    this.form.onsubmit = (e) => {
+      e.preventDefault();
       this.validationForm();
     };
 
@@ -136,8 +138,7 @@ class orderWindow {
     const mailValue = this.inputMail.value;
     const phoneValue = this.inputPhone.value;
     const adressValue = this.inputAdress.value;
-    const formInputs: NodeListOf<HTMLInputElement> =
-      document.querySelectorAll('.input');
+    const formInputs: NodeListOf<HTMLInputElement> = document.querySelectorAll('.input');
     const emptyValue = Array.from(formInputs).filter(
       (input) => input.value === ''
     );
@@ -148,11 +149,7 @@ class orderWindow {
       } else {
         input.classList.remove('error');
       }
-    });
-
-    if (emptyValue.length !== 0) {
-      return false;
-    }
+    });    
 
     if (!this.checkName(nameValue)) {
       this.inputName.classList.add('error');
@@ -219,8 +216,11 @@ class orderWindow {
       this.cvvInput.classList.remove('error');
       this.deleteErrorText();
     }
-
-    this.endMessage();
+    if (emptyValue.length !== 0) {
+      return false;
+    } else {
+      this.endMessage();
+    }
   }
 
   createErrorText(field: string, container: HTMLElement) {
