@@ -21,8 +21,13 @@ const baseConfig = {
   plugins: [
     new HtmlWebpackPlugin({
       favicon: path.resolve(__dirname, "./src/img/favicon.ico"),
-      template: path.resolve(__dirname, "./src/index.html"),
+      template: path.resolve(__dirname, "./src/index.html"),      
       filename: "index.html",
+    }),
+    new HtmlWebpackPlugin({
+      favicon: path.resolve(__dirname, "./src/img/favicon.ico"),
+      template: path.resolve(__dirname, "./src/404.html"),
+      filename: "404.html",
     }),
     new CleanWebpackPlugin(),
     new EslingPlugin({ extensions: "ts" }),

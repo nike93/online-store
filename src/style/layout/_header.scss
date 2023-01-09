@@ -29,9 +29,18 @@
       height: 40px;
       background-size: contain;
     }
+
+    &-logo:hover {
+      opacity: 0.7;
+    }
+
     &-name {
       display: flex;
       align-items: center;
+    }
+
+    &-name:hover {
+      opacity: 0.7;
     }
   }
   &__price {
@@ -39,14 +48,28 @@
     gap: 10px;
     @include font(1.8rem, 1.8rem, 400);
   }
+
+  &__price-title {
+    color: $button-color;
+  }
+
+  &__price-sum {
+    color: rgb(55, 54, 54);
+  }
+
   &__cart {
     position: relative;
     background: url('./img/svg/header-cart.svg') no-repeat;
     width: 40px;
     height: 35.5px;
     background-size: contain;
-    cursor: pointer;
+    cursor: pointer;    
   }
+
+  &__cart:hover {
+    opacity: 0.7;
+  }
+
   &__total {
     &-container {
       position: absolute;
