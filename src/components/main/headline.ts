@@ -71,6 +71,7 @@ class HeadLine extends Component {
 
     input.addEventListener('input', () => {
       App.state.filters.searchFocus = true;
+      App.state.filters.isChangedByRange = false;
       App.state.filters.search = input.value;
       Query.addToHash('search', input.value);
       FiltrationLogic.applyAllFilters();

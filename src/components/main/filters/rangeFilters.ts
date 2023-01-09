@@ -19,15 +19,21 @@ class RangeFilters {
     const sign = this.category == 'price' ? '$' : '';
     const minData = Math.min(...App.data.prod.map((el) => +el[this.category]));
     const maxData = Math.max(...App.data.prod.map((el) => +el[this.category]));
-    const stateFilter = App.state.filters.range[this.category];
-    const startMax = stateFilter ? stateFilter[0] : minData;
-    const startMin = stateFilter ? stateFilter[1] : maxData;
-    const initialVal = [startMax, startMin];
+    const startMax = Math.max(
+      ...App.state.filters.filteredData.map((el) => +el[this.category])
+    );
+    const startMin = Math.min(
+      ...App.state.filters.filteredData.map((el) => +el[this.category])
+    );
+    const initialVal =
+      App.state.filters.isChangedByRange == false
+        ? [startMin, startMax]
+        : App.state.filters.range[this.category];
 
     input.classList.add('filters__range');
     input.id = `input-${this.category}`;
     noUiSlider.create(input, {
-      start: initialVal,
+      start: initialVal || [minData, maxData],
       step: 1,
       connect: true,
       range: {
@@ -42,9 +48,19 @@ class RangeFilters {
     const maxDom = document.createElement('span');
     container.append(minDom, maxDom);
     const snapValues = [minDom, maxDom];
+    if (
+      App.state.filters.filteredData.length == 0 &&
+      App.state.filters.isChangedByRange == false
+    ) {
+      container.innerHTML = 'not found';
+      container.style.justifyContent = 'center';
+    }
 
     input.noUiSlider?.on('update', function (values, handle) {
-      snapValues[handle].innerHTML = String(values[handle] + sign);
+      snapValues[handle].innerHTML = String(values[handle]).slice(0, -3) + sign;
+    });
+    input.noUiSlider?.on('change', function (values) {
+      App.state.filters.isChangedByRange = true;
       App.state.filters.range[input.id.split('-')[1] as keyof productItem] =
         values as number[];
     });
@@ -57,7 +73,6 @@ class RangeFilters {
           .map((el) => String(el).split('.')[0])
           .join('-');
         Query.addToHash(input.id.split('-')[1], queryValue);
-        console.log(App.state.filters.range);
       }
     });
     fragment.append(input, container);
