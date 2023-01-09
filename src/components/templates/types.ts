@@ -51,6 +51,7 @@ export interface filters {
   searchFocus: boolean;
   search?: string;
   sorting?: string;
+  isChangedByRange: boolean;
 }
 
 export type checkboxeInputs = {

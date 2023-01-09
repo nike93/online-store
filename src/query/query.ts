@@ -90,6 +90,9 @@ class Query {
     }
     if (key == 'price' || key == 'stock') {
       App.state.filters.range[key] = value.split('-').map((el) => +el);
+      if (key == 'price') {
+        App.state.filters.isChangedByRange = true;
+      }
     }
     if (key == 'view') {
       App.state.view = value;

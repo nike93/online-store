@@ -45,7 +45,10 @@ class CheckFilters {
       label.htmlFor = inputID;
 
       const span = document.createElement('span');
-      const numberSortMatches = this.numberMatches(App.state.filters.filteredData, inputName);
+      const numberSortMatches = this.numberMatches(
+        App.state.filters.filteredData,
+        inputName
+      );
       const numberAllMatches = this.numberMatches(App.data.prod, inputName);
       span.innerText = `${numberSortMatches} / ${numberAllMatches}`;
 
@@ -75,7 +78,8 @@ class CheckFilters {
       App.state.filters.checkboxes[key as keyof productItem]?.push(value);
     }
     FiltrationLogic.applyAllFilters();
-    FiltrationLogic.setRangeValuesFromCheckBox();
+    App.state.filters.isChangedByRange = false;
+    // FiltrationLogic.setRangeValuesFromCheckBox();
     Query.addCheckBoxesToHash();
 
     MainPage.rerender();

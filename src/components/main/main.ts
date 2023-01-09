@@ -9,7 +9,7 @@ class MainPage extends Component {
   static headline: HTMLElement;
 
   constructor() {
-    super('div', 'main__wrapper', 'main-page');
+    super('div', 'main__wrapper');
 
     MainPage.items = new ItemsList().render();
     MainPage.filters = new Filters().render();
