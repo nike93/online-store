@@ -21,31 +21,35 @@ class resetButtons {
     this.buttonCopy.innerText = 'Copy Link';
 
     this.buttonCopy.addEventListener('click', () => this.copyLink());
-    this.buttonReset.addEventListener('click', () => this.resetFilters());
+    this.buttonReset.addEventListener('click', () => {
+      resetButtons.resetFilters();
+      MainPage.rerender();
+    });
 
     this.container.append(this.buttonReset, this.buttonCopy);
   }
 
-  copyLink () {
+  copyLink() {
     const link = window.location.href;
-    navigator.clipboard.writeText(link)
-    .then(() => {
-      this.buttonCopy.innerText = "Copied!";
-      setTimeout(() => this.buttonCopy.innerText = "Copy Link", 1500)
-    })
-    .catch(() => {
-      this.buttonCopy.innerText = "Error!";
-      setTimeout(() => this.buttonCopy.innerText = "Copy Link", 1500)
-    });
+    navigator.clipboard
+      .writeText(link)
+      .then(() => {
+        this.buttonCopy.innerText = 'Copied!';
+        setTimeout(() => (this.buttonCopy.innerText = 'Copy Link'), 1500);
+      })
+      .catch(() => {
+        this.buttonCopy.innerText = 'Error!';
+        setTimeout(() => (this.buttonCopy.innerText = 'Copy Link'), 1500);
+      });
   }
 
-  resetFilters() {
+  static resetFilters() {
     App.state.filters.checkboxes = {};
     App.state.filters.search = '';
-    App.state.filters.range = {};   
+    App.state.filters.range = {};
     App.state.filters.sorting = '';
-    App.state.filters.filteredData = structuredClone(App.data.prod)
-    MainPage.rerender();
+    App.state.filters.filteredData = structuredClone(App.data.prod);
+    window.location.hash = '';
   }
 
   render() {
