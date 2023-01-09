@@ -59,20 +59,6 @@ class FiltrationLogic {
     return filteredData;
   }
 
-  // function that change in state values for range. Then we use this val when render input ranges
-  static setRangeValuesFromCheckBox() {
-    console.log('App.state.filters.filteredData=', App.state.filters.filteredData)
-    console.log('App.state.filters.range=', App.state.filters.range)
-    const allBoxFilters = App.state.filters.range;
-    for (const key of Object.keys(allBoxFilters) as Array<keyof productItem>) {
-      allBoxFilters[key] = [
-        Math.min(...App.state.filters.filteredData.map((el) => +el[key])),
-        Math.max(...App.state.filters.filteredData.map((el) => +el[key])),
-      ];
-    }
-    
-  }
-
   // Sorting
 
   static sortData() {

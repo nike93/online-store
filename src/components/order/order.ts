@@ -35,6 +35,7 @@ class orderWindow {
   }
 
   openWindow() {
+    App.state.cart.promoString = '';
     this.modalWindow.classList.add('modal');
 
     const titleModal = document.createElement('h3');
