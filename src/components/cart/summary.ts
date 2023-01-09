@@ -25,7 +25,7 @@ class Summary extends Component {
   }
   renderProducts() {
     const prod = document.createElement('div');
-    prod.classList.add('summary__produscts');
+    prod.classList.add('summary__products');
     const subtitle = document.createElement('span');
     subtitle.textContent = 'Products: ';
     const number = document.createElement('span');

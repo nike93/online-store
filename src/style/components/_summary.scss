@@ -1,22 +1,30 @@
 .summary {
   flex-basis: 25%;
+  max-height: 100%;
   border-radius: 12px;
   border: 1px solid $border-color;
   padding: 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  align-self: start;
   @include font(1.8rem, 2rem, 400);
   &__title {
     @include font(2rem, 2rem, 600);
-    text-decoration: underline;
+    color: $button-color;
     margin-bottom: 20px;
+    font-weight: bold;
+    font-size: 25px;
   }
   &__products {
-    margin-bottom: 5px;
+    margin-bottom: 5%;
+    color: rgb(82, 80, 80);
+    font-weight: bold;
   }
+  
   &__total {
     margin-bottom: 3px;
+    font-weight: bold;
   }
   &__input {
     background: transparent;

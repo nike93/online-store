@@ -4,12 +4,15 @@
 
 .footer {
   display: flex;
+  width: 100%;
+  border-top: 1px solid rgb(203, 200, 200);
 
   &__wrapper {
     width: 100%;
     display: flex;
     justify-content: space-around;
     align-items: center;
+    padding-top: 1%;
   }
 
   &__git {

@@ -14,8 +14,8 @@
     display: flex;
     width: 100%;
     flex-wrap: wrap;
-    // justify-content: space-between;
     gap: 15px;
+    justify-content: space-around;
   }
   &__header {
     display: flex;
@@ -78,5 +78,6 @@
     border: 1px solid $border-color;
     border-radius: 12px;
     padding: 0 2rem;
+    cursor: pointer;
   }
 }

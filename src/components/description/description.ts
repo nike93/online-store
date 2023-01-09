@@ -140,10 +140,12 @@ class DescriptionPage extends Component {
     ).length;
     if (isInCart > 0) {
       addCart.innerText = 'Drop from cart';
+      addCart.classList.add('active');
     } else {
       addCart.innerText = 'Add to cart';
+      addCart.classList.remove('active');
     }
-    //addCart.innerText = '';
+    
     btnContainer.append(btnBuy, addCart);
     priceBlock.append(price, btnContainer);
     descriptionContainerFrame.append(priceBlock);
@@ -175,12 +177,12 @@ class DescriptionPage extends Component {
       ).length;
       if (isInCart > 0) {
         addCart.textContent = 'Add to cart';
-        addCart.classList.add('active');
+        addCart.classList.remove('active');        
         CartPage.removeItemFromCart(this.products[id]);
         App.header.reloadHeader();
       } else {
         addCart.textContent = 'Drop from cart';
-        addCart.classList.remove('active');
+        addCart.classList.add('active');
         CartPage.addItemtoCart(this.products[id]);
         App.header.reloadHeader();
       }
