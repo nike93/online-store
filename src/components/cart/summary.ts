@@ -86,6 +86,7 @@ class Summary extends Component {
     this.promoContainer.classList.add('summary__suggest-code');
     const input = document.createElement('input');
     input.classList.add('summary__input');
+    input.value = App.state.cart.promoString;
     input.placeholder = 'Enter promo code';
     input.addEventListener('input', this.checkPromo.bind(this));
     return input;
@@ -136,6 +137,7 @@ class Summary extends Component {
 
   checkPromo(e: Event) {
     const value = (e.currentTarget as HTMLInputElement).value.toLowerCase();
+    App.state.cart.promoString = value;
     if (coupons.find((el) => el.name == value)) {
       this.renderPromoSuggestion(value);
     } else {
@@ -162,7 +164,7 @@ class Summary extends Component {
     btn.addEventListener('click', () => {
       const order = new orderWindow();
       order.openWindow();
-    })
+    });
     return btn;
   }
   render() {

@@ -3,6 +3,7 @@ import Header from '../components/header/header';
 import Routing from '../routing/routing';
 import data from '../data.json';
 import { allProducts, state } from './../components/templates/types';
+import { crosscheckDescription } from '../crosscheckDescription';
 
 class App {
   static header: Header;
@@ -15,7 +16,7 @@ class App {
     App.data = data;
     App.state = {
       view: 'grid',
-      cart: { items: [] },
+      cart: { items: [], promoString: '' },
       appliedCuppons: [],
       pagination: {},
       filters: {
@@ -33,6 +34,7 @@ class App {
   }
 
   run() {
+    console.log(crosscheckDescription);
     const headerDOM = document.querySelector('header');
     const footerDOM = document.querySelector('footer');
     const headerHTML = App.header.render();

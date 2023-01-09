@@ -49,6 +49,7 @@ class Header extends Component {
     container.append(totalContainer);
     container.addEventListener('click', () => {
       window.location.hash = `#${PagesId.CartPage}`;
+      App.state.cart.promoString = '';
     });
     return container;
   }

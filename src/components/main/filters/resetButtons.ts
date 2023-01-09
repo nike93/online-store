@@ -49,7 +49,7 @@ class resetButtons {
     App.state.filters.range = {};
     App.state.filters.sorting = '';
     App.state.filters.filteredData = structuredClone(App.data.prod);
-    window.location.hash = '';
+    window.location.hash = 'main-page';
   }
 
   render() {

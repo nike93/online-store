@@ -26,6 +26,7 @@ export interface state {
 
 export interface cart {
   items: cartItem[];
+  promoString: string;
 }
 
 export interface cartItem {
