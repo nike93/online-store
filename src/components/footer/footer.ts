@@ -49,7 +49,7 @@ class Footer extends Component {
   render() {
     this.gitHubLinks();
     const year = document.createElement('p');
-    year.innerText = '2022';
+    year.innerText = '2023';
     this.container.append(year);
     this.rsLinks();
     this.container.classList.add('wrapper');
