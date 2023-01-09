@@ -43,7 +43,7 @@ class Pagination extends Component {
     this.checkInvalidPage(val);
     App.state.pagination.limit = val;
     CartPage.loadPage();
-    Query.addToHash('limit', val);
+    Query.addToHash('limit', String(val));
   }
 
   checkInvalidPage(limit?: number) {
@@ -80,7 +80,7 @@ class Pagination extends Component {
       return;
     }
     App.state.pagination.page = num;
-    Query.addToHash('page', num);
+    Query.addToHash('page', String(num));
     CartPage.loadPage();
   }
 

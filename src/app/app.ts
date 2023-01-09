@@ -37,14 +37,13 @@ class App {
     const footerDOM = document.querySelector('footer');
     const headerHTML = App.header.render();
     const footerHTML = this.footer.render();
-    this.routing.enableRouteChange();
     this.routing.checkLoadRouting();
+    this.routing.enableRouteChange();
     if (headerDOM && footerDOM) {
       headerDOM.append(headerHTML);
       footerDOM.append(footerHTML);
     }
   }
 }
-('');
 
 export default App;

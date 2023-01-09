@@ -3,6 +3,7 @@ import * as noUiSlider from 'nouislider';
 import App from '../../../app/app';
 import MainPage from '../main';
 import FiltrationLogic from './filtrationLogic';
+import Query from '../../../query/query';
 
 class RangeFilters {
   protected container: HTMLElement;
@@ -49,6 +50,16 @@ class RangeFilters {
     });
     input.noUiSlider?.on('change', FiltrationLogic.applyAllFilters);
     input.noUiSlider?.on('change', MainPage.rerender);
+    input.noUiSlider?.on('change', () => {
+      const value = input.noUiSlider?.get();
+      if (typeof value == 'object') {
+        const queryValue = value
+          .map((el) => String(el).split('.')[0])
+          .join('-');
+        Query.addToHash(input.id.split('-')[1], queryValue);
+        console.log(App.state.filters.range);
+      }
+    });
     fragment.append(input, container);
     return fragment;
   }

@@ -1,6 +1,7 @@
 import Component from '../../components/templates/components';
 import { PagesId } from '../../routing/routing';
 import App from '../../app/app';
+import resetButtons from '../main/filters/resetButtons';
 
 class Header extends Component {
   priceSumHTML: HTMLElement;
@@ -21,7 +22,7 @@ class Header extends Component {
     logo.classList.add('header__brand-logo', 'logo');
     container.append(logo, brandName);
     container.addEventListener('click', () => {
-      window.location.hash = `#${PagesId.MainPage}`;
+      resetButtons.resetFilters();
     });
     return container;
   }

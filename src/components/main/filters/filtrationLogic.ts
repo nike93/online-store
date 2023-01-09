@@ -55,7 +55,7 @@ class FiltrationLogic {
     filteredData = FiltrationLogic.filterDataRange(filteredData);
     filteredData = FiltrationLogic.searchProduct(filteredData);
     App.state.filters.filteredData = filteredData;
-    // console.log(App.state.filters.filteredData, App.data.prod);
+    FiltrationLogic.sortData();
     return filteredData;
   }
 
@@ -78,17 +78,16 @@ class FiltrationLogic {
       const category: string = App.state.filters.sorting?.split('-')[0];
       const way = App.state.filters.sorting?.split('-')[1];
 
-      console.log(category, way);
-
       data.sort(function (a, b) {
         const x = a[category as keyof productItem];
         const y = b[category as keyof productItem];
         if (typeof x == 'number' && typeof y == 'number') {
-          console.log('pr');
           return way == 'high' ? x - y : y - x;
         } else if (typeof x == 'string' && typeof y == 'string') {
-          console.log('str');
-          const isTrue = way == 'high' ? x > y : y > x;
+          const isTrue =
+            way == 'high'
+              ? x.toLowerCase() > y.toLowerCase()
+              : y.toLowerCase() > x.toLowerCase();
           return isTrue ? 1 : -1;
         } else {
           return 1;

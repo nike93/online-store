@@ -4,6 +4,8 @@ import ErrorPage from '../components/error/error';
 import MainPage from '../components/main/main';
 import Component from '../components/templates/components';
 import App from '../app/app';
+import Query from '../query/query';
+import LStorage from '../query/localStorage';
 
 export const enum PagesId {
   MainPage = 'main-page',
@@ -20,7 +22,6 @@ class Routing {
     this.statePage = '';
   }
   renderNewPage(hash: string) {
-    // console.log(this.statePage);
     const currentPageHTML = document.querySelector(`#${this.defaultPageId}`);
     if (currentPageHTML && currentPageHTML.childNodes[0]) {
       currentPageHTML.childNodes[0].remove();
@@ -64,6 +65,9 @@ class Routing {
   checkLoadRouting() {
     window.addEventListener('load', () => {
       const hash = window.location.hash.slice(1).split('?')[0];
+      LStorage.getLocalStorage();
+      App.header.reloadHeader();
+      Query.readQueryString(window.location.hash);
 
       if (hash.length > 0) {
         this.renderNewPage(hash);
@@ -72,6 +76,8 @@ class Routing {
       }
       this.statePage = hash;
     });
+
+    window.addEventListener('beforeunload', LStorage.setLocalStorage);
   }
   checkIsSamePage(hash: string) {
     return this.statePage == hash;

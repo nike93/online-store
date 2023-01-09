@@ -1,8 +1,9 @@
 import { productItem } from './../components/templates/types';
 import App from '../app/app';
+import FiltrationLogic from '../components/main/filters/filtrationLogic';
 
 class Query {
-  static addToHash(name: string, value: number) {
+  static addToHash(name: string, value: string) {
     const hash = window.location.hash;
     const page = hash.slice(1).split('?')[0];
     if (hash.indexOf('?') == -1) {
@@ -14,6 +15,9 @@ class Query {
       query.map((el, ind) => {
         if (el.includes(name)) {
           query.splice(ind, 1, `${name}=${value}`);
+        }
+        if (el.includes(name) && !value) {
+          query.splice(ind, 1);
         }
       });
       window.location.hash = [page, query.join('&')].join('?');
@@ -49,6 +53,7 @@ class Query {
     }
     Query.isLastCheckBox();
   }
+
   static isLastCheckBox() {
     const keys = ['category', 'brand'];
     const hash = window.location.hash;
@@ -66,6 +71,42 @@ class Query {
           query.length == 0 ? page : [page, query.join('&')].join('?');
       }
     }
+  }
+
+  static readQueryString(hash: string) {
+    const queryString = hash.split('?')[1];
+    if (queryString) {
+      const queries = queryString.split('&');
+      queries.forEach((el) => Query.changeStateFromQuery(el));
+    }
+  }
+
+  static changeStateFromQuery(query: string) {
+    const [key, value] = query.split('=');
+    if (key == 'category' || key == 'brand') {
+      App.state.filters.checkboxes[key] = value
+        .split(',')
+        .map((el) => el.split('%20').join(' '));
+    }
+    if (key == 'price' || key == 'stock') {
+      App.state.filters.range[key] = value.split('-').map((el) => +el);
+    }
+    if (key == 'view') {
+      App.state.view = value;
+    }
+    if (key == 'search') {
+      App.state.filters.search = value;
+    }
+    if (key == 'sort') {
+      App.state.filters.sorting = value;
+    }
+    if (key == 'limit') {
+      App.state.pagination.limit = +value;
+    }
+    if (key == 'page') {
+      App.state.pagination.page = +value;
+    }
+    FiltrationLogic.applyAllFilters();
   }
 }
 

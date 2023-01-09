@@ -1,4 +1,5 @@
 import App from '../../app/app';
+import Query from '../../query/query';
 import Component from '../templates/components';
 import FiltrationLogic from './filters/filtrationLogic';
 import MainPage from './main';
@@ -18,6 +19,7 @@ class HeadLine extends Component {
     select.addEventListener('change', () => {
       App.state.filters.sorting = select.value;
       FiltrationLogic.sortData();
+      Query.addToHash('sort', select.value);
 
       MainPage.rerender();
     });
@@ -70,6 +72,7 @@ class HeadLine extends Component {
     input.addEventListener('input', () => {
       App.state.filters.searchFocus = true;
       App.state.filters.search = input.value;
+      Query.addToHash('search', input.value);
       FiltrationLogic.applyAllFilters();
       MainPage.rerenderForSearch();
     });
@@ -80,6 +83,9 @@ class HeadLine extends Component {
     const container = document.createElement('div');
     container.addEventListener('click', (e) => {
       const id = (e.target as HTMLElement).id;
+      if (id) {
+        Query.addToHash('view', id);
+      }
       if (id === App.state.view) {
         return;
       } else {
