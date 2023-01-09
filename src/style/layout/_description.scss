@@ -1,3 +1,8 @@
+.main {
+  margin: 0 auto;
+  background-color: rgb(250, 248, 248);
+}
+
 .navigation {
   text-align: center;
   padding-top: 2%;
@@ -102,6 +107,8 @@
 
 .btn-container {
   margin-top: 2%;
+  display: flex;
+  justify-content: space-around;
 }
 
 .button {
@@ -110,6 +117,11 @@
   cursor: pointer;
   height: 40px;
 }
+
+.button:hover {
+  opacity: 0.7;
+}
+
 .buy-btn {
   width: 120px;
   background-color: #333333;
@@ -119,7 +131,11 @@
 .cart-btn {
   width: 240px;
   border: 1px solid #333333;
-  color: #333333;
-  background-color: white;
+  color: white;
+  background-color: $button-color;
   margin-left: 5%;
+}
+
+.active {
+  background-color: rgb(241, 103, 103);
 }
