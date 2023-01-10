@@ -73,7 +73,7 @@ class orderWindow {
 
     this.numberField.classList.add('number-field', 'input');
     this.numberField.placeholder = 'Card number';
-    this.numberField.type = 'number';
+    this.numberField.type = 'text';
 
     this.cardNumber.append(this.cardIcon, this.numberField);
 
@@ -84,7 +84,7 @@ class orderWindow {
 
     this.cvvInput.classList.add('cvv-input', 'input');
     this.cvvInput.placeholder = 'CVV';
-    this.cvvInput.type = 'number';
+    this.cvvInput.type = 'text';
     this.validBlock.append(this.dateInput, this.cvvInput);
 
     creditCard.append(this.cardNumber, this.validBlock);
@@ -130,6 +130,10 @@ class orderWindow {
       this.modalWindow.remove();
       this.modalBack.remove();
     };
+  }
+
+  onlyNumberCheck (element: HTMLInputElement) {
+    element.value = element.value.replace(/[\D]/g,'');
   }
 
   validationForm() {
@@ -308,6 +312,7 @@ class orderWindow {
       this.numberField.value = this.numberField.value.slice(0, maxLength);
     }
     this.checkPaySystem();
+    this.onlyNumberCheck(this.numberField);
   }
 
   checkCVV() {
@@ -315,6 +320,7 @@ class orderWindow {
     if (this.cvvInput.value.length > maxLength) {
       this.cvvInput.value = this.cvvInput.value.slice(0, maxLength);
     }
+    this.onlyNumberCheck(this.cvvInput);
   }
 
   dateCheck() {
