@@ -167,7 +167,10 @@ class DescriptionPage extends Component {
     });
 
     btnBuy.addEventListener('click', () => {
-      if (isInCart === 0) {
+      const checkCart: number = App.state.cart.items.filter(
+        (el) => el.prod.id == this.products[id].id
+      ).length;
+      if (checkCart === 0) {
         CartPage.addItemtoCart(this.products[id]);
         App.header.reloadHeader();
       }      
@@ -177,6 +180,9 @@ class DescriptionPage extends Component {
     });
 
     addCart.addEventListener('click', () => {
+      const isInCart: number = App.state.cart.items.filter(
+        (el) => el.prod.id == this.products[id].id
+      ).length;
       if (isInCart > 0) {
         addCart.textContent = 'Add to cart';
         addCart.classList.remove('active');        
