@@ -32,7 +32,8 @@ class Routing {
       page = new MainPage();
     } else if (
       hash.split('!')[0] === PagesId.DescriptionPage &&
-      hash.split('!')[1]
+      hash.split('!')[1] &&
+      App.data.prod[+hash.split('!')[1] - 1]
     ) {
       page = new DescriptionPage(App.data.prod, Number(hash.split('!')[1]));
     } else if (hash === PagesId.CartPage) {
