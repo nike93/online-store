@@ -19,3 +19,7 @@ body {
   font-size: 1.6rem;
   @extend %font-main;
 }
+
+.body-wrapper {
+  max-width: 1260px;
+}
