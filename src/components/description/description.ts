@@ -128,6 +128,9 @@ class DescriptionPage extends Component {
     const btnContainer = document.createElement('div');
     btnContainer.classList.add('btn-container');
 
+    const isInCart: number = App.state.cart.items.filter(
+      (el) => el.prod.id == this.products[id].id
+    ).length;
     //buy now
     const btnBuy = document.createElement('button');
     btnBuy.classList.add('button', 'buy-btn');
@@ -135,9 +138,7 @@ class DescriptionPage extends Component {
     //add to cart
     const addCart = document.createElement('button');
     addCart.classList.add('button', 'cart-btn');
-    const isInCart: number = App.state.cart.items.filter(
-      (el) => el.prod.id == this.products[id].id
-    ).length;
+    
     if (isInCart > 0) {
       addCart.innerText = 'Drop from cart';
       addCart.classList.add('active');
@@ -165,16 +166,17 @@ class DescriptionPage extends Component {
       }
     });
 
-    btnBuy.addEventListener('click', function () {
+    btnBuy.addEventListener('click', () => {
+      if (isInCart === 0) {
+        CartPage.addItemtoCart(this.products[id]);
+        App.header.reloadHeader();
+      }      
       window.location.hash = `#${PagesId.CartPage}`;
       const order = new orderWindow();
       order.openWindow();
     });
 
     addCart.addEventListener('click', () => {
-      const isInCart: number = App.state.cart.items.filter(
-        (el) => el.prod.id == this.products[id].id
-      ).length;
       if (isInCart > 0) {
         addCart.textContent = 'Add to cart';
         addCart.classList.remove('active');        

@@ -94,7 +94,6 @@ class orderWindow {
     confirmBtn.innerText = 'Confirm';
     confirmBtn.type = 'submit';
 
-    //this.form.action = '';
     this.form.append(
       this.inputName,
       this.inputPhone,
