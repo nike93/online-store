@@ -51,7 +51,9 @@ class FiltrationLogic {
   }
 
   static applyAllFilters() {
-    let filteredData = FiltrationLogic.filterDataCheckbox(App.data.prod);
+    let filteredData = FiltrationLogic.filterDataCheckbox(
+      App.state.filters.filteredData
+    );
     filteredData = FiltrationLogic.filterDataRange(filteredData);
     filteredData = FiltrationLogic.searchProduct(filteredData);
     App.state.filters.filteredData = filteredData;
