@@ -121,7 +121,8 @@ class orderWindow {
       this.dateCheck();
     };
 
-    this.form.onsubmit = () => {
+    this.form.onsubmit = (e) => {
+      e.preventDefault();
       this.validationForm();
     };
 
