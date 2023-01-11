@@ -16,6 +16,7 @@ class CartPage extends Component {
   static addItemtoCart(item: productItem) {
     const newItem: cartItem = { prod: item, qty: 1 };
     App.state.cart.items.push(newItem);
+    App.state.pagination.limit = App.state.cart.items.length;
   }
 
   static removeItemFromCart(item: productItem) {
@@ -25,6 +26,7 @@ class CartPage extends Component {
         goods.splice(ind, 1);
       }
     });
+    App.state.pagination.limit = App.state.cart.items.length;
   }
 
   static emptyCartDom() {
