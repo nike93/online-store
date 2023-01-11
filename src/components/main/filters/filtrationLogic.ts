@@ -52,7 +52,7 @@ class FiltrationLogic {
 
   static applyAllFilters() {
     let filteredData = FiltrationLogic.filterDataCheckbox(
-      App.state.filters.filteredData
+      structuredClone(App.data.prod)
     );
     filteredData = FiltrationLogic.filterDataRange(filteredData);
     filteredData = FiltrationLogic.searchProduct(filteredData);
