@@ -11,7 +11,7 @@ export const State: state = {
     search: '',
     range: {},
     isChangedByRange: false,
-    filteredData: structuredClone(data.prod),
+    filteredData: JSON.parse(JSON.stringify(data.prod)),
     searchFocus: false,
   },
 };
