@@ -1,9 +1,10 @@
-import Footer from '../components/footer/footer';
-import Header from '../components/header/header';
-import Routing from '../routing/routing';
-import data from '../data.json';
-import { allProducts, state } from './../components/templates/types';
+import Footer from './components/footer/footer';
+import Header from './components/header/header';
+import Routing from './routing/routing';
+import data from '../data/data.json';
+import { allProducts, state } from './components/templates/types';
 import { crosscheckDescription } from '../crosscheckDescription';
+import { State } from './state/state';
 
 class App {
   static header: Header;
@@ -14,20 +15,7 @@ class App {
 
   constructor() {
     App.data = data;
-    App.state = {
-      view: 'grid',
-      cart: { items: [], promoString: '' },
-      appliedCuppons: [],
-      pagination: {},
-      filters: {
-        checkboxes: {},
-        search: '',
-        range: {},
-        isChangedByRange: false,
-        filteredData: structuredClone(data.prod),
-        searchFocus: false,
-      },
-    };
+    App.state = State;
     App.header = new Header();
     this.footer = new Footer();
     this.routing = new Routing();
