@@ -167,10 +167,10 @@ class DescriptionPage extends Component {
     });
 
     btnBuy.addEventListener('click', () => {
-      const checkCart: number = App.state.cart.items.filter(
+      const isInCart: number = App.state.cart.items.filter(
         (el) => el.prod.id == this.products[id].id
       ).length;
-      if (checkCart === 0) {
+      if (isInCart === 0) {
         CartPage.addItemtoCart(this.products[id]);
         App.header.reloadHeader();
       }      

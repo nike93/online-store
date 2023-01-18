@@ -18,6 +18,7 @@ class CartItem extends Component {
   }
 
   renderCartItemInfo() {
+    console.log(this.cartItem)
     return `
     <div class="cart-item__position">${this.index + 1}</div>
     <div class="cart-item__info" onclick="window.location.hash='product!${
