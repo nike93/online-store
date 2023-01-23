@@ -1,7 +1,7 @@
 import Component from './../templates/components';
 import { PagesId } from '../../routing/routing';
 import App from '../../../app/app';
-import resetButtons from '../../pages/main/filters/resetButtons';
+import ResetButtons from '../../pages/main/filters/resetButtons';
 
 class Header extends Component {
   priceSumHTML: HTMLElement;
@@ -12,7 +12,7 @@ class Header extends Component {
     this.totalItemsHTML = document.createElement('div');
   }
 
-  renderLogoBlock() {
+  renderLogoBlock(): HTMLElement {
     const container = document.createElement('div');
     container.classList.add('header__brand');
     const brandName = document.createElement('h1');
@@ -22,12 +22,12 @@ class Header extends Component {
     logo.classList.add('header__brand-logo', 'logo');
     container.append(logo, brandName);
     container.addEventListener('click', () => {
-      resetButtons.resetFilters();
+      ResetButtons.resetFilters();
     });
     return container;
   }
 
-  renderPriceBlock() {
+  renderPriceBlock(): HTMLElement {
     const container = document.createElement('div');
     container.classList.add('header__price');
     const priceTitle = document.createElement('span');
@@ -39,7 +39,7 @@ class Header extends Component {
     return container;
   }
 
-  renderCartBlock() {
+  renderCartBlock(): HTMLElement {
     const container = document.createElement('div');
     container.classList.add('header__cart');
     const totalContainer = document.createElement('div');
@@ -54,7 +54,7 @@ class Header extends Component {
     return container;
   }
 
-  protected createHeader() {
+  protected createHeader(): void {
     this.container.classList.add('wrapper');
 
     const headerTitle = this.renderLogoBlock();
@@ -64,7 +64,7 @@ class Header extends Component {
     this.container.append(headerTitle, totalPrice, cart);
   }
 
-  reloadHeader() {
+  reloadHeader(): void {
     this.totalItemsHTML.innerText = String(
       App.state.cart.items.reduce((a, b) => a + b.qty, 0),
     );
@@ -74,7 +74,7 @@ class Header extends Component {
     )}`;
   }
 
-  render() {
+  render(): HTMLElement {
     this.createHeader();
     this.reloadHeader();
     return this.container;

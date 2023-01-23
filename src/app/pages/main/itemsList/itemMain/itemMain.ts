@@ -1,17 +1,17 @@
-import { productItem } from '../../../../components/templates/types';
+import { ProductItem } from '../../../../components/templates/types';
 import Component from '../../../../components/templates/components';
 import App from '../../../../app';
 import CartPage from '../../../cart/cart';
 
 class ItemMain extends Component {
-  product: productItem;
+  product: ProductItem;
 
-  constructor(product: productItem) {
+  constructor(product: ProductItem) {
     super('div', 'main-item');
     this.product = product;
   }
 
-  renderGridCards() {
+  renderGridCards(): void {
     const itemWrapper = document.createElement('div');
     itemWrapper.classList.add('main-item__wrapper');
     const itemImg = document.createElement('div');
@@ -52,7 +52,7 @@ class ItemMain extends Component {
     this.container.append(itemWrapper);
   }
 
-  addToCart(e: Event) {
+  addToCart(e: Event): void {
     CartPage.addItemtoCart(this.product);
     App.header.reloadHeader();
     (e.target as HTMLElement).textContent = 'drop from cart';
@@ -66,7 +66,7 @@ class ItemMain extends Component {
     );
   }
 
-  removeFromCart(e: Event) {
+  removeFromCart(e: Event): void {
     CartPage.removeItemFromCart(this.product);
     App.header.reloadHeader();
     (e.target as HTMLElement).textContent = 'add to cart';
@@ -79,7 +79,8 @@ class ItemMain extends Component {
       { once: true },
     );
   }
-  checkInCart(element: HTMLElement) {
+
+  checkInCart(element: HTMLElement): void {
     const isInCart: number = App.state.cart.items.filter(
       (el) => el.prod.id == this.product.id,
     ).length;
@@ -106,7 +107,7 @@ class ItemMain extends Component {
     }
   }
 
-  render() {
+  render(): HTMLElement {
     this.renderGridCards();
 
     return this.container;

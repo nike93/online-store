@@ -1,4 +1,4 @@
-import { productItem } from '../../../components/templates/types';
+import { ProductItem } from '../../../components/templates/types';
 import * as noUiSlider from 'nouislider';
 import App from '../../../app';
 import MainPage from '../main';
@@ -7,13 +7,13 @@ import Query from '../../../query/query';
 
 class RangeFilters {
   protected container: HTMLElement;
-  category: keyof productItem;
-  constructor(category: keyof productItem) {
+  category: keyof ProductItem;
+  constructor(category: keyof ProductItem) {
     this.container = document.createElement('div');
     this.category = category;
   }
 
-  renderInput() {
+  renderInput(): DocumentFragment {
     const fragment = document.createDocumentFragment();
     const input = document.createElement('div') as noUiSlider.target;
     const sign = this.category == 'price' ? '$' : '';
@@ -61,7 +61,7 @@ class RangeFilters {
     });
     input.noUiSlider?.on('change', function (values) {
       App.state.filters.isChangedByRange = true;
-      App.state.filters.range[input.id.split('-')[1] as keyof productItem] =
+      App.state.filters.range[input.id.split('-')[1] as keyof ProductItem] =
         values as number[];
     });
     input.noUiSlider?.on('change', FiltrationLogic.applyAllFilters);
@@ -77,14 +77,14 @@ class RangeFilters {
     return fragment;
   }
 
-  renderBlock() {
+  renderBlock(): void {
     this.container.classList.add('filters__block');
     const title = document.createElement('p');
     title.textContent = this.category.toUpperCase();
     this.container.append(title, this.renderInput());
   }
 
-  render() {
+  render(): HTMLElement {
     this.renderBlock();
     return this.container;
   }

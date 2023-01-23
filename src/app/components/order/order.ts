@@ -1,7 +1,7 @@
 import { PagesId } from '../../routing/routing';
 import App from '../../app';
 
-class orderWindow {
+class OrderWindow {
   private container: HTMLElement;
   private modalWindow: HTMLElement;
   private modalBack: HTMLElement;
@@ -34,7 +34,7 @@ class orderWindow {
     this.cardIcon = document.createElement('img');
   }
 
-  openWindow() {
+  openWindow(): void {
     App.state.cart.promoString = '';
     this.modalWindow.classList.add('modal');
 
@@ -132,11 +132,11 @@ class orderWindow {
     };
   }
 
-  onlyNumberCheck(element: HTMLInputElement) {
+  onlyNumberCheck(element: HTMLInputElement): void {
     element.value = element.value.replace(/[\D]/g, '');
   }
 
-  validationForm() {
+  validationForm(): boolean | void {
     const nameValue = this.inputName.value;
     const mailValue = this.inputMail.value;
     const phoneValue = this.inputPhone.value;
@@ -225,7 +225,7 @@ class orderWindow {
     }
   }
 
-  createErrorText(field: string, container: HTMLElement) {
+  createErrorText(field: string, container: HTMLElement): void {
     const err = <HTMLElement>document.querySelector('.error-text');
     if (err) {
       return;
@@ -237,14 +237,14 @@ class orderWindow {
     }
   }
 
-  deleteErrorText() {
+  deleteErrorText(): void {
     const err = <HTMLElement>document.querySelector('.error-text');
     if (err) {
       err.remove();
     }
   }
 
-  checkName(name: string) {
+  checkName(name: string): boolean | void {
     const array = name.split(' ');
     if (array.length >= 2) {
       const filterArr = array.filter((el) => el.length >= 3);
@@ -256,13 +256,13 @@ class orderWindow {
     }
   }
 
-  checkPhone(phone: string) {
+  checkPhone(phone: string): boolean {
     const PHONE_REGEXP =
       /^(\+)((\d{2,3}) ?\d|\d)(([ -]?\d)|( ?(\d{2,3}) ?)){7,15}\d$/iu;
     return PHONE_REGEXP.test(phone);
   }
 
-  checkAdress(adress: string) {
+  checkAdress(adress: string): boolean | void {
     const array = adress.split(' ');
     if (array.length >= 3) {
       const filterArr = array.filter((el) => el.length >= 5);
@@ -274,13 +274,13 @@ class orderWindow {
     }
   }
 
-  checkMail(mail: string) {
+  checkMail(mail: string): boolean {
     const EMAIL_REGEXP =
       /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/iu;
     return EMAIL_REGEXP.test(mail.toLowerCase());
   }
 
-  checkPaySystem() {
+  checkPaySystem(): void {
     switch (this.numberField.value[0]) {
       case '2':
         this.cardIcon.src =
@@ -305,7 +305,7 @@ class orderWindow {
     }
   }
 
-  checkCardNumber() {
+  checkCardNumber(): void {
     const maxLength = 16;
     if (this.numberField.value.length > maxLength) {
       this.numberField.value = this.numberField.value.slice(0, maxLength);
@@ -314,7 +314,7 @@ class orderWindow {
     this.onlyNumberCheck(this.numberField);
   }
 
-  checkCVV() {
+  checkCVV(): void {
     const maxLength = 3;
     if (this.cvvInput.value.length > maxLength) {
       this.cvvInput.value = this.cvvInput.value.slice(0, maxLength);
@@ -322,7 +322,7 @@ class orderWindow {
     this.onlyNumberCheck(this.cvvInput);
   }
 
-  dateCheck() {
+  dateCheck(): void {
     const maxLength = 5;
     let cardDate = this.dateInput.value.replace(/\D/g, '').substring(0, 4);
     const matchValue = cardDate.match(/.{1,2}/g);
@@ -335,7 +335,7 @@ class orderWindow {
     }
   }
 
-  endMessage() {
+  endMessage(): void {
     const endMessage = document.createElement('p');
     endMessage.innerText = 'Thank you for the order. Redirect to main page...';
     endMessage.classList.add('end-message');
@@ -351,4 +351,4 @@ class orderWindow {
   }
 }
 
-export default orderWindow;
+export default OrderWindow;

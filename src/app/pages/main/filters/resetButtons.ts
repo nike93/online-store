@@ -1,7 +1,7 @@
 import App from '../../../app';
 import MainPage from '../main';
 
-class resetButtons {
+class ResetButtons {
   container: HTMLElement;
   buttonReset: HTMLButtonElement;
   buttonCopy: HTMLButtonElement;
@@ -12,7 +12,7 @@ class resetButtons {
     this.buttonCopy = document.createElement('button');
   }
 
-  createButtons() {
+  createButtons(): void {
     this.buttonReset.classList.add('reset-btn');
     this.buttonReset.innerText = 'Reset Filters';
 
@@ -21,14 +21,14 @@ class resetButtons {
 
     this.buttonCopy.addEventListener('click', () => this.copyLink());
     this.buttonReset.addEventListener('click', () => {
-      resetButtons.resetFilters();
+      ResetButtons.resetFilters();
       MainPage.rerender();
     });
 
     this.container.append(this.buttonReset, this.buttonCopy);
   }
 
-  copyLink() {
+  copyLink(): void {
     const link = window.location.href;
     navigator.clipboard
       .writeText(link)
@@ -42,7 +42,7 @@ class resetButtons {
       });
   }
 
-  static resetFilters() {
+  static resetFilters(): void {
     App.state.filters.checkboxes = {};
     App.state.filters.search = '';
     App.state.filters.range = {};
@@ -51,11 +51,11 @@ class resetButtons {
     window.location.hash = 'main-page';
   }
 
-  render() {
+  render(): HTMLElement {
     this.container.classList.add('total-reset');
     this.createButtons();
     return this.container;
   }
 }
 
-export default resetButtons;
+export default ResetButtons;

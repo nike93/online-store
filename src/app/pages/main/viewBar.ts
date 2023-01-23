@@ -11,7 +11,7 @@ class ViewBar extends Component {
     ViewBar.totalDom = document.createElement('div');
   }
 
-  renderSortOptions() {
+  renderSortOptions(): HTMLElement {
     const sortBar = document.createElement('div');
     sortBar.classList.add('sort-bar');
     const select = document.createElement('select');
@@ -51,17 +51,17 @@ class ViewBar extends Component {
     return sortBar;
   }
 
-  renderTotalFound() {
+  renderTotalFound(): HTMLElement {
     ViewBar.totalDom.classList.add('main__stat');
     ViewBar.uploadTotalQty();
     return ViewBar.totalDom;
   }
 
-  static uploadTotalQty() {
+  static uploadTotalQty(): void {
     ViewBar.totalDom.textContent = `Found: ${App.state.filters.filteredData.length}`;
   }
 
-  renderSearchBar() {
+  renderSearchBar(): HTMLInputElement {
     const input = document.createElement('input');
     input.classList.add('main__search');
     input.placeholder = `Search product`;
@@ -80,7 +80,7 @@ class ViewBar extends Component {
     return input;
   }
 
-  renderViewButtons() {
+  renderViewButtons(): HTMLElement {
     const container = document.createElement('div');
     container.addEventListener('click', (e) => {
       const id = (e.target as HTMLElement).id;
@@ -110,7 +110,7 @@ class ViewBar extends Component {
     return container;
   }
 
-  render() {
+  render(): HTMLElement {
     this.container.append(
       this.renderSortOptions(),
       this.renderTotalFound(),

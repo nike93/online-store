@@ -1,7 +1,7 @@
-import { state } from './../components/templates/types';
+import { StateInterface } from './../components/templates/types';
 import data from '../../data/data.json';
 
-export const State: state = {
+export const State: StateInterface = {
   view: 'grid',
   cart: { items: [], promoString: '' },
   appliedCuppons: [],

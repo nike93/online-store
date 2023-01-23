@@ -16,8 +16,7 @@ class MainPage extends Component {
     MainPage.headline = new ViewBar().render();
   }
 
-  // TODO! replace
-  static rerender() {
+  static rerender(): void {
     MainPage.items.innerHTML = '';
     MainPage.filters.innerHTML = '';
     MainPage.headline.innerHTML = '';
@@ -26,23 +25,22 @@ class MainPage extends Component {
     MainPage.headline.append(...new ViewBar().render().childNodes);
   }
 
-  static rerenderForSearch() {
+  static rerenderForSearch(): void {
     MainPage.items.innerHTML = '';
     MainPage.filters.innerHTML = '';
     MainPage.items.append(...new ItemsList().render().childNodes);
     MainPage.filters.append(...new Filters().render().childNodes);
     ViewBar.uploadTotalQty();
   }
-  //
 
-  renderCatalog() {
+  renderCatalog(): HTMLElement {
     const catalog = document.createElement('div');
     catalog.classList.add('main__catalog');
     catalog.append(MainPage.headline, MainPage.items);
     return catalog;
   }
 
-  render() {
+  render(): HTMLElement {
     this.container.classList.add('wrapper');
     this.container.append(MainPage.filters);
 

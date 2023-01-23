@@ -9,13 +9,13 @@ abstract class Component {
     }
   }
 
-  protected createTitle(text: string) {
+  protected createTitle(text: string): HTMLElement {
     const title = document.createElement('h1');
     title.innerText = text;
     return title;
   }
 
-  render() {
+  render(): HTMLElement {
     return this.container;
   }
 }

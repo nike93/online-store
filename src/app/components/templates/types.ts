@@ -1,4 +1,4 @@
-export interface productItem {
+export interface ProductItem {
   id: number;
   title: string;
   description: string;
@@ -11,44 +11,44 @@ export interface productItem {
   thumbnail: string;
   images: string[];
 }
-export interface allProducts {
-  prod: productItem[];
+export interface AllProducts {
+  prod: ProductItem[];
   total: number;
 }
 
-export interface state {
+export interface StateInterface {
   view?: string;
-  cart: cart;
-  appliedCuppons: coupon[];
-  pagination: pagination;
-  filters: filters;
+  cart: Cart;
+  appliedCuppons: Coupon[];
+  pagination: Pagination;
+  filters: Filters;
 }
 
-export interface cart {
-  items: cartItem[];
+export interface Cart {
+  items: CartItemInterface[];
   promoString: string;
 }
 
-export interface cartItem {
-  prod: productItem;
+export interface CartItemInterface {
+  prod: ProductItem;
   qty: number;
 }
 
-export interface coupon {
+export interface Coupon {
   name: string;
   description: string;
   percentage: number;
 }
 
-export interface pagination {
+export interface Pagination {
   limit?: number;
   page?: number;
 }
 
-export interface filters {
+export interface Filters {
   checkboxes: checkboxeInputs;
   range: rangeInputs;
-  filteredData: productItem[];
+  filteredData: ProductItem[];
   searchFocus: boolean;
   search?: string;
   sorting?: string;
@@ -56,9 +56,9 @@ export interface filters {
 }
 
 export type checkboxeInputs = {
-  [prop in keyof Partial<productItem>]: string[];
+  [prop in keyof Partial<ProductItem>]: string[];
 };
 
 export type rangeInputs = {
-  [prop in keyof Partial<productItem>]: number[];
+  [prop in keyof Partial<ProductItem>]: number[];
 };

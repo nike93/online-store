@@ -1,14 +1,14 @@
 import Component from '../../../components/templates/components';
 import CheckFilters from './checkFilters';
 import RangeFilters from './rangeFilters';
-import resetButtons from './resetButtons';
+import ResetButtons from './resetButtons';
 
 class Filters extends Component {
   brandFilters: CheckFilters;
   categoryFilters: CheckFilters;
   priceFilters: RangeFilters;
   stockFilters: RangeFilters;
-  totalReset: resetButtons;
+  totalReset: ResetButtons;
 
   static TextObject = {
     MainTitle: 'Filters',
@@ -20,10 +20,10 @@ class Filters extends Component {
     this.categoryFilters = new CheckFilters('category');
     this.priceFilters = new RangeFilters('price');
     this.stockFilters = new RangeFilters('stock');
-    this.totalReset = new resetButtons();
+    this.totalReset = new ResetButtons();
   }
 
-  render() {
+  render(): HTMLElement {
     const title = this.createTitle(Filters.TextObject.MainTitle);
     this.container.append(
       title,

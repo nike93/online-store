@@ -1,15 +1,14 @@
-import { cartItem } from '../../components/templates/types';
+import { CartItemInterface } from '../../components/templates/types';
 import Component from '../../components/templates/components';
 import App from '../../app';
 import CartPage from './cart';
-// import App from '../../app/app';
 
 class CartItem extends Component {
-  cartItem: cartItem;
+  cartItem: CartItemInterface;
   index: number;
   price: HTMLElement;
   qty: HTMLElement;
-  constructor(cartItem: cartItem, index: number) {
+  constructor(cartItem: CartItemInterface, index: number) {
     super('div', 'cart-item');
     this.cartItem = cartItem;
     this.index = index;
@@ -17,7 +16,7 @@ class CartItem extends Component {
     this.qty = document.createElement('span');
   }
 
-  renderCartItemInfo() {
+  renderCartItemInfo(): string {
     return `
     <div class="cart-item__position">${this.index + 1}</div>
     <div class="cart-item__info" onclick="window.location.hash='product!${
@@ -38,7 +37,7 @@ class CartItem extends Component {
     `;
   }
 
-  renderControlQty() {
+  renderControlQty(): HTMLElement {
     const container = document.createElement('div');
     container.classList.add('cart-item__control');
     const plusBTN = document.createElement('button');
@@ -57,7 +56,7 @@ class CartItem extends Component {
     return container;
   }
 
-  renderQtyBlock() {
+  renderQtyBlock(): HTMLElement {
     const container = document.createElement('div');
     container.classList.add('cart-item__navigation');
 
@@ -75,7 +74,7 @@ class CartItem extends Component {
     return container;
   }
 
-  addOneItem() {
+  addOneItem(): void {
     if (this.cartItem.qty == this.cartItem.prod.stock) {
       return;
     }
@@ -84,7 +83,7 @@ class CartItem extends Component {
     App.header.reloadHeader();
   }
 
-  removeOneItem() {
+  removeOneItem(): void {
     this.cartItem.qty--;
     let index;
     if (this.cartItem.qty == 0) {
@@ -96,7 +95,7 @@ class CartItem extends Component {
     App.header.reloadHeader();
   }
 
-  render() {
+  render(): HTMLElement {
     this.container.innerHTML = this.renderCartItemInfo();
     this.container.append(this.renderQtyBlock());
     return this.container;

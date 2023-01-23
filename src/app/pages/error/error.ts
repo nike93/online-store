@@ -12,7 +12,7 @@ class ErrorPage extends Component {
     this.errorType = "404";
   }
 
-  render() {
+  render(): HTMLElement {
     const title = this.createTitle(ErrorPage.TextObject[this.errorType]);
     this.container.append(title);
     return this.container;

@@ -8,21 +8,21 @@ class Pagination extends Component {
     super('div', 'cart-list__header');
   }
 
-  renderTitle() {
+  renderTitle(): HTMLElement {
     const title = document.createElement('span');
     title.classList.add('cart-list__title');
     title.textContent = 'Products in cart';
     return title;
   }
 
-  renderPaginationControl() {
+  renderPaginationControl(): HTMLElement {
     const container = document.createElement('div');
     container.classList.add('pagination');
     container.append(this.renderLimit(), this.renderPage());
     return container;
   }
 
-  renderLimit() {
+  renderLimit(): HTMLElement {
     this.isStateLimitExist();
     const limitN = App.state.pagination.limit;
     const limit = document.createElement('div');
@@ -39,14 +39,14 @@ class Pagination extends Component {
     return limit;
   }
 
-  setLimit(val: number) {
+  setLimit(val: number): void {
     this.checkInvalidPage(val);
     App.state.pagination.limit = val;
     CartPage.loadPage();
     Query.addToHash('limit', String(val));
   }
 
-  checkInvalidPage(limit?: number) {
+  checkInvalidPage(limit?: number): void {
     if (!limit) {
       limit = App.state.pagination.limit || 1;
     }
@@ -57,21 +57,21 @@ class Pagination extends Component {
     }
   }
 
-  isStatePageExist() {
+  isStatePageExist(): void {
     const page = App.state.pagination.page;
     if (!page) {
       App.state.pagination.page = 1;
     }
   }
 
-  isStateLimitExist() {
+  isStateLimitExist(): void {
     const limit = App.state.pagination.limit;
     if (!limit || limit > App.state.cart.items.length) {
       App.state.pagination.limit = App.state.cart.items.length;
     }
   }
 
-  changePage(num: number) {
+  changePage(num: number): void {
     const limit = App.state.pagination.limit;
     if (
       (limit && num > Math.ceil(App.state.cart.items.length / limit)) ||
@@ -84,7 +84,7 @@ class Pagination extends Component {
     CartPage.loadPage();
   }
 
-  renderPage() {
+  renderPage(): HTMLElement {
     const pageN = App.state.pagination.page || 1;
     const page = document.createElement('div');
     page.classList.add('pagination__page');
@@ -104,7 +104,7 @@ class Pagination extends Component {
     return page;
   }
 
-  render() {
+  render(): HTMLElement {
     this.checkInvalidPage();
     this.container.innerHTML = '';
     this.container.append(this.renderTitle(), this.renderPaginationControl());

@@ -1,8 +1,8 @@
 import Component from '../../components/templates/components';
 import App from '../../app';
 import coupons from './../../../data/coupons.json';
-import { coupon } from '../../components/templates/types';
-import orderWindow from '../../components/order/order';
+import { Coupon } from '../../components/templates/types';
+import OrderWindow from '../../components/order/order';
 
 class Summary extends Component {
   appliedCodes: HTMLElement;
@@ -17,13 +17,13 @@ class Summary extends Component {
     this.salePrice = document.createElement('div');
   }
 
-  renderTitle() {
+  renderTitle(): HTMLElement {
     const title = document.createElement('p');
     title.classList.add('summary__title');
     title.textContent = 'Summary';
     return title;
   }
-  renderProducts() {
+  renderProducts(): HTMLElement {
     const prod = document.createElement('div');
     prod.classList.add('summary__products');
     const subtitle = document.createElement('span');
@@ -33,7 +33,7 @@ class Summary extends Component {
     prod.append(subtitle, number);
     return prod;
   }
-  renderTotal() {
+  renderTotal(): HTMLElement {
     this.regularPrice.classList.add('summary__total');
     const subtitle = document.createElement('span');
     subtitle.textContent = 'Total: ';
@@ -45,7 +45,7 @@ class Summary extends Component {
     this.regularPrice.append(subtitle, number);
     return this.regularPrice;
   }
-  renderPromoSuggestion(input: string) {
+  renderPromoSuggestion(input: string): void {
     const code = coupons.find((el) => el.name == input);
     if (code) {
       this.promoContainer.textContent = code?.description;
@@ -56,7 +56,7 @@ class Summary extends Component {
     }
   }
 
-  addCoupon(code: coupon) {
+  addCoupon(code: Coupon): void {
     if (this.isApplied(code)) {
       return;
     }
@@ -65,7 +65,7 @@ class Summary extends Component {
     this.renderSalePrice();
   }
 
-  dropCoupon(code: coupon) {
+  dropCoupon(code: Coupon): void {
     const index = App.state.appliedCuppons.indexOf(code);
     App.state.appliedCuppons.splice(index, 1);
     if (App.state.appliedCuppons.length == 0) {
@@ -79,7 +79,7 @@ class Summary extends Component {
     this.renderSalePrice();
   }
 
-  renderInput() {
+  renderInput(): HTMLInputElement {
     this.promoContainer.classList.add('summary__suggest-code');
     const input = document.createElement('input');
     input.classList.add('summary__input');
@@ -89,7 +89,7 @@ class Summary extends Component {
     return input;
   }
 
-  renderAppliedCodes() {
+  renderAppliedCodes(): void {
     if (App.state.appliedCuppons.length > 0) {
       this.appliedCodes.innerHTML = '';
       this.appliedCodes.classList.add('codes', 'codes_hide');
@@ -110,13 +110,13 @@ class Summary extends Component {
     }
   }
 
-  isApplied(item: coupon) {
+  isApplied(item: Coupon): number | boolean {
     return App.state.appliedCuppons.indexOf(item) != -1;
   }
-  isAnyAppliedCoupons() {
+  isAnyAppliedCoupons(): boolean {
     return App.state.appliedCuppons.length > 0;
   }
-  renderSalePrice() {
+  renderSalePrice(): void {
     if (this.isAnyAppliedCoupons()) {
       this.regularPrice.classList.add('underlined');
       this.salePrice.innerHTML = '';
@@ -132,7 +132,7 @@ class Summary extends Component {
     }
   }
 
-  checkPromo(e: Event) {
+  checkPromo(e: Event): void {
     const value = (e.currentTarget as HTMLInputElement).value.toLowerCase();
     App.state.cart.promoString = value;
     if (coupons.find((el) => el.name == value)) {
@@ -142,29 +142,29 @@ class Summary extends Component {
     }
   }
 
-  countTotalDiscount() {
+  countTotalDiscount(): number {
     const totalDiscount =
       App.state.appliedCuppons.reduce((a, b) => a + b.percentage, 0) / 100;
     return totalDiscount;
   }
 
-  renderNB() {
+  renderNB(): HTMLElement {
     const nb = document.createElement('span');
     nb.textContent = '*Promo for test: "rs", "ny"';
     return nb;
   }
 
-  renderBuyButton() {
+  renderBuyButton(): HTMLButtonElement {
     const btn = document.createElement('button');
     btn.classList.add('button', 'summary__button');
     btn.textContent = 'BUY NOW';
     btn.addEventListener('click', () => {
-      const order = new orderWindow();
+      const order = new OrderWindow();
       order.openWindow();
     });
     return btn;
   }
-  render() {
+  render(): HTMLElement {
     this.renderAppliedCodes();
     this.renderSalePrice();
     this.container.append(

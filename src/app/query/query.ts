@@ -1,9 +1,10 @@
-import { productItem } from '../components/templates/types';
+import { ProductItem } from '../components/templates/types';
 import App from '../app';
 import FiltrationLogic from '../pages/main/filters/filtrationLogic';
 
 class Query {
-  static addToHash(name: string, value: string) {
+
+  static addToHash(name: string, value: string): void {
     const hash = window.location.hash;
     const page = hash.slice(1).split('?')[0];
     if (hash.indexOf('?') == -1) {
@@ -27,7 +28,7 @@ class Query {
     }
   }
 
-  static addCheckBoxesToHash() {
+  static addCheckBoxesToHash(): void {
     const hash = window.location.hash;
     const page = hash.slice(1).split('?')[0];
     if (hash.indexOf('?') == -1) {
@@ -37,7 +38,7 @@ class Query {
 
     const query = queryString.split('&');
     for (const key of Object.keys(App.state.filters.checkboxes)) {
-      const stateFilter = App.state.filters.checkboxes[key as keyof productItem];
+      const stateFilter = App.state.filters.checkboxes[key as keyof ProductItem];
       if (queryString.includes(key)) {
         const index = query.findIndex((el) => el.startsWith(key));
 
@@ -53,7 +54,7 @@ class Query {
     Query.isLastCheckBox();
   }
 
-  static isLastCheckBox() {
+  static isLastCheckBox(): void {
     const keys = ['category', 'brand'];
     const hash = window.location.hash;
     const page = hash.slice(1).split('?')[0];
@@ -62,7 +63,7 @@ class Query {
     for (const val of keys) {
       const index = query.findIndex((el) => el.startsWith(val));
       if (
-        !App.state.filters.checkboxes[val as keyof productItem] &&
+        !App.state.filters.checkboxes[val as keyof ProductItem] &&
         queryString.includes(val)
       ) {
         query.splice(index, 1);
@@ -72,7 +73,7 @@ class Query {
     }
   }
 
-  static readQueryString(hash: string) {
+  static readQueryString(hash: string): void {
     const queryString = hash.split('?')[1];
     if (queryString) {
       const queries = queryString.split('&');
@@ -80,7 +81,7 @@ class Query {
     }
   }
 
-  static changeStateFromQuery(query: string) {
+  static changeStateFromQuery(query: string): void {
     const [key, value] = query.split('=');
     if (key == 'category' || key == 'brand') {
       App.state.filters.checkboxes[key] = value
