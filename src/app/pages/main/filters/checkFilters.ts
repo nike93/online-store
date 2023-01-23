@@ -1,4 +1,4 @@
-import { productItem } from '../../../components/templates/types';
+import { ProductItem } from '../../../components/templates/types';
 import data from '../../../../data/data.json';
 import App from '../../../app';
 import MainPage from '../main';
@@ -8,18 +8,18 @@ import Query from '../../../query/query';
 class CheckFilters {
   protected container: HTMLElement;
   items: string[];
-  category: keyof productItem;
-  constructor(category: keyof productItem) {
+  category: keyof ProductItem;
+  constructor(category: keyof ProductItem) {
     this.container = document.createElement('div');
     this.items = [];
     this.category = category;
   }
 
-  generateUnicItems() {
+  generateUnicItems(): string[] {
     return [...new Set(data.prod.map((el) => el[this.category] as string))];
   }
 
-  renderInputs() {
+  renderInputs(): HTMLElement {
     this.items = this.generateUnicItems();
 
     const list = document.createElement('div');
@@ -61,54 +61,52 @@ class CheckFilters {
     return list;
   }
 
-  isInputChecked(inputName: string) {
+  isInputChecked(inputName: string): boolean | undefined {
     return App.state.filters.checkboxes[this.category]?.includes(inputName);
   }
 
-  addRemoveToState(inputID: string) {
+  addRemoveToState(inputID: string): void {
     const [key, value] = inputID.split('%');
 
-    this.isCategoryExist(key as keyof productItem);
+    this.isCategoryExist(key as keyof ProductItem);
     const index =
-      App.state.filters.checkboxes[key as keyof productItem]?.indexOf(value);
+      App.state.filters.checkboxes[key as keyof ProductItem]?.indexOf(value);
     if ((index && index != -1) || index == 0) {
-      App.state.filters.checkboxes[key as keyof productItem]?.splice(index, 1);
-      this.isLastItem(key as keyof productItem);
+      App.state.filters.checkboxes[key as keyof ProductItem]?.splice(index, 1);
+      this.isLastItem(key as keyof ProductItem);
     } else {
-      App.state.filters.checkboxes[key as keyof productItem]?.push(value);
+      App.state.filters.checkboxes[key as keyof ProductItem]?.push(value);
     }
     FiltrationLogic.applyAllFilters();
     App.state.filters.isChangedByRange = false;
-    // FiltrationLogic.setRangeValuesFromCheckBox();
     Query.addCheckBoxesToHash();
 
     MainPage.rerender();
-    // FiltrationLogic.filterDataCheckbox();
   }
 
-  isCategoryExist(category: keyof productItem) {
+  isCategoryExist(category: keyof ProductItem): void {
     if (!App.state.filters.checkboxes[category]) {
       App.state.filters.checkboxes[category] = [];
     }
   }
-  isLastItem(category: keyof productItem) {
+  isLastItem(category: keyof ProductItem): void {
     if (App.state.filters.checkboxes[category]?.length == 0) {
       delete App.state.filters.checkboxes[category];
     }
   }
 
-  numberMatches(data: productItem[], value: string) {
+  numberMatches(data: ProductItem[], value: string): number {
     return data.filter((el) => Object.values(el).includes(value)).length;
   }
 
-  renderBlock() {
+  renderBlock(): void {
     this.container.classList.add('filters__block');
     const title = document.createElement('p');
     title.textContent = this.category.toUpperCase();
     this.container.append(title, this.renderInputs());
   }
 
-  render() {
+  render(): HTMLElement {
     this.renderBlock();
     return this.container;
   }

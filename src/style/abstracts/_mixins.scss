@@ -5,8 +5,6 @@
   font-style: $style;
 }
 
-// example of columns layout
-
 @mixin columns($width) {
   display: flex;
   flex-wrap: wrap;

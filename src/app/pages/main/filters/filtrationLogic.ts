@@ -1,23 +1,23 @@
-import { productItem } from '../../../components/templates/types';
+import { ProductItem } from '../../../components/templates/types';
 import App from '../../../app';
 
 class FiltrationLogic {
-  static filterDataCheckbox(data: productItem[]) {
+  static filterDataCheckbox(data: ProductItem[]): ProductItem[] {
     let filteredData = data;
     const allBoxFilters = App.state.filters.checkboxes;
-    for (const key of Object.keys(allBoxFilters) as Array<keyof productItem>) {
+    for (const key of Object.keys(allBoxFilters) as Array<keyof ProductItem>) {
       filteredData = filteredData.filter((el) =>
-        allBoxFilters[key]?.includes(el[key] as keyof productItem),
+        allBoxFilters[key]?.includes(el[key] as keyof ProductItem),
       );
     }
 
     return filteredData;
   }
 
-  static filterDataRange(data: productItem[]) {
+  static filterDataRange(data: ProductItem[]): ProductItem[] {
     let filteredData = data;
     const allBoxFilters = App.state.filters.range;
-    for (const key of Object.keys(allBoxFilters) as Array<keyof productItem>) {
+    for (const key of Object.keys(allBoxFilters) as Array<keyof ProductItem>) {
       const filter = allBoxFilters[key];
       if (filter) {
         filteredData = filteredData.filter(
@@ -28,13 +28,13 @@ class FiltrationLogic {
     }
     return filteredData;
   }
-  static searchProduct(data: productItem[]) {
+  static searchProduct(data: ProductItem[]): ProductItem[] {
     const str = App.state.filters.search?.toLowerCase();
     let filteredData = data;
     if (str) {
       filteredData = filteredData.filter((el) => {
         for (const key of Object.keys(el)) {
-          const value = el[key as keyof productItem];
+          const value = el[key as keyof ProductItem];
           if (key == 'images' || key == 'thumbnail' || key == 'id') {
             continue;
           } else if (
@@ -49,7 +49,7 @@ class FiltrationLogic {
     return filteredData;
   }
 
-  static applyAllFilters() {
+  static applyAllFilters(): ProductItem[] {
     let filteredData = FiltrationLogic.filterDataCheckbox(
       structuredClone(App.data.prod),
     );
@@ -60,17 +60,15 @@ class FiltrationLogic {
     return filteredData;
   }
 
-  // Sorting
-
-  static sortData() {
+  static sortData(): void {
     const data = App.state.filters.filteredData;
     if (App.state.filters.sorting?.split('-')[0]) {
       const category: string = App.state.filters.sorting?.split('-')[0];
       const way = App.state.filters.sorting?.split('-')[1];
 
       data.sort(function (a, b) {
-        const x = a[category as keyof productItem];
-        const y = b[category as keyof productItem];
+        const x = a[category as keyof ProductItem];
+        const y = b[category as keyof ProductItem];
         if (typeof x == 'number' && typeof y == 'number') {
           return way == 'high' ? x - y : y - x;
         } else if (typeof x == 'string' && typeof y == 'string') {

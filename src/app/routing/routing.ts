@@ -21,7 +21,7 @@ class Routing {
     this.container = document.querySelector('main');
     this.statePage = '';
   }
-  renderNewPage(hash: string) {
+  renderNewPage(hash: string): void {
     const currentPageHTML = document.querySelector(`#${this.defaultPageId}`);
     if (currentPageHTML && currentPageHTML.childNodes[0]) {
       currentPageHTML.childNodes[0].remove();
@@ -49,7 +49,7 @@ class Routing {
     }
   }
 
-  enableRouteChange() {
+  enableRouteChange(): void {
     window.addEventListener('hashchange', () => {
       const hash = window.location.hash.slice(1).split('?')[0];
       if (this.checkIsSamePage(hash)) {
@@ -63,7 +63,7 @@ class Routing {
     });
   }
 
-  checkLoadRouting() {
+  checkLoadRouting(): void {
     window.addEventListener('load', () => {
       const hash = window.location.hash.slice(1).split('?')[0];
       LStorage.getLocalStorage();
@@ -80,7 +80,8 @@ class Routing {
 
     window.addEventListener('beforeunload', LStorage.setLocalStorage);
   }
-  checkIsSamePage(hash: string) {
+
+  checkIsSamePage(hash: string): boolean {
     return this.statePage == hash;
   }
 }
