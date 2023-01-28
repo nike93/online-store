@@ -16,7 +16,7 @@ export interface AllProducts {
   total: number;
 }
 
-export interface StateInterface {
+export interface StateMarket {
   view?: string;
   cart: Cart;
   appliedCuppons: Coupon[];
@@ -25,11 +25,11 @@ export interface StateInterface {
 }
 
 export interface Cart {
-  items: CartItemInterface[];
+  items: CartState[];
   promoString: string;
 }
 
-export interface CartItemInterface {
+export interface CartState {
   prod: ProductItem;
   qty: number;
 }

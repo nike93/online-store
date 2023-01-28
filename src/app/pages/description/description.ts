@@ -114,7 +114,7 @@ class DescriptionPage extends Component {
     const btnContainer = document.createElement('div');
     btnContainer.classList.add('btn-container');
 
-    const isInCart: number = App.state.cart.items.filter(
+    const inCart: number = App.state.cart.items.filter(
       (el) => el.prod.id == this.products[id].id,
     ).length;
 
@@ -125,7 +125,7 @@ class DescriptionPage extends Component {
     const addCart = document.createElement('button');
     addCart.classList.add('button', 'cart-btn');
 
-    if (isInCart > 0) {
+    if (inCart > 0) {
       addCart.innerText = 'Drop from cart';
       addCart.classList.add('active');
     } else {
@@ -165,10 +165,10 @@ class DescriptionPage extends Component {
     });
 
     addCart.addEventListener('click', () => {
-      const isInCart: number = App.state.cart.items.filter(
+      const inCart: number = App.state.cart.items.filter(
         (el) => el.prod.id == this.products[id].id,
       ).length;
-      if (isInCart > 0) {
+      if (inCart > 0) {
         addCart.textContent = 'Add to cart';
         addCart.classList.remove('active');
         CartPage.removeItemFromCart(this.products[id]);

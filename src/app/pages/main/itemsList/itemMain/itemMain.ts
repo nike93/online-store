@@ -47,7 +47,7 @@ class ItemMain extends Component {
 
     itemWrapper.append(itemImg, description, itemBottom);
     if (App.state.view === 'list') {
-      this.container.classList.add('list');
+      this.container.classList.add('main-item_view_list');
     }
     this.container.append(itemWrapper);
   }
@@ -56,7 +56,7 @@ class ItemMain extends Component {
     CartPage.addItemtoCart(this.product);
     App.header.reloadHeader();
     (e.target as HTMLElement).textContent = 'drop from cart';
-    (e.target as HTMLElement).classList.add('active');
+    (e.target as HTMLElement).classList.add('main-item__button_active');
     e.target?.addEventListener(
       'click',
       (e) => {
@@ -70,7 +70,7 @@ class ItemMain extends Component {
     CartPage.removeItemFromCart(this.product);
     App.header.reloadHeader();
     (e.target as HTMLElement).textContent = 'add to cart';
-    (e.target as HTMLElement).classList.remove('active');
+    (e.target as HTMLElement).classList.remove('main-item__button_active');
     e.target?.addEventListener(
       'click',
       (e) => {
@@ -86,7 +86,7 @@ class ItemMain extends Component {
     ).length;
     if (isInCart > 0) {
       element.textContent = 'drop from cart';
-      element.classList.add('active');
+      element.classList.add('main-item__button_active');
       element.addEventListener(
         'click',
         (e) => {
@@ -96,7 +96,7 @@ class ItemMain extends Component {
       );
     } else {
       element.textContent = 'add to cart';
-      element.classList.remove('active');
+      element.classList.remove('main-item__button_active');
       element.addEventListener(
         'click',
         (e) => {

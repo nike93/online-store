@@ -1,4 +1,4 @@
-import { CartItemInterface, ProductItem } from '../../components/templates/types';
+import { CartState, ProductItem } from '../../components/templates/types';
 import Component from '../../components/templates/components';
 import CartList from './cartList';
 import Summary from './summary';
@@ -14,7 +14,7 @@ class CartPage extends Component {
   }
 
   static addItemtoCart(item: ProductItem): void {
-    const newItem: CartItemInterface = { prod: item, qty: 1 };
+    const newItem: CartState = { prod: item, qty: 1 };
     App.state.cart.items.push(newItem);
     App.state.pagination.limit = App.state.cart.items.length;
   }
@@ -22,7 +22,7 @@ class CartPage extends Component {
   static removeItemFromCart(item: ProductItem): void {
     const goods = App.state.cart.items;
     goods.forEach((el, ind) => {
-      if (el.prod.id == item.id) {
+      if (el.prod.id === item.id) {
         goods.splice(ind, 1);
       }
     });
@@ -31,14 +31,14 @@ class CartPage extends Component {
 
   static emptyCartDom(): HTMLElement {
     const div = document.createElement('div');
-    div.classList.add('cart__empty');
+    div.classList.add('cart_empty');
     div.textContent = 'Cart is Empty';
     return div;
   }
 
   static loadPage(): void {
     CartPage.container.innerHTML = '';
-    if (App.state.cart.items.length == 0) {
+    if (App.state.cart.items.length === 0) {
       CartPage.container.append(CartPage.emptyCartDom());
     } else {
       CartPage.container.append(CartPage.cartList.render());

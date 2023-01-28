@@ -1,5 +1,6 @@
 import { PagesId } from '../../routing/routing';
 import App from '../../app';
+import { cardIconPlug, cardIconMir, cardIconAmEx, carIconVisa, cardIconMasterCard } from '../../../data/constants';
 
 class OrderWindow {
   private container: HTMLElement;
@@ -14,7 +15,7 @@ class OrderWindow {
   private inputAdress: HTMLInputElement;
   private numberField: HTMLInputElement;
   private dateInput: HTMLInputElement;
-  private cvvInput: HTMLInputElement;
+  private secretCodeInput: HTMLInputElement;
   private cardIcon: HTMLImageElement;
 
   constructor() {
@@ -30,8 +31,14 @@ class OrderWindow {
     this.inputAdress = document.createElement('input');
     this.numberField = document.createElement('input');
     this.dateInput = document.createElement('input');
-    this.cvvInput = document.createElement('input');
+    this.secretCodeInput = document.createElement('input');
     this.cardIcon = document.createElement('img');
+  }
+
+  setAttributeInput(element: HTMLInputElement, className: [string, string], placeholderInput: string, typeInput: string): void {
+    className.forEach(name => element.classList.add(name));
+    element.placeholder = placeholderInput;
+    element.type = typeInput;
   }
 
   openWindow(): void {
@@ -43,20 +50,10 @@ class OrderWindow {
     titleModal.innerText = 'Personal details';
     this.modalWindow.append(titleModal);
 
-    this.inputName.classList.add('input-name', 'input');
-    this.inputName.placeholder = 'Name';
-    this.inputName.type = 'text';
-
-    this.inputPhone.classList.add('input-phone', 'input');
-    this.inputPhone.placeholder = 'Phone number';
-    this.inputPhone.type = 'text';
-
-    this.inputAdress.classList.add('input-adress', 'input');
-    this.inputAdress.placeholder = 'Delivery adress';
-
-    this.inputMail.classList.add('input-mail', 'input');
-    this.inputMail.placeholder = 'E-mail';
-    this.inputMail.type = 'email';
+    this.setAttributeInput(this.inputName, ['input-name', 'input'], 'Name', 'text');
+    this.setAttributeInput(this.inputPhone, ['input-phone', 'input'], 'Phone number', 'text');
+    this.setAttributeInput(this.inputAdress, ['input-adress', 'input'], 'Delivery adress', 'text');
+    this.setAttributeInput(this.inputMail, ['input-mail', 'input'], 'E-mail', 'email');
 
     const creditTitle = document.createElement('h3');
     creditTitle.classList.add('modal__credit');
@@ -68,24 +65,19 @@ class OrderWindow {
     this.cardNumber.classList.add('card-number');
 
     this.cardIcon.classList.add('card-icon');
-    this.cardIcon.src =
-      'https://play-lh.googleusercontent.com/baXy546Srucl3vM1yaHr060eBL9_mrk0NH2GGRRCMTrKbekbx2pI77WCaXmNwUqnqQ';
+    this.cardIcon.src = cardIconPlug;      
 
-    this.numberField.classList.add('number-field', 'input');
-    this.numberField.placeholder = 'Card number';
-    this.numberField.type = 'text';
+    this.setAttributeInput(this.numberField, ['number-field', 'input'], 'Card number', 'text');
 
     this.cardNumber.append(this.cardIcon, this.numberField);
 
     this.validBlock.classList.add('valid-block');
 
-    this.dateInput.classList.add('date-input', 'input');
-    this.dateInput.placeholder = 'Validaty';
+    this.setAttributeInput(this.dateInput, ['date-input', 'input'], 'Validaty', 'text');
 
-    this.cvvInput.classList.add('cvv-input', 'input');
-    this.cvvInput.placeholder = 'CVV';
-    this.cvvInput.type = 'text';
-    this.validBlock.append(this.dateInput, this.cvvInput);
+    this.setAttributeInput(this.secretCodeInput, ['cvv-input', 'input'], 'CVV', 'text');
+
+    this.validBlock.append(this.dateInput, this.secretCodeInput);
 
     creditCard.append(this.cardNumber, this.validBlock);
 
@@ -113,7 +105,7 @@ class OrderWindow {
       this.checkCardNumber();
     };
 
-    this.cvvInput.oninput = () => {
+    this.secretCodeInput.oninput = () => {
       this.checkCVV();
     };
 
@@ -136,6 +128,15 @@ class OrderWindow {
     element.value = element.value.replace(/[\D]/g, '');
   }
 
+  checkValueInput (checkFunction: boolean, element: HTMLElement, value: string) {    
+    if (checkFunction) {
+      this.createErrorText(value, element);
+      return false;
+    } else {
+      this.deleteErrorText(element);
+    }
+  }
+
   validationForm(): boolean | void {
     const nameValue = this.inputName.value;
     const mailValue = this.inputMail.value;
@@ -145,79 +146,23 @@ class OrderWindow {
       document.querySelectorAll('.input');
     const emptyValue = Array.from(formInputs).filter((input) => input.value === '');
 
-    formInputs.forEach(function (input) {
-      if (input.value === '') {
-        input.classList.add('error');
-      } else {
-        input.classList.remove('error');
-      }
+    formInputs.forEach((input) => {      
+      input.value === '' ? input.classList.add('error') : input.classList.remove('error');
     });
 
-    if (!this.checkName(nameValue)) {
-      this.inputName.classList.add('error');
-      this.createErrorText('name', this.inputName);
-      return false;
-    } else {
-      this.inputName.classList.remove('error');
-      this.deleteErrorText();
-    }
+    this.checkValueInput(!this.checkName(nameValue), this.inputName, 'name');
+    this.checkValueInput(!this.checkPhone(phoneValue), this.inputPhone, 'phone');
+    this.checkValueInput(!this.checkAdress(adressValue), this.inputAdress, 'adress');
+    this.checkValueInput(!this.checkMail(mailValue), this.inputMail, 'e-mail');
+    
+    this.checkValueInput((this.numberField.value.length !== 16), this.numberField, 'number');
+    this.checkValueInput(
+      (Number(this.dateInput.value.split('/')[0]) > 12 ||
+      this.dateInput.value.length < 5), 
+      this.dateInput, 
+      'date');
+    this.checkValueInput((this.secretCodeInput.value.length !== 3), this.secretCodeInput, 'cvv');
 
-    if (!this.checkPhone(phoneValue)) {
-      this.inputPhone.classList.add('error');
-      this.createErrorText('phone', this.inputPhone);
-      return false;
-    } else {
-      this.inputPhone.classList.remove('error');
-      this.deleteErrorText();
-    }
-
-    if (!this.checkAdress(adressValue)) {
-      this.inputAdress.classList.add('error');
-      this.createErrorText('adress', this.inputAdress);
-      return false;
-    } else {
-      this.inputAdress.classList.remove('error');
-      this.deleteErrorText();
-    }
-
-    if (!this.checkMail(mailValue)) {
-      this.inputMail.classList.add('error');
-      this.createErrorText('e-mail', this.inputMail);
-      return false;
-    } else {
-      this.inputMail.classList.remove('error');
-      this.deleteErrorText();
-    }
-
-    if (this.numberField.value.length !== 16) {
-      this.numberField.classList.add('error');
-      this.createErrorText('number', this.cardNumber);
-      return false;
-    } else {
-      this.numberField.classList.remove('error');
-      this.deleteErrorText();
-    }
-
-    if (
-      Number(this.dateInput.value.split('/')[0]) > 12 ||
-      this.dateInput.value.length < 5
-    ) {
-      this.dateInput.classList.add('error');
-      this.createErrorText('date', this.validBlock);
-      return false;
-    } else {
-      this.dateInput.classList.remove('error');
-      this.deleteErrorText();
-    }
-
-    if (this.cvvInput.value.length !== 3) {
-      this.cvvInput.classList.add('error');
-      this.createErrorText('cvv', this.validBlock);
-      return false;
-    } else {
-      this.cvvInput.classList.remove('error');
-      this.deleteErrorText();
-    }
     if (emptyValue.length !== 0) {
       return false;
     } else {
@@ -225,7 +170,8 @@ class OrderWindow {
     }
   }
 
-  createErrorText(field: string, container: HTMLElement): void {
+  createErrorText(field: string, container: HTMLElement): void {    
+    container.classList.add('error');
     const err = <HTMLElement>document.querySelector('.error-text');
     if (err) {
       return;
@@ -233,11 +179,12 @@ class OrderWindow {
       const errorText = document.createElement('span');
       errorText.classList.add('error-text');
       errorText.innerText = `Enter a correct ${field}`;
-      container.after(errorText);
+      container === this.secretCodeInput ? container.before(errorText) : container.after(errorText);
     }
   }
-
-  deleteErrorText(): void {
+ 
+  deleteErrorText(container: HTMLElement): void {
+    container.classList.remove('error');
     const err = <HTMLElement>document.querySelector('.error-text');
     if (err) {
       err.remove();
@@ -282,26 +229,16 @@ class OrderWindow {
 
   checkPaySystem(): void {
     switch (this.numberField.value[0]) {
-      case '2':
-        this.cardIcon.src =
-          'https://photo.virtualbrest.ru/uploads/2022/03/15/c29822b85d1ba85616b98c231c73119c.jpeg';
+      case '2': this.cardIcon.src = cardIconMir;
         break;
-      case '3':
-        this.cardIcon.src =
-          'https://pbs.twimg.com/profile_images/983285404253196288/rx3n00Ep_400x400.jpg';
+      case '3': this.cardIcon.src = cardIconAmEx;
         break;
-      case '4':
-        this.cardIcon.src =
-          'https://infocity.tech/wp-content/uploads/2020/07/Visa-logo.jpg';
+      case '4': this.cardIcon.src = carIconVisa;
         break;
-      case '5':
-        this.cardIcon.src =
-          'https://models.rsbis.com/storage/makets/preview/resize_600x600/26/42/2642b70ee46621ca320c3a82fc9fdc71.jpeg';
+      case '5': this.cardIcon.src = cardIconMasterCard;
         break;
-      default:
-        this.cardIcon.src =
-          'https://play-lh.googleusercontent.com/baXy546Srucl3vM1yaHr060eBL9_mrk0NH2GGRRCMTrKbekbx2pI77WCaXmNwUqnqQ';
-        break;
+      default: this.cardIcon.src = cardIconPlug;
+      break;
     }
   }
 
@@ -316,10 +253,10 @@ class OrderWindow {
 
   checkCVV(): void {
     const maxLength = 3;
-    if (this.cvvInput.value.length > maxLength) {
-      this.cvvInput.value = this.cvvInput.value.slice(0, maxLength);
+    if (this.secretCodeInput.value.length > maxLength) {
+      this.secretCodeInput.value = this.secretCodeInput.value.slice(0, maxLength);
     }
-    this.onlyNumberCheck(this.cvvInput);
+    this.onlyNumberCheck(this.secretCodeInput);
   }
 
   dateCheck(): void {
@@ -341,13 +278,14 @@ class OrderWindow {
     endMessage.classList.add('end-message');
     this.modalWindow.innerHTML = '';
     this.modalWindow.append(endMessage);
+    const timeToTransition = 4000;
     setTimeout(() => {
       this.modalWindow.remove();
       this.modalBack.remove();
       App.state.cart.items = [];
       App.header.reloadHeader();
       window.location.hash = `#${PagesId.MainPage}`;
-    }, 4000);
+    }, timeToTransition);
   }
 }
 

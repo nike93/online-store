@@ -2,13 +2,13 @@ import Footer from './components/footer/footer';
 import Header from './components/header/header';
 import Routing from './routing/routing';
 import data from '../data/data.json';
-import { AllProducts, StateInterface } from './components/templates/types';
+import { AllProducts, StateMarket } from './components/templates/types';
 import { crosscheckDescription } from '../crosscheckDescription';
 import { State } from './state/state';
 
 class App {
   static header: Header;
-  static state: StateInterface;
+  static state: StateMarket;
   static data: AllProducts;
   private footer: Footer;
   private routing: Routing;
