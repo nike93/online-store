@@ -23,7 +23,7 @@ class Pagination extends Component {
   }
 
   renderLimit(): HTMLElement {
-    this.isStateLimitExist();
+    this.StateLimitExist();
     const limitN = App.state.pagination.limit;
     const limit = document.createElement('div');
     limit.classList.add('pagination__limit');
@@ -57,14 +57,14 @@ class Pagination extends Component {
     }
   }
 
-  isStatePageExist(): void {
+  StatePageExist(): void {
     const page = App.state.pagination.page;
     if (!page) {
       App.state.pagination.page = 1;
     }
   }
 
-  isStateLimitExist(): void {
+  StateLimitExist(): void {
     const limit = App.state.pagination.limit;
     if (!limit || limit > App.state.cart.items.length) {
       App.state.pagination.limit = App.state.cart.items.length;

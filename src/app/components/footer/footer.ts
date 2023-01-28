@@ -28,6 +28,13 @@ class Footer extends Component {
     this.container.append(gitLinksContainer);
   }
 
+  createYear() {
+    const year = document.createElement('p');
+    const date = new Date();
+    year.innerText = String(date.getFullYear());
+    return year;
+  }
+
   rsLinks(): void {
     const rsLinksContainer = document.createElement('div');
 
@@ -46,9 +53,7 @@ class Footer extends Component {
 
   render(): HTMLElement {
     this.gitHubLinks();
-    const year = document.createElement('p');
-    year.innerText = '2023';
-    this.container.append(year);
+    this.container.append(this.createYear());
     this.rsLinks();
     this.container.classList.add('wrapper');
     return this.container;

@@ -1,14 +1,14 @@
-import { CartItemInterface } from '../../components/templates/types';
+import { CartState } from '../../components/templates/types';
 import Component from '../../components/templates/components';
 import App from '../../app';
 import CartPage from './cart';
 
 class CartItem extends Component {
-  cartItem: CartItemInterface;
+  cartItem: CartState;
   index: number;
   price: HTMLElement;
   qty: HTMLElement;
-  constructor(cartItem: CartItemInterface, index: number) {
+  constructor(cartItem: CartState, index: number) {
     super('div', 'cart-item');
     this.cartItem = cartItem;
     this.index = index;
