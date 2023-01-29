@@ -1,3 +1,10 @@
+import {
+  GIT_NIKE93_LINK,
+  GIT_TOP_LINK,
+  RS_LINK,
+  RS_LOGO,
+  GIT_LOGO,
+} from './../../../data/constants';
 import Component from '../../components/templates/components';
 
 class Footer extends Component {
@@ -11,18 +18,18 @@ class Footer extends Component {
 
     const gitItemOne = document.createElement('a');
     gitItemOne.innerText = 'nike93';
-    gitItemOne.href = 'https://github.com/nike93';
+    gitItemOne.href = GIT_NIKE93_LINK;
     gitLinksContainer.append(gitItemOne);
 
     const gitImg = document.createElement('img');
     gitImg.classList.add('git-logo');
-    gitImg.src =
-      'https://1000logos.net/wp-content/uploads/2021/05/GitHub-logo-768x432.png';
+    gitImg.src = GIT_LOGO;
+
     gitLinksContainer.append(gitImg);
 
     const gitItemTwo = document.createElement('a');
     gitItemTwo.innerText = 'top-aleksei';
-    gitItemTwo.href = 'https://github.com/top-aleksei';
+    gitItemTwo.href = GIT_TOP_LINK;
     gitLinksContainer.append(gitItemTwo);
 
     this.container.append(gitLinksContainer);
@@ -40,11 +47,11 @@ class Footer extends Component {
 
     const rsLink = document.createElement('a');
     rsLink.classList.add('rs-link');
-    rsLink.href = 'https://rs.school/js/';
+    rsLink.href = RS_LINK;
 
     const rsImg = document.createElement('img');
     rsImg.classList.add('rs-logo');
-    rsImg.src = 'https://rollingscopes.com/images/logo_rs_text.svg';
+    rsImg.src = RS_LOGO;
     rsLink.append(rsImg);
     rsLinksContainer.append(rsLink);
 

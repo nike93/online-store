@@ -1,6 +1,12 @@
 import { PagesId } from '../../routing/routing';
 import App from '../../app';
-import { cardIconPlug, cardIconMir, cardIconAmEx, carIconVisa, cardIconMasterCard } from '../../../data/constants';
+import {
+  CARD_PLUG_IMG,
+  CARD_MIR_IMG,
+  CARD_AMEX_IMG,
+  CARD_VISA_IMG,
+  CARD_MSCARD_IMG,
+} from '../../../data/constants';
 
 class OrderWindow {
   private container: HTMLElement;
@@ -35,8 +41,13 @@ class OrderWindow {
     this.cardIcon = document.createElement('img');
   }
 
-  setAttributeInput(element: HTMLInputElement, className: [string, string], placeholderInput: string, typeInput: string): void {
-    className.forEach(name => element.classList.add(name));
+  setAttributeInput(
+    element: HTMLInputElement,
+    className: [string, string],
+    placeholderInput: string,
+    typeInput: string,
+  ): void {
+    className.forEach((name) => element.classList.add(name));
     element.placeholder = placeholderInput;
     element.type = typeInput;
   }
@@ -65,7 +76,7 @@ class OrderWindow {
     this.cardNumber.classList.add('card-number');
 
     this.cardIcon.classList.add('card-icon');
-    this.cardIcon.src = cardIconPlug;      
+    this.cardIcon.src = CARD_PLUG_IMG;
 
     this.setAttributeInput(this.numberField, ['number-field', 'input'], 'Card number', 'text');
 
@@ -128,7 +139,7 @@ class OrderWindow {
     element.value = element.value.replace(/[\D]/g, '');
   }
 
-  checkValueInput (checkFunction: boolean, element: HTMLElement, value: string) {    
+  checkValueInput(checkFunction: boolean, element: HTMLElement, value: string) {
     if (checkFunction) {
       this.createErrorText(value, element);
       return false;
@@ -142,11 +153,10 @@ class OrderWindow {
     const mailValue = this.inputMail.value;
     const phoneValue = this.inputPhone.value;
     const adressValue = this.inputAdress.value;
-    const formInputs: NodeListOf<HTMLInputElement> =
-      document.querySelectorAll('.input');
+    const formInputs: NodeListOf<HTMLInputElement> = document.querySelectorAll('.input');
     const emptyValue = Array.from(formInputs).filter((input) => input.value === '');
 
-    formInputs.forEach((input) => {      
+    formInputs.forEach((input) => {
       input.value === '' ? input.classList.add('error') : input.classList.remove('error');
     });
 
@@ -154,14 +164,14 @@ class OrderWindow {
     this.checkValueInput(!this.checkPhone(phoneValue), this.inputPhone, 'phone');
     this.checkValueInput(!this.checkAdress(adressValue), this.inputAdress, 'adress');
     this.checkValueInput(!this.checkMail(mailValue), this.inputMail, 'e-mail');
-    
-    this.checkValueInput((this.numberField.value.length !== 16), this.numberField, 'number');
+
+    this.checkValueInput(this.numberField.value.length !== 16, this.numberField, 'number');
     this.checkValueInput(
-      (Number(this.dateInput.value.split('/')[0]) > 12 ||
-      this.dateInput.value.length < 5), 
-      this.dateInput, 
-      'date');
-    this.checkValueInput((this.secretCodeInput.value.length !== 3), this.secretCodeInput, 'cvv');
+      Number(this.dateInput.value.split('/')[0]) > 12 || this.dateInput.value.length < 5,
+      this.dateInput,
+      'date',
+    );
+    this.checkValueInput(this.secretCodeInput.value.length !== 3, this.secretCodeInput, 'cvv');
 
     if (emptyValue.length !== 0) {
       return false;
@@ -170,7 +180,7 @@ class OrderWindow {
     }
   }
 
-  createErrorText(field: string, container: HTMLElement): void {    
+  createErrorText(field: string, container: HTMLElement): void {
     container.classList.add('error');
     const err = <HTMLElement>document.querySelector('.error-text');
     if (err) {
@@ -182,7 +192,7 @@ class OrderWindow {
       container === this.secretCodeInput ? container.before(errorText) : container.after(errorText);
     }
   }
- 
+
   deleteErrorText(container: HTMLElement): void {
     container.classList.remove('error');
     const err = <HTMLElement>document.querySelector('.error-text');
@@ -204,8 +214,7 @@ class OrderWindow {
   }
 
   checkPhone(phone: string): boolean {
-    const PHONE_REGEXP =
-      /^(\+)((\d{2,3}) ?\d|\d)(([ -]?\d)|( ?(\d{2,3}) ?)){7,15}\d$/iu;
+    const PHONE_REGEXP = /^(\+)((\d{2,3}) ?\d|\d)(([ -]?\d)|( ?(\d{2,3}) ?)){7,15}\d$/iu;
     return PHONE_REGEXP.test(phone);
   }
 
@@ -229,16 +238,21 @@ class OrderWindow {
 
   checkPaySystem(): void {
     switch (this.numberField.value[0]) {
-      case '2': this.cardIcon.src = cardIconMir;
+      case '2':
+        this.cardIcon.src = CARD_MIR_IMG;
         break;
-      case '3': this.cardIcon.src = cardIconAmEx;
+      case '3':
+        this.cardIcon.src = CARD_AMEX_IMG;
         break;
-      case '4': this.cardIcon.src = carIconVisa;
+      case '4':
+        this.cardIcon.src = CARD_VISA_IMG;
         break;
-      case '5': this.cardIcon.src = cardIconMasterCard;
+      case '5':
+        this.cardIcon.src = CARD_MSCARD_IMG;
         break;
-      default: this.cardIcon.src = cardIconPlug;
-      break;
+      default:
+        this.cardIcon.src = CARD_PLUG_IMG;
+        break;
     }
   }
 
