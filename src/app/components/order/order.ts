@@ -139,7 +139,7 @@ class OrderWindow {
     element.value = element.value.replace(/[\D]/g, '');
   }
 
-  checkValueInput(checkFunction: boolean, element: HTMLElement, value: string) {
+  checkValueInput(checkFunction: boolean, element: HTMLElement, value: string): void | boolean {
     if (checkFunction) {
       this.createErrorText(value, element);
       return false;
