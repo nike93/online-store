@@ -1,0 +1,48 @@
+// -----------------------------------------------------------------------------
+// This file contains all styles related to the footer of the site/application.
+// -----------------------------------------------------------------------------
+
+.footer {
+  display: flex;
+  width: 100%;
+  border-top: 1px solid rgb(203, 200, 200);
+
+  &__wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding-top: 1%;
+  }
+
+  &__git {
+    display: flex;
+    align-items: center;
+
+    a {
+      text-decoration: none;
+      color: rgb(46, 46, 45);
+    }
+
+    a:hover {
+      opacity: 0.7;
+    }
+  }
+}
+
+.git-logo {
+  width: 70px;
+
+  &__wrapper {
+    display: flex;
+    justify-content: center;
+  }
+}
+
+.rs-logo {
+  width: 100px;
+}
+
+.rs-logo:hover {
+  opacity: 0.7;
+}

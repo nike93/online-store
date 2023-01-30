@@ -1,0 +1,12 @@
+[
+  {
+    "name": "rs",
+    "description": "Rolling Scopes School - 10%",
+    "percentage": 10
+  },
+  {
+    "name": "ny",
+    "description": "Happy New Year - 23%",
+    "percentage": 23
+  }
+]

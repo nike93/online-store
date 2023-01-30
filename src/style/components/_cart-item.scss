@@ -1,0 +1,77 @@
+.cart-item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  border-radius: 12px;
+  border: 1px solid $border-color;
+  padding: 10px;
+  &__position {
+    display: flex;
+    margin-right: 10px;
+    align-items: center;
+  }
+  &__info {
+    display: flex;
+    width: 85%;
+    gap: 10px;
+    cursor: pointer;
+  }
+  &__image {
+    height: 100px;
+    width: 40%;
+    max-width: 160px;
+    background-size: cover;
+    background-position: center;
+    border-radius: 12px;
+  }
+  &__details {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 80%;
+  }
+  &__title {
+    @include font(1.8rem, 1.9rem, 700);
+  }
+  &__description {
+    @include font(1.4rem, 1.4rem, 400);
+    width: 95%;
+  }
+  &__statistic {
+    display: flex;
+    justify-content: space-around;
+    @include font(1.1rem, 1.1rem, 200);
+  }
+  &__navigation {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    width: 10%;
+  }
+  &__control {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    button {
+      border: 1px solid $border-color;
+      border-radius: 6px;
+      cursor: pointer;
+      color: white;
+    }
+
+    button:hover {
+      opacity: 0.7;
+    }
+  }
+
+  &__minus {
+    background-color: #e6704b;
+  }
+
+  &__plus {
+    background-color: $button-color;
+  }
+  
+}
