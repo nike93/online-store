@@ -157,7 +157,7 @@ class OrderWindow {
     const emptyValue = Array.from(formInputs).filter((input) => input.value === '');
 
     formInputs.forEach((input) => {
-      input.value === '' ? input.classList.add('error') : input.classList.remove('error');
+      input.value.length ? input.classList.remove('error') : input.classList.add('error');
     });
 
     this.checkValueInput(!this.checkName(nameValue), this.inputName, 'name');
